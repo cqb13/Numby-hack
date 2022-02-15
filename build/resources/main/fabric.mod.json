@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "numby",
+  "version": "1.0",
+  "name": "Number81",
+  "description": "Number81 On Top",
+  "authors": [
+    "cqb13"
+  ],
+  "contact": {
+    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+  },
+  "icon": "assets/number/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "cqb13.Numby.Numby"
+    ]
+  },
+  "mixins": [
+    "Numby.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "146,188,98"
+  },
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.18",
+    "meteor-client": "*"
+  }
+}

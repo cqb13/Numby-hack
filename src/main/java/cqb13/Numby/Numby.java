@@ -2,6 +2,7 @@ package cqb13.Numby;
 
 import cqb13.Numby.modules.*;
 import cqb13.Numby.modules.hud.*;
+import cqb13.Numby.utils.PlayerParticle;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.Systems;
@@ -25,6 +26,8 @@ public class Numby extends MeteorAddon {
 
 		// Required when using @EventHandler
 		MeteorClient.EVENT_BUS.registerLambdaFactory("cqb13.Numby", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
+
+        new PlayerParticle();
 
 		Modules modules = Modules.get();
         modules.add(new NumbyChat());

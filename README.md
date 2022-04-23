@@ -35,3 +35,5 @@
 
 ## Features 
 - Player Particles | Shows particles around Number81.
+
+*Note: Not all of the code was writen by me*

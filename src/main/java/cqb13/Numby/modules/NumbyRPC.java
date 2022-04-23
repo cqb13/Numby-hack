@@ -6,7 +6,6 @@ import meteordevelopment.RichPresence;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.gui.GuiTheme;
-import meteordevelopment.meteorclient.gui.WidgetScreen;
 import meteordevelopment.meteorclient.gui.widgets.WWidget;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.settings.*;
@@ -19,18 +18,11 @@ import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.compiler.Compiler;
 import meteordevelopment.starscript.compiler.Parser;
 import meteordevelopment.starscript.utils.StarscriptError;
-import net.minecraft.client.gui.screen.*;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.option.*;
-import net.minecraft.client.gui.screen.pack.PackScreen;
-import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.gui.screen.world.EditGameRulesScreen;
-import net.minecraft.client.gui.screen.world.EditWorldScreen;
-import net.minecraft.client.realms.gui.screen.RealmsScreen;
 import net.minecraft.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class NumbyRPC extends Module {
     public enum SelectMode {
@@ -219,26 +211,6 @@ public class NumbyRPC extends Module {
         else {
             if (!lastWasInMainMenu) {
                 rpc.setDetails("Number81 On Top");
-
-                if (mc.currentScreen instanceof TitleScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof CreateWorldScreen || mc.currentScreen instanceof EditGameRulesScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof EditWorldScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof LevelLoadingScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof SaveLevelScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof MultiplayerScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof AddServerScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof ConnectScreen || mc.currentScreen instanceof DirectConnectScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof WidgetScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof OptionsScreen || mc.currentScreen instanceof SkinOptionsScreen || mc.currentScreen instanceof SoundOptionsScreen || mc.currentScreen instanceof VideoOptionsScreen || mc.currentScreen instanceof ControlsOptionsScreen || mc.currentScreen instanceof LanguageOptionsScreen || mc.currentScreen instanceof ChatOptionsScreen || mc.currentScreen instanceof PackScreen || mc.currentScreen instanceof AccessibilityOptionsScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof CreditsScreen) rpc.setState("81");
-                else if (mc.currentScreen instanceof RealmsScreen) rpc.setState("81");
-                else {
-                    String className = mc.currentScreen.getClass().getName();
-
-                    if (className.startsWith("com.terraformersmc.modmenu.gui")) rpc.setState("81");
-                    else if (className.startsWith("me.jellysquid.mods.sodium.client")) rpc.setState("81");
-                    else rpc.setState("81");
-                }
 
                 update = true;
             }

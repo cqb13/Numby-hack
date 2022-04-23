@@ -10,14 +10,14 @@ import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.item.Items;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 
 
 public class Numby extends MeteorAddon {
-	public static final Logger LOG = LogManager.getLogger();
+	public static final Logger LOG = LoggerFactory.getLogger(Numby.class);
 	public static final Category CATEGORY = new Category("Numby hack", Items.TURTLE_HELMET.getDefaultStack());
 
 	@Override
@@ -30,11 +30,13 @@ public class Numby extends MeteorAddon {
         new PlayerParticle();
 
 		Modules modules = Modules.get();
-        modules.add(new NumbyChat());
-        modules.add(new NumbyPrefix());
-        modules.add(new NumbyRPC());
-        modules.add(new Confetti());
-        modules.add(new Number81());
+		modules.add(new ChatEncryption());
+		modules.add(new Confetti());
+		modules.add(new Number81());
+		modules.add(new NumbyChat());
+		modules.add(new NumbyEZ());
+		modules.add(new NumbyRPC());
+		modules.add(new TimeLog());
 
         HUD hud = Systems.get(HUD.class);
         hud.elements.add(new cqb13.Numby.modules.hud.Numby(hud));

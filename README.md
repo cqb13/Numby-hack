@@ -17,7 +17,8 @@
 # How to use
 - Download the latest release.
 - Put it in your `.minecraft/mods` folder.
-- Meteor is required for this addon
+
+*Note: Meteor Client is required for this addon*
 
 ## Modules
 - Chat Encryption | Encrypts your chat messages to make them unreadable to other people.

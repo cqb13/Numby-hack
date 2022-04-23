@@ -1,6 +1,7 @@
 package cqb13.Numby.modules;
 
 import cqb13.Numby.Numby;
+import cqb13.Numby.utils.Emotes;
 import it.unimi.dsi.fastutil.chars.Char2CharArrayMap;
 import it.unimi.dsi.fastutil.chars.Char2CharMap;
 import meteordevelopment.meteorclient.events.game.ReceiveMessageEvent;
@@ -12,6 +13,8 @@ import meteordevelopment.meteorclient.systems.commands.commands.SayCommand;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
+import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
+import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.hud.ChatHudLine;
 import net.minecraft.text.*;
@@ -23,130 +26,133 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
+/**
+ * Made by cqb13
+ */
 public class NumbyChat extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgFilter = settings.createGroup("Filter");
     private final SettingGroup sgLongerChat = settings.createGroup("Longer Chat");
     private final SettingGroup sgSuffix = settings.createGroup("Suffix");
+    private final SettingGroup sgCustom = settings.createGroup("Customize");
 
 
     private final Setting<Boolean> fancy = sgGeneral.add(new BoolSetting.Builder()
-        .name("fancy-chat")
-        .description("Makes your messages ғᴀɴᴄʏ!")
-        .defaultValue(false)
-        .build()
+            .name("fancy-chat")
+            .description("Makes your messages ғᴀɴᴄʏ!")
+            .defaultValue(false)
+            .build()
     );
-
     private final Setting<Boolean> timestamps = sgGeneral.add(new BoolSetting.Builder()
-        .name("timestamps")
-        .description("Adds client side time stamps to the beginning of chat messages.")
-        .defaultValue(false)
-        .build()
+            .name("timestamps")
+            .description("Adds client side time stamps to the beginning of chat messages.")
+            .defaultValue(false)
+            .build()
     );
-
-
     private final Setting<Boolean> coordsProtection = sgGeneral.add(new BoolSetting.Builder()
-        .name("coords-protection")
-        .description("Prevents you from sending messages in chat that may contain coordinates.")
-        .defaultValue(true)
-        .build()
+            .name("coords-protection")
+            .description("Prevents you from sending messages in chat that may contain coordinates.")
+            .defaultValue(true)
+            .build()
     );
 
     // Filter
-
     private final Setting<Boolean> antiSpam = sgFilter.add(new BoolSetting.Builder()
-        .name("anti-spam")
-        .description("Blocks duplicate messages from filling your chat.")
-        .defaultValue(true)
-        .build()
+            .name("anti-spam")
+            .description("Blocks duplicate messages from filling your chat.")
+            .defaultValue(true)
+            .build()
     );
-
     private final Setting<Integer> antiSpamDepth = sgFilter.add(new IntSetting.Builder()
-        .name("depth")
-        .description("How many messages to filter.")
-        .defaultValue(20)
-        .min(1)
-        .sliderMin(1)
-        .visible(antiSpam::get)
-        .build()
+            .name("depth")
+            .description("How many messages to filter.")
+            .defaultValue(20)
+            .min(1)
+            .sliderMin(1)
+            .visible(antiSpam::get)
+            .build()
     );
-
     private final Setting<Boolean> filterRegex = sgFilter.add(new BoolSetting.Builder()
-        .name("filter-regex")
-        .description("Filter out chat messages that match the regex filter.")
-        .defaultValue(false)
-        .build()
+            .name("filter-regex")
+            .description("Filter out chat messages that match the regex filter.")
+            .defaultValue(false)
+            .build()
     );
-
     private final Setting<List<String>> regexFilters = sgFilter.add(new StringListSetting.Builder()
-        .name("regex-filter")
-        .description("Regex filter used for filtering chat messages.")
-        .visible(filterRegex::get)
-        .build()
+            .name("regex-filter")
+            .description("Regex filter used for filtering chat messages.")
+            .visible(filterRegex::get)
+            .build()
     );
-
 
     // Longer chat
-
     private final Setting<Boolean> infiniteChatBox = sgLongerChat.add(new BoolSetting.Builder()
-        .name("infinite-chat-box")
-        .description("Lets you type infinitely long messages.")
-        .defaultValue(true)
-        .build()
+            .name("infinite-chat-box")
+            .description("Lets you type infinitely long messages.")
+            .defaultValue(true)
+            .build()
     );
-
     private final Setting<Boolean> longerChatHistory = sgLongerChat.add(new BoolSetting.Builder()
-        .name("longer-chat-history")
-        .description("Extends chat length.")
-        .defaultValue(true)
-        .build()
+            .name("longer-chat-history")
+            .description("Extends chat length.")
+            .defaultValue(true)
+            .build()
     );
-
     private final Setting<Integer> longerChatLines = sgLongerChat.add(new IntSetting.Builder()
-        .name("extra-lines")
-        .description("The amount of extra chat lines.")
-        .defaultValue(1000)
-        .min(100)
-        .sliderRange(100, 1000)
-        .visible(longerChatHistory::get)
-        .build()
+            .name("extra-lines")
+            .description("The amount of extra chat lines.")
+            .defaultValue(1000)
+            .min(100)
+            .sliderRange(100, 1000)
+            .visible(longerChatHistory::get)
+            .build()
     );
 
     // Suffix
-
     private final Setting<Boolean> suffix = sgSuffix.add(new BoolSetting.Builder()
-        .name("suffix")
-        .description("Adds a suffix to your chat messages.")
-        .defaultValue(false)
-        .build()
+            .name("suffix")
+            .description("Adds a suffix to your chat messages.")
+            .defaultValue(false)
+            .build()
     );
-
     private final Setting<Boolean> suffixRandom = sgSuffix.add(new BoolSetting.Builder()
-        .name("random")
-        .description("Uses a random number as your suffix.")
-        .defaultValue(false)
-        .build()
+            .name("random")
+            .description("Uses a random number as your suffix.")
+            .defaultValue(false)
+            .build()
     );
-
     private final Setting<String> suffixText = sgSuffix.add(new StringSetting.Builder()
-        .name("text")
-        .description("The text to add as your suffix.")
-        .defaultValue(" ❭ 81")
-        .visible(() -> !suffixRandom.get())
-        .build()
+            .name("text")
+            .description("The text to add as your suffix.")
+            .defaultValue(" ❭ 81")
+            .visible(() -> !suffixRandom.get())
+            .build()
+    );
+    private final Setting<Boolean> suffixSmallCaps = sgSuffix.add(new BoolSetting.Builder()
+            .name("small-caps")
+            .description("Uses small caps in the suffix.")
+            .defaultValue(true)
+            .visible(() -> !suffixRandom.get())
+            .build()
     );
 
-    private final Setting<Boolean> suffixSmallCaps = sgSuffix.add(new BoolSetting.Builder()
-        .name("small-caps")
-        .description("Uses small caps in the suffix.")
-        .defaultValue(true)
-        .visible(() -> !suffixRandom.get())
-        .build()
-    );
+    // Customize
+    public final Setting<Boolean> emotes = sgCustom.add(new BoolSetting.Builder().name("emotes").description("Enables the Ghostware emote system.").defaultValue(false).build());
+    public final Setting<Boolean> customPrefix = sgCustom.add(new BoolSetting.Builder().name("custom-prefix").description("Lets you set a custom prefix.").defaultValue(false).build());
+    public final Setting<String> prefixText = sgCustom.add(new StringSetting.Builder().name("custom-prefix-text").description("Override the [Numby hack] prefix.").defaultValue("Numby hack").visible(customPrefix :: get).build());
+    public final Setting<Boolean> customPrefixColor = sgCustom.add(new BoolSetting.Builder().name("custom-prefix-color").description("Lets you set a custom prefix.").defaultValue(false).build());
+    public final Setting<SettingColor> prefixColor = sgCustom.add(new ColorSetting.Builder().name("prefix-color").description("Color of the prefix text.").defaultValue(new SettingColor(146, 188, 98)).visible(customPrefixColor :: get).build());
+    public final Setting<Boolean> chromaPrefix = sgCustom.add(new BoolSetting.Builder().name("chroma-prefix").description("Lets you set a custom prefix.").defaultValue(false).build());
+    public final Setting<Double> chromaSpeed = sgCustom.add(new DoubleSetting.Builder().name("chroma-speed").description("Speed of the chroma animation.").defaultValue(0.09).min(0.01).sliderMax(5).decimalPlaces(2).visible(chromaPrefix :: get).build());
+    public final Setting<Boolean> themeBrackets = sgCustom.add(new BoolSetting.Builder().name("apply-to-brackets").description("Apply the current prefix theme to the brackets.").defaultValue(false).build());
+    public final Setting<Boolean> customBrackets = sgCustom.add(new BoolSetting.Builder().name("custom-brackets").description("Set custom brackets.").defaultValue(false).build());
+    public final Setting<String> leftBracket = sgCustom.add(new StringSetting.Builder().name("left-bracket").description("").defaultValue("[").visible(customBrackets :: get).build());
+    public final Setting<String> rightBracket = sgCustom.add(new StringSetting.Builder().name("right-bracket").description("").defaultValue("]").visible(customBrackets :: get).build());
 
     private final Char2CharMap SMALL_CAPS = new Char2CharArrayMap();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+    RainbowColor prefixChroma = new RainbowColor();
+
 
     public NumbyChat() {
         super(Numby.CATEGORY, "numby-chat", "Improves your chat experience in various ways.");
@@ -207,6 +213,52 @@ public class NumbyChat extends Module {
         event.setMessage(message);
     }
 
+    @Override
+    public void onActivate() {
+        ChatUtils.registerCustomPrefix("cqb13.Numby.modules", this::getPrefix);
+        ChatUtils.registerCustomPrefix("cqb13.Numby.modules.hud", this::getPrefix);
+    }
+
+
+    public LiteralText getPrefix() {
+        BaseText logo = new LiteralText("");
+        LiteralText prefix = new LiteralText("");
+        String logoT = "Numby hack";
+        if (customPrefix.get()) logoT = prefixText.get();
+        if (customPrefixColor.get() && !chromaPrefix.get()) logo.append(new LiteralText(logoT).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked()))));
+        if (chromaPrefix.get() && !customPrefixColor.get()) {
+            prefixChroma.setSpeed(chromaSpeed.get() / 100);
+            for(int i = 0, n = logoT.length() ; i < n ; i++) logo.append(new LiteralText(String.valueOf(logoT.charAt(i)))).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
+        }
+        if (!customPrefixColor.get() && !chromaPrefix.get()) {
+            if (customPrefix.get()) { logo.append(prefixText.get());
+            } else { logo.append("Numby hack"); }
+            logo.setStyle(logo.getStyle().withFormatting(Formatting.RED));
+        }
+        if (themeBrackets.get()) {
+            if (customPrefixColor.get() && !chromaPrefix.get()) prefix.setStyle(prefix.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked())));
+            if (chromaPrefix.get() && !customPrefixColor.get()) {
+                prefixChroma.setSpeed(chromaSpeed.get() / 100);
+                prefix.setStyle(prefix.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
+            }
+            if (customBrackets.get()) {
+                prefix.append(leftBracket.get());
+                prefix.append(logo);
+                prefix.append(rightBracket.get() + " ");
+            } else {
+                prefix.append("[");
+                prefix.append(logo);
+                prefix.append("] ");
+            }
+        } else {
+            prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
+            prefix.append("[");
+            prefix.append(logo);
+            prefix.append("] ");
+        }
+        return prefix;
+    }
+
     private Text appendAntiSpam(Text text, int index) {
         List<ChatHudLine<OrderedText>> visibleMessages = ((ChatHudAccessor) mc.inGameHud.getChatHud()).getVisibleMessages();
         if (visibleMessages.isEmpty() || index < 0 || index > visibleMessages.size() - 1) return null;
@@ -248,6 +300,9 @@ public class NumbyChat extends Module {
     @EventHandler
     private void onMessageSend(SendMessageEvent event) {
         String message = event.message;
+
+        if (emotes.get()) message = Emotes.apply(message);
+        event.message = message;
 
         if (fancy.get()) message = applyFancy(message);
 
@@ -324,15 +379,15 @@ public class NumbyChat extends Module {
         hintBaseText.append(new LiteralText('\n' + message));
 
         sendButton.setStyle(sendButton.getStyle()
-            .withFormatting(Formatting.DARK_RED)
-            .withClickEvent(new ClickEvent(
-                ClickEvent.Action.RUN_COMMAND,
-                Commands.get().get(SayCommand.class).toString(message)
-            ))
-            .withHoverEvent(new HoverEvent(
-                HoverEvent.Action.SHOW_TEXT,
-                hintBaseText
-            )));
+                .withFormatting(Formatting.DARK_RED)
+                .withClickEvent(new ClickEvent(
+                        ClickEvent.Action.RUN_COMMAND,
+                        Commands.get().get(SayCommand.class).toString(message)
+                ))
+                .withHoverEvent(new HoverEvent(
+                        HoverEvent.Action.SHOW_TEXT,
+                        hintBaseText
+                )));
         return sendButton;
     }
 

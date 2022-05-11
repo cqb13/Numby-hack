@@ -15,8 +15,8 @@
 <hr />
 
 # How to use
-- Download the latest release.
-- Put it in your `.minecraft/mods` folder.
+- Download the latest [release](/../../releases) of this mod from the releases tab.
+- Put it in your `.minecraft/mods` folder where you have installed Meteor.
 
 *Note: Meteor Client is required for this addon*
 

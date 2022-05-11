@@ -20,22 +20,6 @@
 
 *Note: Meteor Client is required for this addon*
 
-## Modules
-- Chat Encryption | Encrypts your chat messages to make them unreadable to other people.
-- Confetti | Changes the color of the totem pop particles.
-- Number81 | Counts to 81 in chat.
-- NumbyChat | Improves your chat experience in various ways.
-- NumbyEZ | Send a chat message after killing or popping a player.
-- NumbyRPC | Displays Numby hack as your presence on Discord.
-- TimeLog | Automatically disconnects you at a certain time.
-
-## Hud
-- Logo | Shows the Numby hack logo in the HUD.
-- Numby | Number81 On Top!
-
-## Features 
-- Player Particles | Shows particles around Number81.
-
 <h1>Modules:</h1>
 <pre>
 Chat Encrypt     || Encrypts your chat messages

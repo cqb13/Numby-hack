@@ -36,4 +36,27 @@
 ## Features 
 - Player Particles | Shows particles around Number81.
 
+<h1>Modules:</h1>
+<pre>
+Chat Encrypt     || Encrypts your chat messages
+Confetti         || Changes the color of totem pop particles
+Number81         || Counts to 81 in chat
+Numby Chat       || Improves your chat experience in various ways
+Numby EZ         || Send a chat message after killing of popping a player
+NumbyRPC         || Displays Numby Hack as your presence on Discord
+Time Log         || Automatically disconnets at a specific time and/or place
+</pre>
+
+<h1>HUD:</h1>
+<pre>
+Logo             || Displays Numby Hack logo on screen
+Numby            || Number81 On Top!
+</pre>
+
+<h1>Features:</h1>
+<pre>
+player particle  || Renders particles around specific players
+
+</pre>
+
 *Note: Not all of the code was writen by me*

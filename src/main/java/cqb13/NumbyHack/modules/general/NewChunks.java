@@ -31,23 +31,6 @@ public class NewChunks extends Module {
 	private final SettingGroup sgRender = settings.createGroup("Render");
 
 	// general
-	private final Setting<Integer> horizontalRadius = sgGeneral.add(new IntSetting.Builder()
-			.name("horizontal-radius")
-			.description("Horizontal radius in which to search for holes.")
-			.defaultValue(64)
-			.min(0)
-			.sliderMax(256)
-			.build()
-	);
-
-	private final Setting<Integer> holeHeight = sgGeneral.add(new IntSetting.Builder()
-			.name("hole-height")
-			.description("The minimum hole height to be rendered.")
-			.defaultValue(1)
-			.min(1)
-			.sliderRange(1, 5)
-			.build()
-	);
 
 	private final Setting<Boolean> remove = sgGeneral.add(new BoolSetting.Builder()
         .name("remove")
@@ -104,12 +87,9 @@ public class NewChunks extends Module {
 			.visible(() -> shapeMode.get() == ShapeMode.Lines || shapeMode.get() == ShapeMode.Both)
 			.build()
 	);
-
-	private final BlockPos.Mutable blockPos = new BlockPos.Mutable();
-
-	private final List<Void> voidHoles = new ArrayList<>();
-    private Set<ChunkPos> newChunks = Collections.synchronizedSet(new HashSet<>());
-    private Set<ChunkPos> oldChunks = Collections.synchronizedSet(new HashSet<>());
+	
+    private final Set<ChunkPos> newChunks = Collections.synchronizedSet(new HashSet<>());
+    private final Set<ChunkPos> oldChunks = Collections.synchronizedSet(new HashSet<>());
     private static final Direction[] searchDirs = new Direction[] { Direction.EAST, Direction.NORTH, Direction.WEST, Direction.SOUTH, Direction.UP };
 
     public NewChunks() {
@@ -121,7 +101,6 @@ public class NewChunks extends Module {
 		if (remove.get()) {
 			newChunks.clear();
 			oldChunks.clear();
-			voidHoles.clear();
 		}
 		super.onDeactivate();
 	}

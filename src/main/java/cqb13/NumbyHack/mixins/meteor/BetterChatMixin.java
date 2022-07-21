@@ -1,5 +1,7 @@
 package cqb13.NumbyHack.mixins.meteor;
 
+import cqb13.NumbyHack.utils.CHMainUtils;
+import meteordevelopment.meteorclient.events.game.SendMessageEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -11,9 +13,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -118,12 +118,12 @@ public abstract class BetterChatMixin extends Module {
 
     @Override
     public void onActivate() {
-        ChatUtils.registerCustomPrefix("cqb13.NumbyHack.modules", this::getPrefix);
+        ChatUtils.registerCustomPrefix("cqb13.NumbyHack.modules", this::numby$getPrefix);
     }
 
     RainbowColor numby$prefixChroma = new RainbowColor();
 
-    private MutableText getPrefix() {
+    private MutableText numby$getPrefix() {
         MutableText logo = Text.literal("");
         MutableText prefix = Text.literal("");
         String logoT = "Numby hack";
@@ -160,5 +160,11 @@ public abstract class BetterChatMixin extends Module {
             prefix.append("] ");
         }
         return prefix;
+    }
+
+    @Inject(method = "onMessageSend", at = @At("TAIL"))
+    private void applyEmotes(SendMessageEvent event, CallbackInfo ci) {
+        if (!numby$emotes.get()) return;
+        event.message = CHMainUtils.apply(event.message);
     }
 }

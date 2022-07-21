@@ -8,7 +8,6 @@ public class TextPresets {
     public static final HudElementInfo<TextHud> INFO = new HudElementInfo<>(NumbyHack.HUD_GROUP, "numby-text", "Displays arbitrary text with Starscript.", TextPresets::create);
 
     static {
-
         addPreset("81", "Number81 on top!", 0);
         addPreset("Kills", "Kills: #1{numbyhack.kills}", 0);
         addPreset("Deaths", "Deaths: #1{numbyhack.deaths}", 0);

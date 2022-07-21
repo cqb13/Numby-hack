@@ -58,12 +58,6 @@ public class CHMainUtils {
 
     public static Entity deadEntity;
     public static boolean isDeathPacket(PacketEvent.Receive event) {
-        if (event.packet instanceof EntityStatusS2CPacket packet) {
-            if (packet.getStatus() == 3) {
-                deadEntity = packet.getEntity(mc.world);
-                return deadEntity instanceof PlayerEntity;
-            }
-        }
-        return false;
+        return (event.packet instanceof EntityStatusS2CPacket packet && packet.getStatus() == 3 && packet.getEntity(mc.world) instanceof PlayerEntity);
     }
 }

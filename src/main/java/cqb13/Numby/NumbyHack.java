@@ -46,15 +46,16 @@ public class NumbyHack extends MeteorAddon {
 		Hud hud = Hud.get();
 
 		Log("Adding modules...");
-		modules.add(new NumbyChat());
-		modules.add(new NumbyRPC());
+		modules.add(new AutoLogPlus());
 		modules.add(new ChatEncryption());
-		modules.add(new Number81());
-		modules.add(new SafeFire());
 		modules.add(new ChorusExploit());
-		modules.add(new SafetyNet());
 		modules.add(new Confetti());
 		modules.add(new NewChunks());
+		modules.add(new Number81());
+		modules.add(new NumbyChat());
+		modules.add(new NumbyRPC());
+		modules.add(new SafeFire());
+		modules.add(new SafetyNet());
 		modules.add(new TunnelESP());
 
 		Log("Adding HUD modules...");

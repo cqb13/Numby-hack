@@ -1,31 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "numby",
+  "id": "numbyhack",
   "version": "${version}",
-  "name": "Number81",
-  "description": "Number81 On Top",
+  "name": "Numby hack",
+  "description": "Number81 on top!",
   "authors": [
     "cqb13"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/cqb13/Numby-hack"
   },
-  "icon": "assets/number/icon.png",
+  "icon": "assets/numby-hack/textures/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "cqb13.Numby.Numby"
+      "cqb13.NumbyHack.NumbyHack"
     ]
   },
   "mixins": [
-    "Numby.mixins.json"
+    "NumbyHack.mixins.json"
   ],
+  "accessWidener": "accesswidener",
   "custom": {
     "meteor-client:color": "146,188,98"
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.18",
-    "meteor-client": "*"
+    "minecraft": ">=1.19",
+    "meteor-client": ">=0.4.9"
   }
 }

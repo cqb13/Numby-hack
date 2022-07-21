@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "cqb13.NumbyHack.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "ClientPlayerEntityMixin",
+    "CustomPayloadS2CPacketMixin",
+    "EntityAccessor",
+    "TotemParticleMixin",
+    "meteor.CrystalAuraAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

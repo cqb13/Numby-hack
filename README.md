@@ -37,8 +37,15 @@ Tunnel ESP       || Tries to find player made tunnels
 </pre>
 <h2>HUD:</h2>
 <pre>
+Combat HUD       || Shows you information about the closest player to you
+Item Counter     || Counts specific items from your inventory
 Logo             || Displays Numby Hack logo on screen
-Numby            || Number81 On Top!
+81               || Number81 On Top!
+Kills            || Shows the amount of player kills
+Deaths           || Shows the amount of deaths
+KDR              || Shows kill death ratio
+High Score       || Shows high score
+Kill Streak      || Shows your kill streak
 </pre>
 <h1>Commands:</h1>
 <pre>

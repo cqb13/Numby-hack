@@ -10,6 +10,6 @@ public interface CrystalAuraAccessor {
     @Accessor("bestTarget")
     PlayerEntity bestTarget();
 
-    @Accessor("bestTargetDamage")
+    @Accessor(value = "bestTargetDamage", remap = false)
     double bestTargetDamage();
 }

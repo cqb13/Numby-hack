@@ -41,6 +41,21 @@ public class AutoLogPlus extends Module {
             .build()
     );
 
+    private final Setting<Boolean> oneAxis = sgLocationLog.add(new BoolSetting.Builder()
+            .name("one-axis-log")
+            .description("Disconnects when a you reach set coordinates on a specific axis.")
+            .defaultValue(false)
+            .build()
+    );
+
+    private final Setting<axisOptions> selectAxis = sgLocationLog.add(new EnumSetting.Builder<axisOptions>()
+            .name("select-axis")
+            .description("The axis with the exact log coords.")
+            .defaultValue(axisOptions.X)
+            .visible(oneAxis::get)
+            .build()
+    );
+
     private final Setting<Dimension> dimension = sgLocationLog.add(new EnumSetting.Builder<Dimension>()
             .name("dimension")
             .description("Dimension for the coords.")
@@ -77,7 +92,7 @@ public class AutoLogPlus extends Module {
 
     // normal log
     private final Setting<Boolean> onlyTrusted = sgGeneral.add(new BoolSetting.Builder()
-            .name("only-trusted")
+            .name("enemy")
             .description("Disconnects when a player not on your friends list appears in render distance.")
             .defaultValue(false)
             .build()
@@ -116,7 +131,7 @@ public class AutoLogPlus extends Module {
         for (Entity entity : mc.world.getEntities()) {
             if (entity instanceof PlayerEntity && entity.getUuid() != mc.player.getUuid()) {
                 if (onlyTrusted.get() && entity != mc.player && !Friends.get().isFriend((PlayerEntity) entity)) {
-                    mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[AutoLog] A non-trusted player appeared in your render distance.")));
+                    mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] A non-trusted player appeared in your render distance.")));
                     if (toggleOff.get()) this.toggle();
                     break;
                 }
@@ -126,18 +141,31 @@ public class AutoLogPlus extends Module {
 
         // time log
         if (dtf.format(now).equals(logTime.get())) {
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[AutoLogPlus] log time has been reached " + logTime.get() + ".")));
-            if (toggleOff.get()) this.toggle();
+            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] log time has been reached " + logTime.get() + ".")));
+            if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
+            if (toggleOff.get()) toggle();
         }
 
         // location log
-        if (xCoordsMatch() && zCoordsMatch() && PlayerUtils.getDimension() == dimension.get()) {
-            if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
-            if (toggleOff.get()) toggle();
-
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[AfkLog] Arrived at destination.")));
+        if (locationLog.get() && PlayerUtils.getDimension() == dimension.get()){
+            if (xCoordsMatch() && zCoordsMatch()) {
+                locationLogOff();
+            } else if (oneAxis.get()) {
+                if (selectAxis.get() == axisOptions.X && xCoordsMatch()){
+                    locationLogOff();
+                } else if (selectAxis.get() == axisOptions.Z && zCoordsMatch()){
+                    locationLogOff();
+                }
+            }
         }
+    }
 
+    public void locationLogOff(){
+        if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
+        if (toggleOff.get()) toggle();
+
+        assert mc.player != null;
+        mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] Arrived at destination.")));
     }
 
     private boolean xCoordsMatch() {
@@ -146,5 +174,9 @@ public class AutoLogPlus extends Module {
 
     private boolean zCoordsMatch() {
         return (mc.player.getZ() <= zCoords.get() + radius.get() && mc.player.getZ() >= zCoords.get() - radius.get());
+    }
+    public enum axisOptions {
+        X,
+        Z,
     }
 }

@@ -2,7 +2,7 @@
   <!-- Logo and Title -->
   <img src="https://raw.githubusercontent.com/cqb13/Numby-hack/main/src/main/resources/assets/numby-hack/textures/icon.png" alt="logo" width="20%"/>
   <h1>Numby Hack</h1>
-  <p>An addon for Meteor Client made in honor of Number81.</p>
+  <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
 <a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.4-blue" alt="Version"></a>

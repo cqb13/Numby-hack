@@ -5,7 +5,7 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.4-blue" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.5-blue" alt="Version"></a>
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.19-blue" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=blue">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack" alt="Code Size">

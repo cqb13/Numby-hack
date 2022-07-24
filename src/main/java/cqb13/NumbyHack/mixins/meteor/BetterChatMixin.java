@@ -163,7 +163,7 @@ public abstract class BetterChatMixin extends Module {
     }
 
     @Inject(method = "onMessageSend", at = @At("TAIL"))
-    private void applyEmotes(SendMessageEvent event, CallbackInfo ci) {
+    public void applyEmotes(SendMessageEvent event, CallbackInfo ci) {
         if (!numby$emotes.get()) return;
         event.message = CHMainUtils.apply(event.message);
     }

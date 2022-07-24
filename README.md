@@ -1,6 +1,6 @@
 <div align="center">
   <!-- Logo and Title -->
-  <img src="/src/main/resources/assets/numby-hack/textures/icon.png" alt="logo" width="20%"/>
+  <img src="https://raw.githubusercontent.com/cqb13/Numby-hack/main/src/main/resources/assets/numby-hack/textures/icon.png" alt="logo" width="20%"/>
   <h1>Numby Hack</h1>
   <p>An addon for Meteor Client made in honor of Number81.</p>
 

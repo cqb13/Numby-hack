@@ -52,6 +52,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new Confetti());
 		Modules.get().add(new NewChunks());
 		Modules.get().add(new Number81());
+		Modules.get().add(new NumbyChat());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
 		Modules.get().add(new TunnelESP());
@@ -71,6 +72,10 @@ public class NumbyHack extends MeteorAddon {
 	@Override
 	public void onRegisterCategories() {
 		Modules.registerCategory(CATEGORY);
+	}
+
+	public String getPackage() {
+		return "cqb13.NumbyHack";
 	}
 
 	public static void Log(String text) {

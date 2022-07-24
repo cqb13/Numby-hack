@@ -7,7 +7,6 @@
     "CustomPayloadS2CPacketMixin",
     "EntityAccessor",
     "TotemParticleMixin",
-    "meteor.BetterChatMixin",
     "meteor.CrystalAuraAccessor",
     "meteor.DiscordPresenceMixin"
   ],

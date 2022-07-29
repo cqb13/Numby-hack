@@ -1,0 +1,38 @@
+name: Java CI with Gradle
+
+concurrency:
+  group: "build-1.19"
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '*.md'
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'zulu'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Remove *-dev.jar
+        run: rm ./build/libs/*-dev.jar || true
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest-1.19"
+          prerelease: false
+          title: "Numby-Hack-latest"
+          files: |
+            ./build/libs/*.jar

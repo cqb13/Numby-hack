@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.renderer.text.TextRenderer;
 import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
@@ -244,7 +245,7 @@ public class CombatHUD extends HudElement {
 
             if (Friends.get().isFriend(playerEntity)) {
                 friendText = "Friend";
-                friendColor = Friends.get().color.get();
+                friendColor = Config.get().friendColor.get();
             }
             else {
                 boolean naked = true;

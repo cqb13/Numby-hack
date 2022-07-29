@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BetterChat.class)
+@Mixin(value = BetterChat.class, remap = false)
 public abstract class BetterChatMixin extends Module {
     private SettingGroup numby$sgCustom;
     private Setting<Boolean> numby$emotes;
@@ -163,7 +163,7 @@ public abstract class BetterChatMixin extends Module {
     }
 
     @Inject(method = "onMessageSend", at = @At("TAIL"))
-    private void applyEmotes(SendMessageEvent event, CallbackInfo ci) {
+    public void applyEmotes(SendMessageEvent event, CallbackInfo ci) {
         if (!numby$emotes.get()) return;
         event.message = CHMainUtils.apply(event.message);
     }

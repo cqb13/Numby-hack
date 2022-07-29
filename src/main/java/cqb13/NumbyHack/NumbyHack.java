@@ -5,7 +5,6 @@ import cqb13.NumbyHack.modules.commands.*;
 import cqb13.NumbyHack.modules.general.*;
 import cqb13.NumbyHack.modules.hud.*;
 import cqb13.NumbyHack.utils.*;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.commands.Commands;
 import meteordevelopment.meteorclient.systems.hud.Hud;
@@ -18,8 +17,6 @@ import meteordevelopment.starscript.value.ValueMap;
 import net.minecraft.item.Items;
 import org.slf4j.Logger;
 
-import java.lang.invoke.MethodHandles;
-
 public class NumbyHack extends MeteorAddon {
 	public static final Category CATEGORY = new Category("Numby Hack", Items.TURTLE_HELMET.getDefaultStack());
 	public static final HudGroup HUD_GROUP = new HudGroup("Numby Hack");
@@ -28,9 +25,6 @@ public class NumbyHack extends MeteorAddon {
 	@Override
 	public void onInitialize() {
 	    Log("Beginning initialization.");
-
-		// Required when using @EventHandler
-		MeteorClient.EVENT_BUS.registerLambdaFactory("cqb13.NumbyHack", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
 		Log("Adding Player Particles...");
 		PlayerParticle.init();
@@ -52,7 +46,6 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new Confetti());
 		Modules.get().add(new NewChunks());
 		Modules.get().add(new Number81());
-		Modules.get().add(new NumbyChat());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
 		Modules.get().add(new TunnelESP());
@@ -74,6 +67,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.registerCategory(CATEGORY);
 	}
 
+	@Override
 	public String getPackage() {
 		return "cqb13.NumbyHack";
 	}

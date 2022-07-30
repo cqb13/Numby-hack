@@ -26,6 +26,7 @@ public class Number81 extends Module {
     @Override
     public void onDeactivate() {
         if (count != 81) {
+            assert mc.player != null;
             mc.player.sendChatMessage("I am a lazy bitch and did not count to 81!");
             mc.player.sendChatMessage("I am a disgrace and should be punished!");
             mc.player.sendChatMessage("I am a very bad person!");
@@ -41,10 +42,12 @@ public class Number81 extends Module {
         timer--;
         if(timer < 0){
             count++;
+            assert mc.player != null;
             mc.player.sendChatMessage(String.valueOf(count));
             setTimer = true;
         }
         if(count == 81){
+            assert mc.player != null;
             mc.player.sendChatMessage("Number81 on top");
             toggle();
         }

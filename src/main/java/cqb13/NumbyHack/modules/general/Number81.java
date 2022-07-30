@@ -30,6 +30,7 @@ public class Number81 extends Module {
             mc.player.sendChatMessage("I am a lazy bitch and did not count to 81!");
             mc.player.sendChatMessage("I am a disgrace and should be punished!");
             mc.player.sendChatMessage("I am a very bad person!");
+            mc.player.sendChatMessage("Number81 is the best!");
         }
     }
 

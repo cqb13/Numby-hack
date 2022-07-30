@@ -6,10 +6,13 @@ import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.misc.AutoReconnect;
+import meteordevelopment.meteorclient.systems.modules.movement.AutoWalk;
+import meteordevelopment.meteorclient.systems.modules.movement.SafeWalk;
 import meteordevelopment.meteorclient.utils.misc.Pool;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
-import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
@@ -18,8 +21,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
@@ -30,41 +34,36 @@ import java.util.List;
  * based on Tanuki
  */
 public class SafetyNet extends Module {
-    private final SettingGroup sgGeneral = settings.getDefaultGroup();
+    private final SettingGroup sgSafety = settings.createGroup("Safety Net");
+    private final SettingGroup sgSettings = settings.createGroup("General");
+    private final SettingGroup sgAdvanced = settings.createGroup("Advanced");
     private final SettingGroup sgRender = settings.createGroup("Render");
 
     // safety net
 
-    private final Setting<SafetyNet.PlaceMode> safetyMode = sgGeneral.add(new EnumSetting.Builder<SafetyNet.PlaceMode>()
-        .name("safetynet")
-        .description("Which safety mode to use.")
-        .defaultValue(PlaceMode.SafetyNet)
-        .build()
-    );
-
-    private final Setting<Integer> yLock = sgGeneral.add(new IntSetting.Builder()
+    private final Setting<Integer> yLock = sgSafety.add(new IntSetting.Builder()
         .name("safetynet level")
         .description("The Y level of the safety net.")
         .min(1)
         .max(255)
         .sliderMin(1)
         .sliderMax(255)
-        .defaultValue(1)
+        .defaultValue(5)
         .build()
     );
 
-    private final Setting<Integer> safetyNetWindow = sgGeneral.add(new IntSetting.Builder()
+    private final Setting<Integer> safetyNetWindow = sgSafety.add(new IntSetting.Builder()
         .name("safetynet-window")
         .description("The activation window +Y from Y level lock.")
         .min(1)
         .max(32)
         .sliderMin(1)
         .sliderMax(32)
-        .defaultValue(10)
+        .defaultValue(3)
         .build()
     );
 
-    private final Setting<Double> safetyNetMultiplier = sgGeneral.add(new DoubleSetting.Builder()
+    private final Setting<Double> safetyNetMultiplier = sgSafety.add(new DoubleSetting.Builder()
         .name("y-slowdown-multiplier")
         .description("Y velocity slowdown multiplier.")
         .min(0.1)
@@ -75,44 +74,110 @@ public class SafetyNet extends Module {
         .build()
     );
 
+    // General
 
-    // general
-
-    private final Setting<Boolean> autoSwitch = sgGeneral.add(new BoolSetting.Builder()
-        .name("auto-switch")
-        .description("Automatically swaps to a block before placing.")
-        .defaultValue(true)
-        .build()
+    private final Setting<List<Block>> blocks = sgSettings.add(new BlockListSetting.Builder()
+            .name("blocks")
+            .description("Selected blocks.")
+            .build()
     );
 
-    private final Setting<Boolean> renderSwing = sgGeneral.add(new BoolSetting.Builder()
-        .name("swing")
-        .description("Renders your client-side swing.")
-        .defaultValue(false)
-        .build()
+    private final Setting<SafetyNet.ListMode> blocksFilter = sgSettings.add(new EnumSetting.Builder<SafetyNet.ListMode>()
+            .name("blocks-filter")
+            .description("How to use the block list setting")
+            .defaultValue(SafetyNet.ListMode.Blacklist)
+            .build()
     );
 
-    private final Setting<Boolean> rotate = sgGeneral.add(new BoolSetting.Builder()
-        .name("rotate")
-        .description("Rotates towards the blocks being placed.")
-        .defaultValue(true)
-        .build()
+    private final Setting<Boolean> autoSwitch = sgSettings.add(new BoolSetting.Builder()
+            .name("auto-switch")
+            .description("Automatically swaps to a block before placing.")
+            .defaultValue(true)
+            .build()
     );
 
-    private final Setting<List<Block>> blocks = sgGeneral.add(new BlockListSetting.Builder()
-        .name("blocks")
-        .description("Selected blocks.")
-        .build()
+    private final Setting<Boolean> rotate = sgSettings.add(new BoolSetting.Builder()
+            .name("rotate")
+            .description("Rotates towards the blocks being placed.")
+            .defaultValue(true)
+            .build()
     );
 
-    private final Setting<SafetyNet.ListMode> blocksFilter = sgGeneral.add(new EnumSetting.Builder<SafetyNet.ListMode>()
-        .name("blocks-filter")
-        .description("How to use the block list setting")
-        .defaultValue(SafetyNet.ListMode.Blacklist)
-        .build()
+    private final Setting<Boolean> toggleOff = sgSettings.add(new BoolSetting.Builder()
+            .name("toggle-off")
+            .description("Turns off safety net after landing.")
+            .defaultValue(true)
+            .build()
+    );
+
+    private final Setting<Boolean> landingLog = sgSettings.add(new BoolSetting.Builder()
+            .name("landing-log")
+            .description("Disconnects you after landing.")
+            .defaultValue(false)
+            .build()
+    );
+
+    private final Setting<Boolean> toggleAutoReconnect = sgSettings.add(new BoolSetting.Builder()
+            .name("toggle-auto-reconnect")
+            .description("Turns off auto reconnect when disconnecting.")
+            .defaultValue(true)
+            .visible(landingLog::get)
+            .build()
+    );
+
+    // Advanced
+
+    private final Setting<Boolean> advanced = sgAdvanced.add(new BoolSetting.Builder()
+            .name("advanced-settings")
+            .description("More settings.")
+            .defaultValue(false)
+            .build()
+    );
+
+    private final Setting<Boolean> toggleSafeWalk = sgAdvanced.add(new BoolSetting.Builder()
+            .name("toggle-safe-walk")
+            .description("Turns on safe walk after landing.")
+            .defaultValue(false)
+            .visible(advanced::get)
+            .build()
+    );
+
+    private final Setting<Boolean> toggleAutoWalk = sgAdvanced.add(new BoolSetting.Builder()
+            .name("toggle-auto-walk")
+            .description("Turns off auto walk after landing.")
+            .defaultValue(false)
+            .visible(advanced::get)
+            .build()
+    );
+
+    private final Setting<Integer> backUpYLock = sgAdvanced.add(new IntSetting.Builder()
+            .name("back up safetynet level")
+            .description("If safety net does not work at first Y lock it will try again at this height.")
+            .min(1)
+            .max(255)
+            .sliderMin(1)
+            .sliderMax(255)
+            .defaultValue(5)
+            .visible(advanced::get)
+            .build()
+    );
+
+    private final Setting<Boolean> lastChance = sgAdvanced.add(new BoolSetting.Builder()
+            .name("last-resort-log")
+            .description("Logs out if safety net does not catch you at either height.")
+            .defaultValue(false)
+            .visible(advanced::get)
+            .build()
     );
 
     // Render
+
+    private final Setting<Boolean> renderSwing = sgRender.add(new BoolSetting.Builder()
+            .name("swing")
+            .description("Renders your client-side swing.")
+            .defaultValue(false)
+            .build()
+    );
 
     private final Setting<ShapeMode> shapeMode = sgRender.add(new EnumSetting.Builder<ShapeMode>()
         .name("shape-mode")
@@ -141,19 +206,12 @@ public class SafetyNet extends Module {
     private final BlockPos.Mutable bp = new BlockPos.Mutable();
     private final BlockPos.Mutable prevBp = new BlockPos.Mutable();
 
-    private boolean lastWasSneaking;
-    private double lastSneakingY;
-    private double placeRange = 4;
-
     public SafetyNet() {
-        super(NumbyHack.CATEGORY, "safety-net", "Places a block under you at a set Y level.");
+        super(NumbyHack.CATEGORY, "safety-net", "Places a block under you at a set Y level, 100% chance to stop a void death.");
     }
 
     @Override
     public void onActivate() {
-        lastWasSneaking = mc.options.sneakKey.isPressed();
-        if (lastWasSneaking) lastSneakingY = mc.player.getY();
-
         for (SafetyNet.RenderBlock renderBlock : renderBlocks) renderBlockPool.free(renderBlock);
         renderBlocks.clear();
     }
@@ -170,64 +228,36 @@ public class SafetyNet extends Module {
         renderBlocks.forEach(SafetyNet.RenderBlock::tick);
         renderBlocks.removeIf(renderBlock -> renderBlock.ticks <= 0);
 
-        if (safetyMode.get() == PlaceMode.AirPlace) {
-            Vec3d vec = mc.player.getPos().add(mc.player.getVelocity()).add(0, -0.5f, 0);
-            bp.set(vec.getX(), vec.getY(), vec.getZ());
+        // safety net things
+        assert mc.player != null;
+        if (lastChance.get() && mc.player.getY() < backUpYLock.get() - safetyNetWindow.get() + 1) {
+            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Safety Net] Safety Net could not catch you.")));
+            if (Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
+            this.toggle();
+        }
+        
+        if (mc.player.getY() < yLock.get() + safetyNetWindow.get() + 1) 
 
-        } else if (safetyMode.get() == PlaceMode.SafetyNet) {
-            if (mc.player.getY() < (yLock.get() + safetyNetWindow.get()) - 1) {
-                if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
-                    mc.player.setVelocity(mc.player.getVelocity().getX(), mc.player.getVelocity().getY() * safetyNetMultiplier.get(), mc.player.getVelocity().getZ());
-                    Vec3d vec = mc.player.getPos().add(mc.player.getVelocity()).add(0, -0.5f, 0);
-                    bp.set(vec.getX(), yLock.get(), vec.getZ());
+        // dont read thus wrote it very late and itd very ba
+        if ((mc.player.getY() < (yLock.get() + safetyNetWindow.get()) - 1 && mc.player.getY() > (yLock.get() - safetyNetWindow.get())) || mc.player.getY() < (backUpYLock.get() + safetyNetWindow.get())) {
+            assert mc.world != null;
+            if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {
+                mc.player.setVelocity(mc.player.getVelocity().getX(), mc.player.getVelocity().getY() * safetyNetMultiplier.get(), mc.player.getVelocity().getZ());
+                Vec3d vec = mc.player.getPos().add(mc.player.getVelocity()).add(0, -0.5f, 0);
+                if (mc.player.getY() < (backUpYLock.get() + safetyNetWindow.get())) {
+                    bp.set(vec.getX(), backUpYLock.get(), vec.getZ());
                 } else {
-                    info ("Safetynet landed on block, disabling.");
-                    toggle();
+                    bp.set(vec.getX(), yLock.get(), vec.getZ());
                 }
-            }
-
-        } else {
-            if (BlockUtils.getPlaceSide(mc.player.getBlockPos().down()) != null) {
-                bp.set(mc.player.getBlockPos().down());
-
             } else {
-                Vec3d pos = mc.player.getPos();
-                pos = pos.add(0, -0.98f, 0);
-                pos.add(mc.player.getVelocity());
-
-                if (PlayerUtils.distanceTo(prevBp) > placeRange) {
-                    List<BlockPos> blockPosArray = new ArrayList<>();
-
-                    for (int x = (int) (mc.player.getX() - placeRange); x < mc.player.getX() + placeRange; x++) {
-                        for (int z = (int) (mc.player.getZ() - placeRange); z < mc.player.getZ() + placeRange; z++) {
-                            for (int y = (int) Math.max(mc.world.getBottomY(), mc.player.getY() - placeRange); y < Math.min(mc.world.getTopY(), mc.player.getY() + placeRange); y++) {
-                                bp.set(x, y, z);
-                                if (!mc.world.getBlockState(bp).isAir()) blockPosArray.add(new BlockPos(bp));
-                            }
-                        }
-                    }
-                    if (blockPosArray.size() == 0) {
-                        return;
-                    }
-
-                    blockPosArray.sort(Comparator.comparingDouble(PlayerUtils::distanceTo));
-
-                    prevBp.set(blockPosArray.get(0));
+                if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
+                if (toggleSafeWalk.get() && !Modules.get().isActive(SafeWalk.class)) Modules.get().get(SafeWalk.class).toggle();
+                if (toggleAutoWalk.get() && Modules.get().isActive(AutoWalk.class)) Modules.get().get(AutoWalk.class).toggle();
+                if (landingLog.get()) mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Safety Net] Safety Net caught you.")));
+                if (toggleOff.get()) {
+                    info ("Safetynet landed | disabling");
+                    this.toggle();
                 }
-
-                Vec3d vecPrevBP = new Vec3d((double) prevBp.getX() + 0.5f,
-                    (double) prevBp.getY() + 0.5f,
-                    (double) prevBp.getZ() + 0.5f);
-
-                Vec3d sub = pos.subtract(vecPrevBP);
-                Direction facing;
-                if (sub.getY() < -0.5f) {
-                    facing = Direction.DOWN;
-                } else if (sub.getY() > 0.5f) {
-                    facing = Direction.UP;
-                } else facing = Direction.getFacing(sub.getX(), 0, sub.getZ());
-
-                bp.set(prevBp.offset(facing));
             }
         }
 
@@ -237,31 +267,20 @@ public class SafetyNet extends Module {
 
         if (item.getHand() == null && !autoSwitch.get()) return;
 
-        // Move down if shifting
-        if (mc.options.sneakKey.isPressed() && !mc.options.jumpKey.isPressed()) {
-            if (lastSneakingY - mc.player.getY() < 0.1) {
-                lastWasSneaking = false;
-                return;
-            }
-        } else {
-            lastWasSneaking = false;
-        }
-        if (!lastWasSneaking) lastSneakingY = mc.player.getY();
-
-        if (mc.options.jumpKey.isPressed() && !mc.options.sneakKey.isPressed()) {
-            mc.player.setVelocity(0, 0.42f, 0);
-        }
-
         if (BlockUtils.place(bp, item, rotate.get(), 50, renderSwing.get(), true)) {
             // Render block if was placed
             renderBlocks.add(renderBlockPool.get().set(bp));
 
-            // Move player down so they are on top of the placed block ready to jump again
-            if (mc.options.jumpKey.isPressed() && !mc.options.sneakKey.isPressed() && !mc.player.isOnGround() && !mc.world.getBlockState(bp).isAir()) {
-                mc.player.setVelocity(0, -0.28f, 0);
+            // Move player down, so they are on top of the placed block ready to jump again
+            if (mc.options.jumpKey.isPressed() && !mc.options.sneakKey.isPressed() && !mc.player.isOnGround()) {
+                assert mc.world != null;
+                if (!mc.world.getBlockState(bp).isAir()) {
+                    mc.player.setVelocity(0, -0.28f, 0);
+                }
             }
         }
 
+        assert mc.world != null;
         if (!mc.world.getBlockState(bp).isAir()) {
             prevBp.set(bp);
         }
@@ -276,8 +295,12 @@ public class SafetyNet extends Module {
         else if (blocksFilter.get() == SafetyNet.ListMode.Whitelist && !blocks.get().contains(block)) return false;
 
         if (!Block.isShapeFullCube(block.getDefaultState().getCollisionShape(mc.world, pos))) return false;
-        return !(block instanceof FallingBlock) || !FallingBlock.canFallThrough(mc.world.getBlockState(pos));
+        if (!(block instanceof FallingBlock)) return true;
+        assert mc.world != null;
+        return !FallingBlock.canFallThrough(mc.world.getBlockState(pos));
     }
+
+    //TODO: fix render box location
 
     @EventHandler
     private void onRender(Render3DEvent event) {
@@ -290,11 +313,6 @@ public class SafetyNet extends Module {
     public enum ListMode {
         Whitelist,
         Blacklist
-    }
-
-    public enum PlaceMode {
-        SafetyNet,
-        AirPlace
     }
 
     public static class RenderBlock {

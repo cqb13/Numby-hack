@@ -74,7 +74,7 @@ public class AutoLogPlus extends Module {
 
     private final Setting<Integer> zCoords = sgLocationLog.add(new IntSetting.Builder()
             .name("z-coords")
-            .description("The z coords it should log you out.")
+            .description("The Z coords it should log you out.")
             .defaultValue(-1000)
             .range(-2147483648, 2147483647)
             .sliderRange(-2147483648, 2147483647)

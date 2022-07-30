@@ -10,7 +10,6 @@ import meteordevelopment.meteorclient.systems.hud.elements.TextHud;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Names;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
-import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.item.*;
 
 import java.util.*;
@@ -21,7 +20,6 @@ public class ItemCounter extends HudElement {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgRender = settings.createGroup("Render");
     private final SettingGroup sgScale = settings.createGroup("Scale");
-    private final SettingGroup sgBackground = settings.createGroup("Background");
 
     public enum SortMode {
         Longest,
@@ -31,7 +29,7 @@ public class ItemCounter extends HudElement {
     // General
     private final Setting<SortMode> sortMode = sgGeneral.add(new EnumSetting.Builder<SortMode>()
             .name("sort-mode")
-            .description("How to sort the binds list.")
+            .description("How to sort the item list.")
             .defaultValue(SortMode.Shortest)
             .build()
     );
@@ -58,13 +56,6 @@ public class ItemCounter extends HudElement {
             .build()
     );
 
-    private final Setting<Integer> border = sgRender.add(new IntSetting.Builder()
-            .name("border")
-            .description("How much space to add around the element.")
-            .defaultValue(0)
-            .build()
-    );
-
     // Scale
     private final Setting<Boolean> customScale = sgScale.add(new BoolSetting.Builder()
             .name("custom-scale")
@@ -83,30 +74,12 @@ public class ItemCounter extends HudElement {
             .build()
     );
 
-    // Background
-    private final Setting<Boolean> background = sgBackground.add(new BoolSetting.Builder()
-            .name("background")
-            .description("Displays background.")
-            .defaultValue(false)
-            .build()
-    );
-
-    private final Setting<SettingColor> backgroundColor = sgBackground.add(new ColorSetting.Builder()
-            .name("background-color")
-            .description("Color used for the background.")
-            .visible(background::get)
-            .defaultValue(new SettingColor(146,188,98, 0))
-            .build()
-    );
-
-
     public ItemCounter() {
         super(INFO);
     }
 
 
     private final ArrayList<String> itemCounter = new ArrayList<>();
-    private final HashMap<Item, Integer> itemCounts = new HashMap<Item, Integer>();
 
     @Override
     public void tick(HudRenderer renderer) {

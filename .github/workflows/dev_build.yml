@@ -29,7 +29,7 @@ jobs:
       run: rm ./build/libs/*-dev.jar || true
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: "${{ secrets.TOKEN }}"
           automatic_release_tag: "latest-1.19"
           prerelease: false
           title: "1.19 Build"

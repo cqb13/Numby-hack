@@ -3,6 +3,7 @@ package cqb13.NumbyHack.modules.general;
 import cqb13.NumbyHack.NumbyHack;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 
 /**
@@ -27,10 +28,10 @@ public class Number81 extends Module {
     public void onDeactivate() {
         if (count != 81) {
             assert mc.player != null;
-            mc.player.sendChatMessage("I am a lazy bitch and did not count to 81!");
-            mc.player.sendChatMessage("I am a disgrace and should be punished!");
-            mc.player.sendChatMessage("I am a very bad person!");
-            mc.player.sendChatMessage("Number81 is the best!");
+            ChatUtils.sendPlayerMsg("I am a lazy bitch and did not count to 81!");
+            ChatUtils.sendPlayerMsg("I am a disgrace and should be punished!");
+            ChatUtils.sendPlayerMsg("I am a very bad person!");
+            ChatUtils.sendPlayerMsg("Number81 is the best!");
         }
     }
 
@@ -44,12 +45,12 @@ public class Number81 extends Module {
         if(timer < 0){
             count++;
             assert mc.player != null;
-            mc.player.sendChatMessage(String.valueOf(count));
+            ChatUtils.sendPlayerMsg(String.valueOf(count));
             setTimer = true;
         }
         if(count == 81){
             assert mc.player != null;
-            mc.player.sendChatMessage("Number81 on top");
+            ChatUtils.sendPlayerMsg("Number81 on top!");
             toggle();
         }
     }

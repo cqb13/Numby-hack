@@ -238,7 +238,7 @@ public class SafetyNet extends Module {
         
         if (mc.player.getY() < yLock.get() + safetyNetWindow.get() + 1) 
 
-        // dont read thus wrote it very late and itd very ba
+        // don't read thus wrote it very late and itd very ba
         if ((mc.player.getY() < (yLock.get() + safetyNetWindow.get()) - 1 && mc.player.getY() > (yLock.get() - safetyNetWindow.get())) || mc.player.getY() < (backUpYLock.get() + safetyNetWindow.get())) {
             assert mc.world != null;
             if (mc.world.getBlockState(mc.player.getBlockPos().down()).isAir()) {

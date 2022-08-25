@@ -5,9 +5,9 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.4-blue" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.6-blue" alt="Version"></a>
 <a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-blue" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.19-blue" alt="Minecraft Version">
+<img src="https://img.shields.io/badge/Minecraft%a20Version-1.19-blue" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=blue">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack" alt="Stars">
@@ -34,7 +34,9 @@ NumbyRPC         || Displays Numby Hack as your presence on Discord
 Safe Fire        || Does not allow you to walk into fire
 Safety Net       || Places a block under you if your reach a set Y level
 Auto Log Plus    || Automatically disconnects at a specific time and/or place
+Egap Finder      || Searches for Egaps in single players and saves their location
 Tunnel ESP       || Tries to find player made tunnels
+Wurst Glide      || Allows you to glide
 </pre>
 <h2>HUD:</h2>
 <pre>
@@ -58,4 +60,4 @@ player particle  || Renders particles around specific players
 
 </pre>
 
-*Note: Not all of the code was writen by me*
+*Note: Not all of the code was written by me*

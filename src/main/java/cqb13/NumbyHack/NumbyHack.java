@@ -41,6 +41,7 @@ public class NumbyHack extends MeteorAddon {
 
 		Log("Adding modules...");
 		Modules.get().add(new AutoLogPlus());
+		Modules.get().add(new BetterPlace());
 		Modules.get().add(new ChatEncryption());
 		Modules.get().add(new ChorusExploit());
 		Modules.get().add(new Confetti());
@@ -48,7 +49,9 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new Number81());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
+		Modules.get().add(new TanukiEgapFinder());
 		Modules.get().add(new TunnelESP());
+		Modules.get().add(new WurstGlide());
 
 		Log("Adding HUD modules...");
 		Hud.get().register(CombatHUD.INFO);

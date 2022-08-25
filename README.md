@@ -5,12 +5,12 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.6-blue" alt="Version"></a>
-<a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-blue" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%a20Version-1.19-blue" alt="Minecraft Version">
-<img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=blue">
-<img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack" alt="Code Size">
-<img src="https://img.shields.io/github/stars/cqb13/Numby-hack" alt="Stars">
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.6-green" alt="Version"></a>
+<a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
+<img src="https://img.shields.io/badge/Minecraft%a20Version-1.19-green" alt="Minecraft Version">
+<img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
+<img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
+<img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
 </div>
 
 <hr />

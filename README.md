@@ -24,6 +24,8 @@
 <h1>Modules:</h1>
 <h2>General:</h2>
 <pre>
+Auto Log Plus    || Automatically disconnects at a specific time and/or place
+Better Place     || Allows you to place blocks in weird ways
 Chat Encrypt     || Encrypts your chat messages
 Chorus Exploit   || Exploits chorus teleports
 Confetti         || Changes the color of totem pop particles
@@ -33,7 +35,6 @@ Numby Chat       || Improves your chat experience in various ways
 NumbyRPC         || Displays Numby Hack as your presence on Discord
 Safe Fire        || Does not allow you to walk into fire
 Safety Net       || Places a block under you if your reach a set Y level
-Auto Log Plus    || Automatically disconnects at a specific time and/or place
 Egap Finder      || Searches for Egaps in single players and saves their location
 Tunnel ESP       || Tries to find player made tunnels
 Wurst Glide      || Allows you to glide

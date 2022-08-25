@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "numbyhack",
+  "id": "numbyhacks",
   "version": "${version}",
-  "name": "Numby hack",
-  "description": "Number81 on top!",
+  "name": "Numby Hack",
+  "description": "A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.",
   "authors": [
     "cqb13",
     "Crosby"
@@ -27,7 +27,7 @@
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.19",
-    "meteor-client": ">=0.4.9"
+    "minecraft": ">=1.19.2",
+    "meteor-client": ">=0.5.0"
   }
 }

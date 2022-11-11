@@ -1,6 +1,10 @@
-name: Dev Build
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
 concurrency: 
-  group: "build-1.19"
+  group: "build-1.19.2"
   cancel-in-progress: true
 
 on:
@@ -17,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v3.6.0
       with:
         java-version: 17
         distribution: 'zulu'
@@ -29,9 +33,10 @@ jobs:
       run: rm ./build/libs/*-dev.jar || true
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-          repo_token: "${{ secrets.TOKEN }}"
-          automatic_release_tag: "latest-1.19"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest-1.19.2"
           prerelease: false
-          title: "1.19 Build"
+          title: "1.19.2 Build"
           files: |
             ./build/libs/*.jar
+    

@@ -26,13 +26,16 @@
 <pre>
 Auto Log Plus    || Automatically disconnects at a specific time and/or place
 Better Place     || Allows you to place blocks in weird ways
+Bayblade         || Roates you.
 Chat Encrypt     || Encrypts your chat messages
 Chorus Exploit   || Exploits chorus teleports
 Confetti         || Changes the color of totem pop particles
+God Bridge       || Positions you in the best way for bridging
 New Chunks       || Finds new chunks based on flowing liquids
 Number81         || Counts to 81 in chat
 Numby Chat       || Improves your chat experience in various ways
 NumbyRPC         || Displays Numby Hack as your presence on Discord
+Ride Stats       || Nametag with information about rideable entities.
 Safe Fire        || Does not allow you to walk into fire
 Safety Net       || Places a block under you if your reach a set Y level
 Egap Finder      || Searches for Egaps in single players and saves their location
@@ -53,6 +56,7 @@ Kill Streak      || Shows your kill streak
 </pre>
 <h1>Commands:</h1>
 <pre>
+.clear           || Clears your chat
 .trash           || Allows you to destroy any item in your hand
 </pre>
 <h1>Features:</h1>

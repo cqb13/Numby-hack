@@ -42,11 +42,14 @@ public class NumbyHack extends MeteorAddon {
 		Log("Adding modules...");
 		Modules.get().add(new AutoLogPlus());
 		Modules.get().add(new BetterPlace());
+		Modules.get().add(new Beyblade());
 		Modules.get().add(new ChatEncryption());
 		Modules.get().add(new ChorusExploit());
 		Modules.get().add(new Confetti());
+		Modules.get().add(new GodBridge());
 		Modules.get().add(new NewChunks());
 		Modules.get().add(new Number81());
+		Modules.get().add(new RideStats());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
 		Modules.get().add(new TanukiEgapFinder());
@@ -61,6 +64,7 @@ public class NumbyHack extends MeteorAddon {
 
 		Log("Adding Commands...");
 		Commands.get().add(new Trash());
+		Commands.get().add(new ClearChat());
 
 		Log("Initialized successfully!");
 	}

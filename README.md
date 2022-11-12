@@ -24,7 +24,7 @@
 <h1>Modules:</h1>
 <h2>General:</h2>
 <pre>
-Auto Log Plus    || Automatically disconnects at a specific time and/or place
+Auto Log Plus    || Automatically disconnects you when a specific condition is met
 Better Place     || Allows you to place blocks in weird ways
 Bayblade         || Roates you.
 Chat Encrypt     || Encrypts your chat messages
@@ -32,6 +32,7 @@ Chorus Exploit   || Exploits chorus teleports
 Confetti         || Changes the color of totem pop particles
 God Bridge       || Positions you in the best way for bridging
 New Chunks       || Finds new chunks based on flowing liquids
+No Strip         || Prevents you from stripping logs
 Number81         || Counts to 81 in chat
 Numby Chat       || Improves your chat experience in various ways
 NumbyRPC         || Displays Numby Hack as your presence on Discord

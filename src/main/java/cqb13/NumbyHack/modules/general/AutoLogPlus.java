@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.text.Text;
+import net.minecraft.client.network.PlayerListEntry;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 public class AutoLogPlus extends Module {
     private final SettingGroup sgTimeLog = settings.createGroup("Time Log");
     private final SettingGroup sgLocationLog = settings.createGroup("Location Log");
+    private final SettingGroup sgPingLog = settings.createGroup("Ping Log");
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     // time log
@@ -45,6 +47,7 @@ public class AutoLogPlus extends Module {
             .name("one-axis-log")
             .description("Disconnects when a you reach set coordinates on a specific axis.")
             .defaultValue(false)
+            .visible(locationLog::get)
             .build()
     );
 
@@ -90,6 +93,23 @@ public class AutoLogPlus extends Module {
             .visible(locationLog::get)
             .build());
 
+    // ping log
+    private final Setting<Boolean> pingLog = sgPingLog.add(new BoolSetting.Builder()
+            .name("ping-log")
+            .description("Disconnects when your ping is above a certain value.")
+            .defaultValue(false)
+            .build()
+    );
+
+    private final Setting<Integer> pingValue = sgPingLog.add(new IntSetting.Builder()
+            .name("ping-value")
+            .defaultValue(1000)
+            .range(0, 10000)
+            .sliderRange(0, 10000)
+            .visible(pingLog::get)
+            .build()
+    );
+
     // normal log
     private final Setting<Boolean> onlyTrusted = sgGeneral.add(new BoolSetting.Builder()
             .name("enemy")
@@ -113,59 +133,64 @@ public class AutoLogPlus extends Module {
     );
 
     public AutoLogPlus() {
-        super(NumbyHack.CATEGORY, "auto-log+", "Automatically disconnects you at a certain time.");
+        super(NumbyHack.CATEGORY, "auto-log+", "Disconnects you when a specific condition is reached.");
     }
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDateTime now = LocalDateTime.now();
+        if (mc == null || mc.world == null || mc.player == null) return;
 
-        // health log
-        if (mc.player.getHealth() <= 0) {
-            this.toggle();
-            return;
-        }
+        playerLog();
+        disconnectOnHighPing();
+        timeLog();
+        locationLog();
+    }
 
-        // bad player log
+    // bad player log
+    private void playerLog() {
         for (Entity entity : mc.world.getEntities()) {
             if (entity instanceof PlayerEntity && entity.getUuid() != mc.player.getUuid()) {
                 if (onlyTrusted.get() && entity != mc.player && !Friends.get().isFriend((PlayerEntity) entity)) {
-                    mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] A non-trusted player appeared in your render distance.")));
-                    if (toggleOff.get()) this.toggle();
-                    break;
+                    disconnect(Text.of("[Auto Log+] A non trusted player ["+ entity.getEntityName() +"] has entered your render distance."));
                 }
             }
 
         }
+    }
 
-        // time log
+    // time log
+    private void timeLog() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
         if (dtf.format(now).equals(logTime.get())) {
-            mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] log time has been reached " + logTime.get() + ".")));
-            if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
-            if (toggleOff.get()) toggle();
+            disconnect(Text.of("[Auto Log+] Log time has been reached " + logTime.get() + "."));
         }
+    }
 
-        // location log
-        if (locationLog.get() && PlayerUtils.getDimension() == dimension.get()){
+    // location log
+    private void locationLog() {
+        if (locationLog.get() && PlayerUtils.getDimension() == dimension.get()) {
             if (xCoordsMatch() && zCoordsMatch()) {
-                locationLogOff();
+                disconnect(Text.of("[Auto Log+] You have reached your destination."));
             } else if (oneAxis.get()) {
-                if (selectAxis.get() == axisOptions.X && xCoordsMatch()){
-                    locationLogOff();
-                } else if (selectAxis.get() == axisOptions.Z && zCoordsMatch()){
-                    locationLogOff();
+                if (selectAxis.get() == axisOptions.X && xCoordsMatch()) {
+                    disconnect(Text.of("[Auto Log+] You have reached your destination."));
+                } else if (selectAxis.get() == axisOptions.Z && zCoordsMatch()) {
+                    disconnect(Text.of("[Auto Log+] You have reached your destination."));
                 }
             }
         }
     }
 
-    public void locationLogOff(){
-        if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class)) Modules.get().get(AutoReconnect.class).toggle();
-        if (toggleOff.get()) toggle();
+    // ping log
+    private void disconnectOnHighPing() {
+        if (!pingLog.get()) return;
+        if (mc.getNetworkHandler() == null || mc.player == null) return;
+        PlayerListEntry playerListEntry = mc.getNetworkHandler().getPlayerListEntry(mc.player.getUuid());
 
-        assert mc.player != null;
-        mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(Text.literal("[Auto Log+] Arrived at destination.")));
+        int ping = playerListEntry.getLatency();
+
+        if (ping >= pingValue.get()) disconnect(Text.of("[Auto Log+] High ping [" + ping + "]"));
     }
 
     private boolean xCoordsMatch() {
@@ -175,6 +200,17 @@ public class AutoLogPlus extends Module {
     private boolean zCoordsMatch() {
         return (mc.player.getZ() <= zCoords.get() + radius.get() && mc.player.getZ() >= zCoords.get() - radius.get());
     }
+
+    private void disconnect(Text text){
+        if (mc.getNetworkHandler() == null) return;
+        mc.player.networkHandler.onDisconnect(new DisconnectS2CPacket(text));
+
+        if (toggleOff.get()) toggle();
+
+        if (toggleAutoReconnect.get() && Modules.get().isActive(AutoReconnect.class))
+            Modules.get().get(AutoReconnect.class).toggle();
+    }
+
     public enum axisOptions {
         X,
         Z,

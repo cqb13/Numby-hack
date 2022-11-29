@@ -36,6 +36,7 @@ public class NumbyHack extends MeteorAddon {
 				.set("kdr", StatsUtils::getKDR)
 				.set("killstreak", StatsUtils::getKillstreak)
 				.set("highscore", StatsUtils::getHighscore)
+				.set("brand", StatsUtils::getServerBrand)
 				.set("crystalsps", StatsUtils::getCrystalsPs))
 		);
 
@@ -46,7 +47,9 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new ChatEncryption());
 		Modules.get().add(new ChorusExploit());
 		Modules.get().add(new Confetti());
+		Modules.get().add(new FloRida());
 		Modules.get().add(new GodBridge());
+		Modules.get().add(new IgnoreDeaths());
 		Modules.get().add(new NewChunks());
 		Modules.get().add(new NoStrip());
 		Modules.get().add(new Number81());
@@ -62,9 +65,11 @@ public class NumbyHack extends MeteorAddon {
 		Hud.get().register(ItemCounter.INFO);
 		Hud.get().register(Logo.INFO);
 		Hud.get().register(TextPresets.INFO);
+		Hud.get().register(TextRadarHud.INFO);
 
 		Log("Adding Commands...");
 		Commands.get().add(new Trash());
+		Commands.get().add(new HeadItem());
 		Commands.get().add(new ClearChat());
 
 		Log("Initialized successfully!");

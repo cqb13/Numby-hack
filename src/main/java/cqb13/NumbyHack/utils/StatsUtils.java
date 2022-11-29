@@ -52,6 +52,13 @@ public class StatsUtils {
         return Value.number(crystalsPerSec);
     }
 
+    public static Value getServerBrand() {
+        if (!Utils.canUpdate() || mc.player.getServerBrand() == null) return Value.string("None");
+
+        String brand = mc.player.getServerBrand();
+        if (mc.isInSingleplayer() && brand.equals("fabric")) brand = "Fabric";
+        return Value.string(brand);
+    }
 
     // Kill Stats
     public static boolean isTarget() {

@@ -5,7 +5,7 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.7-green" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.8-green" alt="Version"></a>
 <a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
@@ -30,6 +30,7 @@ Bayblade         || Roates you.
 Chat Encrypt     || Encrypts your chat messages
 Chorus Exploit   || Exploits chorus teleports
 Confetti         || Changes the color of totem pop particles
+FloRida          || Makes you spin and look cool
 God Bridge       || Positions you in the best way for bridging
 New Chunks       || Finds new chunks based on flowing liquids
 No Strip         || Prevents you from stripping logs
@@ -54,10 +55,13 @@ Deaths           || Shows the amount of deaths
 KDR              || Shows kill death ratio
 High Score       || Shows high score
 Kill Streak      || Shows your kill streak
+Text Radar       || Shows you the names of players in your render distance along with their stats
+Server Brand     || Shows the server brand
 </pre>
 <h1>Commands:</h1>
 <pre>
 .clear           || Clears your chat
+.head            || Puts the item you are holding in your head slot
 .trash           || Allows you to destroy any item in your hand
 </pre>
 <h1>Features:</h1>

@@ -1,9 +1,17 @@
 package cqb13.NumbyHack.utils;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
+import meteordevelopment.meteorclient.systems.config.Config;
+import meteordevelopment.meteorclient.utils.Utils;
+import meteordevelopment.starscript.value.Value;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import javax.crypto.BadPaddingException;
@@ -18,6 +26,14 @@ import java.util.Arrays;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class CHMainUtils {
+
+    public static void clickSlotPacket(int fromIndex, int toIndex, SlotActionType type) {
+        ScreenHandler sh = mc.player.currentScreenHandler;
+        Slot slot = sh.getSlot(fromIndex);
+        Int2ObjectArrayMap stack = new Int2ObjectArrayMap();
+        stack.put(fromIndex, slot.getStack());
+        mc.player.networkHandler.sendPacket(new ClickSlotC2SPacket(sh.syncId, sh.getRevision(), slot.id, toIndex, type, sh.getSlot(fromIndex).getStack(), stack));
+    }
 
     public static String encrypt(String text, String key) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance("AES");
@@ -55,6 +71,7 @@ public class CHMainUtils {
 
         return msg;
     }
+
     public static Entity deadEntity;
     public static boolean isDeathPacket(PacketEvent.Receive event) {
         if (event.packet instanceof EntityStatusS2CPacket packet) {

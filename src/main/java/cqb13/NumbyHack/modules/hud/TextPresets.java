@@ -15,6 +15,7 @@ public class TextPresets {
         addPreset("Highscore", "Highscore: #1{numbyhack.highscore}", 0);
         addPreset("Killstreak", "Killstreak: #1{numbyhack.killstreak}", 0);
         addPreset("Crystals/s", "Crystals/s: #1{numbyhack.crystalsps}", 0);
+        addPreset("Server Brand", "Server Brand: #1{numbyhack.brand}", 0);
     }
 
     private static TextHud create() {

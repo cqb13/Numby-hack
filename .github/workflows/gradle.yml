@@ -4,7 +4,7 @@
 name: Java CI with Gradle
 
 concurrency: 
-  group: "build-1.19.2"
+  group: "build-1.19.3"
   cancel-in-progress: true
 
 on:
@@ -19,9 +19,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3.2.0
     - name: Set up JDK 17
-      uses: actions/setup-java@v3.7.0
+      uses: actions/setup-java@v3.9.0
       with:
         java-version: 17
         distribution: 'zulu'
@@ -34,9 +34,9 @@ jobs:
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest-1.19.2"
+          automatic_release_tag: "latest-1.19.3"
           prerelease: false
-          title: "1.19.2 Build"
+          title: "1.19.3 Build"
           files: |
             ./build/libs/*.jar
     

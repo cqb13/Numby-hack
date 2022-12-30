@@ -11,7 +11,9 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-
+/**
+ * made by cqb13
+ */
 public class NoStrip extends Module {
     private final SettingGroup sgBlocks = settings.createGroup("Blocks");
 

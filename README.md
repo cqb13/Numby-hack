@@ -5,9 +5,9 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.8-green" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.9-green" alt="Version"></a>
 <a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.2-green" alt="Minecraft Version">
+<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.3-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
@@ -29,6 +29,7 @@ Better Place     || Allows you to place blocks in weird ways
 Bayblade         || Roates you.
 Chat Encrypt     || Encrypts your chat messages
 Chorus Exploit   || Exploits chorus teleports
+Condition Toggle || Toggles modules based on conditions
 Confetti         || Changes the color of totem pop particles
 FloRida          || Makes you spin and look cool
 God Bridge       || Positions you in the best way for bridging

@@ -46,6 +46,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new Beyblade());
 		Modules.get().add(new ChatEncryption());
 		Modules.get().add(new ChorusExploit());
+		Modules.get().add(new ConditionToggle());
 		Modules.get().add(new Confetti());
 		Modules.get().add(new FloRida());
 		Modules.get().add(new GodBridge());

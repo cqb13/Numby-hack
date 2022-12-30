@@ -28,10 +28,18 @@ public class AutoLogPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     // time log
+    private final Setting<Boolean> timeLog = sgTimeLog.add(new BoolSetting.Builder()
+            .name("time-log")
+            .description("Logs you out after a certain amount of time.")
+            .defaultValue(false)
+            .build()
+    );
+
     private final Setting<String> logTime = sgTimeLog.add(new StringSetting.Builder()
             .name("time")
             .description("The time to log you out (uses 24 hour time).")
             .defaultValue("12:00")
+            .visible(timeLog::get)
             .build()
     );
 
@@ -160,10 +168,12 @@ public class AutoLogPlus extends Module {
 
     // time log
     private void timeLog() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalDateTime now = LocalDateTime.now();
-        if (dtf.format(now).equals(logTime.get())) {
-            disconnect(Text.of("[Auto Log+] Log time has been reached " + logTime.get() + "."));
+        if (timeLog.get()) {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+            if (dtf.format(now).equals(logTime.get())) {
+                disconnect(Text.of("[Auto Log+] Log time has been reached " + logTime.get() + "."));
+            }
         }
     }
 

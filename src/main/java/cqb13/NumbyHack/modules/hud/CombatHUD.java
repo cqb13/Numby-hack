@@ -15,7 +15,6 @@ import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
-import meteordevelopment.meteorclient.utils.misc.FakeClientPlayer;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.render.RenderUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
@@ -29,8 +28,8 @@ import net.minecraft.item.BedItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,15 +188,17 @@ public class CombatHUD extends HudElement {
             double x = this.x;
             double y = this.y;
 
-            if (isInEditor()) playerEntity = FakeClientPlayer.getPlayer();
+            if (isInEditor()) playerEntity = mc.player;
             else playerEntity = TargetUtils.getPlayerTarget(range.get(), SortPriority.LowestDistance);
 
-            if (playerEntity == null) return;
+            if (playerEntity == null && !isInEditor()) return;
 
             // Background
             Renderer2D.COLOR.begin();
             Renderer2D.COLOR.quad(x, y, this.getWidth(), this.getHeight(), backgroundColor.get());
             Renderer2D.COLOR.render(null);
+
+            if (playerEntity == null) return;
 
             // Player Model
             InventoryScreen.drawEntity(
@@ -424,7 +425,7 @@ public class CombatHUD extends HudElement {
     public static List<Enchantment> getDefaultEnchantments() {
         List<Enchantment> enchantments = new ArrayList<>();
 
-        for (Enchantment enchantment : Registry.ENCHANTMENT) {
+        for (Enchantment enchantment : Registries.ENCHANTMENT) {
             enchantments.add(enchantment);
         }
 

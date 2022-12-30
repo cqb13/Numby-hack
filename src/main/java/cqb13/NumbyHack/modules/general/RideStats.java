@@ -6,7 +6,6 @@ import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.renderer.text.TextRenderer;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.utils.misc.Vec3;
 import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
@@ -16,13 +15,16 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.LlamaEntity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3d;
 
 import java.util.Objects;
 
 // https://github.com/Declipsonator/Meteor-Tweaks/blob/main/src/main/java/me/declipsonator/meteortweaks/modules/RideStats.java
 
 public class RideStats extends Module {
-    private final Vec3 pos = new Vec3();
+    private final Vector3d pos = new Vector3d();
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgEntities = settings.createGroup("Entities");
@@ -130,7 +132,11 @@ public class RideStats extends Module {
             boolean donkey = entity.getType() == EntityType.DONKEY && this.donkey.get();
             boolean llama = entity.getType() == EntityType.LLAMA && this.llama.get();
             if (horse || mule || donkey || llama) {
-                pos.set(entity, event.tickDelta);
+                pos.set(new double[]{
+                        MathHelper.lerp(event.tickDelta, entity.lastRenderX, entity.getX()),
+                        MathHelper.lerp(event.tickDelta, entity.lastRenderY, entity.getY()),
+                        MathHelper.lerp(event.tickDelta, entity.lastRenderZ, entity.getZ())
+                });
                 pos.add(0, entity.getEyeHeight(entity.getPose()) + 0.75, 0);
                 pos.add(0, -1 + height.get(), 0);
                 if (NametagUtils.to2D(pos, scale.get())) renderHorseNametag((AbstractHorseEntity) entity, entity);

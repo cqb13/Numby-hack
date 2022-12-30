@@ -5,11 +5,12 @@
   "name": "Numby Hack",
   "description": "A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.",
   "authors": [
-    "cqb13",
-    "Crosby"
+    "cqb13"
   ],
   "contact": {
-    "repo": "https://github.com/cqb13/Numby-hack"
+    "repo": "https://github.com/cqb13/Numby-hack",
+    "sources": "https://github.com/cqb13/Numby-hack",
+    "issues": "https://github.com/cqb13/Numby-hack/issues"
   },
   "icon": "assets/numby-hack/textures/icon.png",
   "environment": "client",
@@ -27,7 +28,7 @@
   },
   "depends": {
     "java": ">=17",
-    "minecraft": ">=1.19.2",
-    "meteor-client": ">=0.5.0"
+    "minecraft": ">=1.19.3",
+    "meteor-client": ">=0.5.1"
   }
 }

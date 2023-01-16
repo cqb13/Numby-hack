@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "numbyhacks",
+  "id": "numbyhack",
   "version": "${version}",
   "name": "Numby Hack",
   "description": "A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.",

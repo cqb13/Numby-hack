@@ -11,6 +11,9 @@
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
+
+<a href="https://discord.gg/yKd2h4gkzu"><img src="https://invidget.switchblade.xyz/yKd2h4gkzu"></a>
+
 </div>
 
 <hr />
@@ -26,13 +29,14 @@
 <pre>
 Auto Log Plus    || Automatically disconnects you when a specific condition is met
 Better Place     || Allows you to place blocks in weird ways
-Bayblade         || Roates you.
+Bayblade         || People see you spin.
 Chat Encrypt     || Encrypts your chat messages
 Chorus Exploit   || Exploits chorus teleports
 Condition Toggle || Toggles modules based on conditions
 Confetti         || Changes the color of totem pop particles
 FloRida          || Makes you spin and look cool
 God Bridge       || Positions you in the best way for bridging
+Ignore Deaths    || Ignores death messages from specific players
 New Chunks       || Finds new chunks based on flowing liquids
 No Strip         || Prevents you from stripping logs
 Number81         || Counts to 81 in chat
@@ -47,10 +51,11 @@ Wurst Glide      || Allows you to glide
 </pre>
 <h2>HUD:</h2>
 <pre>
+81               || Number81 On Top!
 Combat HUD       || Shows you information about the closest player to you
 Item Counter     || Counts specific items from your inventory
 Logo             || Displays Numby Hack logo on screen
-81               || Number81 On Top!
+Key Press HUD    || Displays the key you pressed
 Kills            || Shows the amount of player kills
 Deaths           || Shows the amount of deaths
 KDR              || Shows kill death ratio

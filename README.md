@@ -12,7 +12,8 @@
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
 
-<a href="https://discord.gg/yKd2h4gkzu"><img src="https://invidget.switchblade.xyz/yKd2h4gkzu"></a>
+<p>Join for support<p>
+<a href="https://discord.gg/TtmQs7BzPJ"><img src="https://invidget.switchblade.xyz/TtmQs7BzPJ"></a>
 
 </div>
 

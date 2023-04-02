@@ -5,9 +5,9 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v1.9-green" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v2.0-green" alt="Version"></a>
 <a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.3-green" alt="Minecraft Version">
+<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.4-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
@@ -24,7 +24,7 @@
 - Put it in your `.minecraft/mods` folder where you have installed Meteor.
 
 *Note: Meteor Client is required for this addon*
-
+[README.md](README.md)
 <h1>Modules:</h1>
 <h2>General:</h2>
 <pre>

@@ -62,7 +62,6 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new WurstGlide());
 
 		Log("Adding HUD modules...");
-		Hud.get().register(CombatHUD.INFO);
 		Hud.get().register(ItemCounter.INFO);
 		Hud.get().register(Keys.INFO);
 		Hud.get().register(Logo.INFO);

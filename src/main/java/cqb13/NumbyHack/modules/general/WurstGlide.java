@@ -60,6 +60,7 @@ public class WurstGlide extends Module {
         }
 
         player.setVelocity(v.x, Math.max(v.y, -fallSpeed.get()), v.z);
-        player.airStrafingSpeed *= moveSpeed.get();
+        //player.airStrafingSpeed *= moveSpeed.get();
+        player.sidewaysSpeed *= moveSpeed.get();
     }
 }

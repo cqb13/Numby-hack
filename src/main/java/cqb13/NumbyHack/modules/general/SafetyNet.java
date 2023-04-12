@@ -180,7 +180,7 @@ public class SafetyNet extends Module {
                     Vec3d vec = mc.player.getPos().add(mc.player.getVelocity()).add(0, -0.5f, 0);
                     bp.set(vec.getX(), yLock.get(), vec.getZ());
                 } else {
-                    info ("Safetynet landed on block, disabling.");
+                    info ("Safetynet landed on block | disabling");
                     toggle();
                 }
             }

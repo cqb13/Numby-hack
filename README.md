@@ -53,7 +53,6 @@ Wurst Glide      || Allows you to glide
 <h2>HUD:</h2>
 <pre>
 81               || Number81 On Top!
-Combat HUD       || Shows you information about the closest player to you
 Item Counter     || Counts specific items from your inventory
 Logo             || Displays Numby Hack logo on screen
 Key Press HUD    || Displays the key you pressed

@@ -16,6 +16,7 @@ public class TextPresets {
         addPreset("Killstreak", "Killstreak: #1{numbyhack.killstreak}", 0);
         addPreset("Crystals/s", "Crystals/s: #1{numbyhack.crystalsps}", 0);
         addPreset("Server Brand", "Server Brand: #1{numbyhack.brand}", 0);
+        addPreset("Baritone Process", "Baritone Process: #1{numbyhack.baritone}", 0);
     }
 
     private static TextHud create() {

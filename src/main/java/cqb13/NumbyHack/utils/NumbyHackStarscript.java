@@ -1,5 +1,7 @@
 package cqb13.NumbyHack.utils;
 
+import baritone.api.BaritoneAPI;
+import baritone.api.process.IBaritoneProcess;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -16,9 +18,9 @@ import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;
 import static cqb13.NumbyHack.utils.CHMainUtils.isDeathPacket;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-public class StatsUtils {
+public class NumbyHackStarscript {
     public static void init() {
-        MeteorClient.EVENT_BUS.subscribe(StatsUtils.class);
+        MeteorClient.EVENT_BUS.subscribe(NumbyHackStarscript.class);
     }
 
     // Fields
@@ -30,7 +32,6 @@ public class StatsUtils {
     private static int ticksPassed;
     public static int crystalsPerSec;
     public static int first;
-
 
     // Starscript Methods
     public static Value getKills() {
@@ -51,7 +52,7 @@ public class StatsUtils {
     public static Value getCrystalsPs() {
         return Value.number(crystalsPerSec);
     }
-
+    public static Value getBaritoneAction() {return Value.string(baritoneProcess());}
     public static Value getServerBrand() {
         if (!Utils.canUpdate() || mc.player.getServerBrand() == null) return Value.string("None");
 
@@ -68,6 +69,14 @@ public class StatsUtils {
             }
         }
         return false;
+    }
+
+    public static String baritoneProcess() {
+        IBaritoneProcess process = BaritoneAPI.getProvider().getPrimaryBaritone().getPathingControlManager().mostRecentInControl().orElse(null);
+        String action = "";
+        if (process != null)
+            action = process.displayName();
+        return action;
     }
 
     @EventHandler
@@ -87,9 +96,9 @@ public class StatsUtils {
     }
 
     public static String KDR() {
-        if (StatsUtils.deaths < 2) return StatsUtils.kills + ".00";
+        if (NumbyHackStarscript.deaths < 2) return NumbyHackStarscript.kills + ".00";
         else {
-            Double doubleKD = (double) StatsUtils.kills / StatsUtils.deaths;
+            Double doubleKD = (double) NumbyHackStarscript.kills / NumbyHackStarscript.deaths;
             return String.format("%.2f", doubleKD);
         }
     }

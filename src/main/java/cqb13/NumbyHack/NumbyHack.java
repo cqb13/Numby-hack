@@ -29,15 +29,16 @@ public class NumbyHack extends MeteorAddon {
 		Log("Adding Player Particles...");
 		PlayerParticle.init();
 
-		StatsUtils.init();
+		NumbyHackStarscript.init();
 		MeteorStarscript.ss.set("numbyhack", Value.map(new ValueMap()
-				.set("kills", StatsUtils::getKills)
-				.set("deaths", StatsUtils::getDeaths)
-				.set("kdr", StatsUtils::getKDR)
-				.set("killstreak", StatsUtils::getKillstreak)
-				.set("highscore", StatsUtils::getHighscore)
-				.set("brand", StatsUtils::getServerBrand)
-				.set("crystalsps", StatsUtils::getCrystalsPs))
+				.set("kills", NumbyHackStarscript::getKills)
+				.set("deaths", NumbyHackStarscript::getDeaths)
+				.set("kdr", NumbyHackStarscript::getKDR)
+				.set("killstreak", NumbyHackStarscript::getKillstreak)
+				.set("highscore", NumbyHackStarscript::getHighscore)
+				.set("brand", NumbyHackStarscript::getServerBrand)
+				.set("crystalsps", NumbyHackStarscript::getCrystalsPs)
+				.set("baritone", NumbyHackStarscript::getBaritoneAction))
 		);
 
 		Log("Adding modules...");
@@ -49,6 +50,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new ConditionToggle());
 		Modules.get().add(new Confetti());
 		Modules.get().add(new FloRida());
+		Modules.get().add(new GameSettings());
 		Modules.get().add(new GodBridge());
 		Modules.get().add(new IgnoreDeaths());
 		Modules.get().add(new NewChunks());

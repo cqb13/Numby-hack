@@ -5,6 +5,7 @@
   "client": [
     "ClientPlayerEntityMixin",
     "CustomPayloadS2CPacketMixin",
+    "DeathScreenMixin",
     "EntityAccessor",
     "TotemParticleMixin",
     "meteor.CrystalAuraAccessor",

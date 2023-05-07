@@ -6,7 +6,7 @@ import cqb13.NumbyHack.modules.general.*;
 import cqb13.NumbyHack.modules.hud.*;
 import cqb13.NumbyHack.utils.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
-import meteordevelopment.meteorclient.systems.commands.Commands;
+import meteordevelopment.meteorclient.commands.Commands;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -71,9 +71,9 @@ public class NumbyHack extends MeteorAddon {
 		Hud.get().register(TextRadarHud.INFO);
 
 		Log("Adding Commands...");
-		Commands.get().add(new Trash());
-		Commands.get().add(new HeadItem());
-		Commands.get().add(new ClearChat());
+		Commands.add(new Trash());
+		Commands.add(new HeadItem());
+		Commands.add(new ClearChat());
 
 		Log("Initialized successfully!");
 	}

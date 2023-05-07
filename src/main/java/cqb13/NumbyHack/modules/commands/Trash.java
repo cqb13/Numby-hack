@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import meteordevelopment.meteorclient.systems.commands.Command;
+import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.command.CommandSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
@@ -16,6 +16,7 @@ import net.minecraft.util.collection.DefaultedList;
 import java.util.List;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class Trash extends Command {
     public Trash() {

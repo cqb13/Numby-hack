@@ -1,10 +1,11 @@
 package cqb13.NumbyHack.modules.commands;
 
-import cqb13.NumbyHack.NumbyHack;
 import cqb13.NumbyHack.utils.CHMainUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import meteordevelopment.meteorclient.systems.commands.Command;
+import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.screen.slot.SlotActionType;
+
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class HeadItem extends Command {
     public HeadItem() {

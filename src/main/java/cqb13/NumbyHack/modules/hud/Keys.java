@@ -22,18 +22,21 @@ public class Keys extends HudElement {
             .sliderRange(0, 5)
             .build()
     );
+
     private final Setting<SettingColor> textcolor = sgGeneral.add(new ColorSetting.Builder()
             .name("Text color")
             .description(".")
             .defaultValue(new SettingColor(146,188,98, 155))
             .build()
     );
+
     private final Setting<Boolean> shadow = sgGeneral.add(new BoolSetting.Builder()
             .name("Text shadow")
             .description("Should the text have a shadow")
             .defaultValue(true)
             .build()
     );
+
     private final Setting<drawMode> drawingMode = sgGeneral.add(new EnumSetting.Builder<drawMode>()
             .name("Draw mode")
             .description(".")

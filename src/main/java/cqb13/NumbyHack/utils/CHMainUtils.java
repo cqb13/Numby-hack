@@ -2,8 +2,6 @@ package cqb13.NumbyHack.utils;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
-import baritone.api.BaritoneAPI;
-import baritone.api.process.IBaritoneProcess;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;

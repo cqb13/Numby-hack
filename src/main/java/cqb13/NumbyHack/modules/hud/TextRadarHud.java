@@ -29,7 +29,6 @@ public class TextRadarHud extends HudElement {
     private final SettingGroup sgBackground = settings.createGroup("Background");
 
     // General
-
     private final Setting<Integer> limit = sgGeneral.add(new IntSetting.Builder()
             .name("limit")
             .description("The max number of players to show.")
@@ -103,7 +102,6 @@ public class TextRadarHud extends HudElement {
     );
 
     // Scale
-
     private final Setting<Boolean> customScale = sgScale.add(new BoolSetting.Builder()
             .name("custom-scale")
             .description("Applies custom text scale rather than the global one.")
@@ -122,7 +120,6 @@ public class TextRadarHud extends HudElement {
     );
 
     // Background
-
     private final Setting<Boolean> background = sgBackground.add(new BoolSetting.Builder()
             .name("background")
             .description("Displays background.")

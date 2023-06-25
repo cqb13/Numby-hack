@@ -5,9 +5,9 @@
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
   <!-- Fancy badges -->
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v2.1-green" alt="Version"></a>
+<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v2.2-green" alt="Version"></a>
 <a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.19.4-green" alt="Minecraft Version">
+<img src="https://img.shields.io/badge/Minecraft%20Version-1.20-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
@@ -36,15 +36,18 @@ Chorus Exploit   || Exploits chorus teleports
 Condition Toggle || Toggles modules based on conditions
 Confetti         || Changes the color of totem pop particles
 FloRida          || Makes you spin and look cool
+Game Settings    || Allows you to change some game settings
 God Bridge       || Positions you in the best way for bridging
 Ignore Deaths    || Ignores death messages from specific players
+Jump Helper      || Shows how far you can jump
+Log Out Spots    || Shows where a player has logged out
 New Chunks       || Finds new chunks based on flowing liquids
 No Strip         || Prevents you from stripping logs
 Number81         || Counts to 81 in chat
 Numby Chat       || Improves your chat experience in various ways
 NumbyRPC         || Displays Numby Hack as your presence on Discord
 Ride Stats       || Nametag with information about rideable entities.
-Safe Fire        || Does not allow you to walk into fire
+Safe Fire        || Does not allow you to walk into fire sources
 Safety Net       || Places a block under you if your reach a set Y level
 Egap Finder      || Searches for Egaps in single players and saves their location
 Tunnel ESP       || Tries to find player made tunnels

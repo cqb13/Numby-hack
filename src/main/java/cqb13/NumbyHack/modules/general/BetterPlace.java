@@ -85,7 +85,7 @@ public class BetterPlace extends Module {
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (!(hitResult instanceof BlockHitResult)
-                || !mc.world.getBlockState(((BlockHitResult) hitResult).getBlockPos()).getMaterial().isReplaceable()
+                || !mc.world.getBlockState(((BlockHitResult) hitResult).getBlockPos()).isReplaceable()
                 || !(mc.player.getMainHandStack().getItem() instanceof BlockItem)
                 || !render.get()) return;
 

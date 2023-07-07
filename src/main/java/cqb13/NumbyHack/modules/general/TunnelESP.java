@@ -49,7 +49,7 @@ public class TunnelESP extends Module {
     private double[] rPos;
 
     public TunnelESP() {
-        super(NumbyHack.CATEGORY, "tunnel-esp", "Shows you were tunnels are. (meteor has it, this one was first)");
+        super(NumbyHack.CATEGORY, "tunnel-esp", "Broken don't use! (meteor has it, this one was first)");
     }
 
     @EventHandler

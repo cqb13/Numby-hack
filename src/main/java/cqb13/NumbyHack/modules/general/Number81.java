@@ -6,6 +6,8 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 
+import java.util.Objects;
+
 /**
  * made by cqb13
  */
@@ -26,6 +28,11 @@ public class Number81 extends Module {
 
     @Override
     public void onDeactivate() {
+        assert mc.player != null;
+        var name = mc.player.getName();
+        if (Objects.equals(name.toString(), "cqb13") || Objects.equals(name.toString(), "Number81")) {
+            return;
+        }
         if (count != 81) {
             assert mc.player != null;
             ChatUtils.sendPlayerMsg("I am a lazy bitch and did not count to 81!");

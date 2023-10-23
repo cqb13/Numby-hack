@@ -1,7 +1,5 @@
 package cqb13.NumbyHack.utils;
 
-import baritone.api.BaritoneAPI;
-import baritone.api.process.IBaritoneProcess;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -13,6 +11,8 @@ import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.starscript.value.Value;
 import net.minecraft.item.Items;
+
+import java.util.Set;
 
 import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;
 import static cqb13.NumbyHack.utils.CHMainUtils.isDeathPacket;
@@ -52,13 +52,11 @@ public class NumbyHackStarscript {
     public static Value getCrystalsPs() {
         return Value.number(crystalsPerSec);
     }
-    public static Value getBaritoneAction() {return Value.string(baritoneProcess());}
     public static Value getServerBrand() {
-        if (!Utils.canUpdate() || mc.player.getServerBrand() == null) return Value.string("None");
+        if (!Utils.canUpdate() || mc.player.getServer().getSaveProperties().getServerBrands() == null) return Value.string("None");
 
-        String brand = mc.player.getServerBrand();
-        if (mc.isInSingleplayer() && brand.equals("fabric")) brand = "Fabric";
-        return Value.string(brand);
+        Set<String> brand = mc.player.getServer().getSaveProperties().getServerBrands();
+        return Value.string(brand.toString());
     }
 
     // Kill Stats
@@ -69,14 +67,6 @@ public class NumbyHackStarscript {
             }
         }
         return false;
-    }
-
-    public static String baritoneProcess() {
-        IBaritoneProcess process = BaritoneAPI.getProvider().getPrimaryBaritone().getPathingControlManager().mostRecentInControl().orElse(null);
-        String action = "";
-        if (process != null)
-            action = process.displayName();
-        return action;
     }
 
     @EventHandler

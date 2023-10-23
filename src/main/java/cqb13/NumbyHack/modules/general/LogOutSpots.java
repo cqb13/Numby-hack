@@ -250,9 +250,9 @@ public class LogOutSpots extends Module {
             y = entity.getY();
             z = entity.getZ() - halfWidth;
 
-            xWidth = entity.getBoundingBox().getXLength();
-            zWidth = entity.getBoundingBox().getZLength();
-            height = entity.getBoundingBox().getYLength();
+            xWidth = entity.getBoundingBox().getLengthX();
+            zWidth = entity.getBoundingBox().getLengthZ();
+            height = entity.getBoundingBox().getLengthY();
 
             this.entity = entity;
 

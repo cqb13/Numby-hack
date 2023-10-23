@@ -127,7 +127,7 @@ public class PlayerParticle {
         effect.setPosition(x, y, z);
         effect.refreshPositionAfterTeleport(x, y, z);
 
-        mc.world.addEntity(effect.getId(), effect);
+        mc.world.addEntity(effect);
 
         if (!LIGHTNING_HAS_STRUCK) {
             mc.world.playSound(mc.player, x, y, z, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000.0F, 0.16000001F);

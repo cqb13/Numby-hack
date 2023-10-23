@@ -1,9 +1,7 @@
 package cqb13.NumbyHack.events;
 
-import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.Cancellable;
-import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
-
+import net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket;
 public class CustomPayloadEvent extends Cancellable {
     private static final CustomPayloadEvent INSTANCE = new CustomPayloadEvent();
 

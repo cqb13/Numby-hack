@@ -170,7 +170,7 @@ public class TextRadarHud extends HudElement {
             if (entity.equals(mc.player)) continue;
             if (!friends.get() && Friends.get().isFriend(entity)) continue;
 
-            String text = entity.getEntityName();
+            String text = entity.getName().getString();
             if (health.get()) text += " " + (int) entity.getHealth() + entity.getAbsorptionAmount();
             if (ping.get()) text += String.format("(%sms)", EntityUtils.getPing(entity));
             if (distance.get()) text += String.format("(%sm)", Math.round(Objects.requireNonNull(mc.getCameraEntity()).distanceTo(entity)));
@@ -198,7 +198,7 @@ public class TextRadarHud extends HudElement {
             if (entity.equals(mc.player)) continue;
             if (!friends.get() && Friends.get().isFriend(entity)) continue;
 
-            String text = entity.getEntityName();
+            String text = entity.getName().getString();
             Color color = PlayerUtils.getPlayerColor(entity, primaryColor.get());
 
             double width = renderer.textWidth(text, shadow.get(), getScale());

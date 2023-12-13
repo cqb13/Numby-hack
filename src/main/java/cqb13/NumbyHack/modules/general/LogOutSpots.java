@@ -257,7 +257,7 @@ public class LogOutSpots extends Module {
             this.entity = entity;
 
             uuid = entity.getUuid();
-            name = entity.getEntityName();
+            name = entity.getName().getString();
             health = Math.round(entity.getHealth() + entity.getAbsorptionAmount());
             maxHealth = Math.round(entity.getMaxHealth() + entity.getAbsorptionAmount());
 

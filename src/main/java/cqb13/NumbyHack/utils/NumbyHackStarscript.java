@@ -52,12 +52,6 @@ public class NumbyHackStarscript {
     public static Value getCrystalsPs() {
         return Value.number(crystalsPerSec);
     }
-    public static Value getServerBrand() {
-        if (!Utils.canUpdate() || mc.player.getServer().getSaveProperties().getServerBrands() == null) return Value.string("None");
-
-        Set<String> brand = mc.player.getServer().getSaveProperties().getServerBrands();
-        return Value.string(brand.toString());
-    }
 
     // Kill Stats
     public static boolean isTarget() {

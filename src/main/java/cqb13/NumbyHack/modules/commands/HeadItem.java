@@ -5,8 +5,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.screen.slot.SlotActionType;
 
-import static meteordevelopment.meteorclient.MeteorClient.mc;
-
 public class HeadItem extends Command {
     public HeadItem() {
         super("head-item", "Allows you to put any item in your head slot.", "head");

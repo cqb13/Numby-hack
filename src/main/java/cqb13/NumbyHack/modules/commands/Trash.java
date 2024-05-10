@@ -15,9 +15,6 @@ import net.minecraft.util.collection.DefaultedList;
 
 import java.util.List;
 
-import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
-import static meteordevelopment.meteorclient.MeteorClient.mc;
-
 public class Trash extends Command {
     public Trash() {
         super("trashcan", "Allows your to silently destroy any item in your hand.", "trash");

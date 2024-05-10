@@ -93,7 +93,7 @@ public class BetterPlace extends Module {
     }
 
     private void setHitResult() {
-        final double r = customRange.get() ? range.get() : mc.interactionManager.getReachDistance();
+        final double r = customRange.get() ? range.get() : 4.5;
         for (int i = (int) r; i > 0; i -= 1D) {
             hitResult = mc.getCameraEntity().raycast(Math.min(r, i), 0, false);
             if (hitResult instanceof BlockHitResult && isValid(((BlockHitResult) hitResult).getBlockPos())) return;

@@ -12,8 +12,6 @@ import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.starscript.value.Value;
 import net.minecraft.item.Items;
 
-import java.util.Set;
-
 import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;
 import static cqb13.NumbyHack.utils.CHMainUtils.isDeathPacket;
 import static meteordevelopment.meteorclient.MeteorClient.mc;

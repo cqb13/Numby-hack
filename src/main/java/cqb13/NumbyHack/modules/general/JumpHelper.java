@@ -10,7 +10,6 @@ import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.MathHelper;
 
 public class JumpHelper extends Module {
 

@@ -150,8 +150,8 @@ public class ItemCounter extends HudElement {
         if (item instanceof BedItem) return "Beds";
         if (item instanceof ExperienceBottleItem) return "XP Bottles";
         if (item instanceof EndCrystalItem) return "Crystals";
-        if (item instanceof EnchantedGoldenAppleItem) return "Gapples";
         if (item instanceof EnderPearlItem) return "Pearls";
+        if (item == Items.ENCHANTED_GOLDEN_APPLE) return "Gapples";
         if (item == Items.TOTEM_OF_UNDYING) return "Totems";
         if (item == Items.ENDER_CHEST) return "Echests";
         if (item == Items.OBSIDIAN) return "Obby";

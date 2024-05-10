@@ -16,7 +16,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3d;
 
 import java.util.Objects;
@@ -163,7 +162,7 @@ public class RideStats extends Module {
         String speedText = " " + String.format("%.1f", speed).replace(".", ",") + " bps";
 
         // Jump
-        double maxJump = jumpStrengthToJumpHeight(horseEntity.getJumpStrength());
+        double maxJump = jumpStrengthToJumpHeight(horseEntity.getAttributes().getBaseValue(EntityAttributes.GENERIC_JUMP_STRENGTH));
         String maxJumpText = " " + String.format("%.1f", maxJump).replace(".", ",") + "m";
 
         // Inv Slots
@@ -206,7 +205,7 @@ public class RideStats extends Module {
     }
 
     public static double jumpStrengthToJumpHeight(double strength) {
-        return -0.1817584952 * strength * strength * strength + 3.689713992 * strength * strength + 2.128599134 * strength - 0.343930367;
+        return - 0.1817584952 * Math.pow(strength, 3) + 3.689713992 * Math.pow(strength, 2) + 2.128599134 * strength - 0.343930367;
     }
 
     public static double genericSpeedToBlockPerSecond(double speed) {

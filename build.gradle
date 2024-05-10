@@ -1,8 +1,8 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id "fabric-loom" version "1.6-SNAPSHOT"
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -53,7 +53,7 @@ tasks.withType(Jar) {
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 
-	def targetVersion = 17
+	def targetVersion = 21
 	if (JavaVersion.current().isJava9Compatible()) {
 		 it.options.release = targetVersion
 	}

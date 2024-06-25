@@ -28,7 +28,7 @@ public class Logo extends HudElement {
         super(INFO);
     }
 
-    private final Identifier TEXTURE = new Identifier("numby-hack", "textures/icon.png");
+    private final Identifier TEXTURE = Identifier.of("numby-hack", "textures/icon.png");
 
     @Override
     public void tick(HudRenderer renderer) {

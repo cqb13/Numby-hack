@@ -67,6 +67,7 @@ public class NumbyHack extends MeteorAddon {
 		Log("Adding HUD modules...");
 		Hud.get().register(ItemCounter.INFO);
 		Hud.get().register(Keys.INFO);
+		Hud.get().register(LavaWarning.INFO);
 		Hud.get().register(Logo.INFO);
 		Hud.get().register(TextPresets.INFO);
 		Hud.get().register(TextRadarHud.INFO);

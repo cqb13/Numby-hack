@@ -46,6 +46,15 @@ public class CHMainUtils {
         return new String(cipher.doFinal(Base64.decodeBase64(text)));
     }
 
+    public static Integer lavaIsWithinRange(int range) {
+        for (int i = 0; i < range; i++) {
+            if (mc.world.getBlockState(mc.player.getBlockPos().down(i)).getBlock().getTranslationKey().contains("lava")) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static String apply(String msg) {
         if (msg.contains(":smile:")) msg = msg.replace(":smile:", "☺");
         if (msg.contains(":sad:")) msg = msg.replace(":sad:", "☹");

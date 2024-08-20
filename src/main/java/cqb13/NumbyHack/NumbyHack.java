@@ -57,6 +57,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new NewChunks());
 		Modules.get().add(new NoStrip());
 		Modules.get().add(new Number81());
+		Modules.get().add(new PacketDelay());
 		Modules.get().add(new RaidCaptainNotifier());
 		Modules.get().add(new RideStats());
 		Modules.get().add(new SafeFire());

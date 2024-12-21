@@ -158,11 +158,11 @@ public class RideStats extends Module {
         String healthText = " " + String.format("%.1f", health).replace(".", ",");
 
         // Speed
-        double speed = genericSpeedToBlockPerSecond(horseEntity.getAttributes().getBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+        double speed = genericSpeedToBlockPerSecond(horseEntity.getAttributes().getBaseValue(EntityAttributes.MOVEMENT_SPEED));
         String speedText = " " + String.format("%.1f", speed).replace(".", ",") + " bps";
 
         // Jump
-        double maxJump = jumpStrengthToJumpHeight(horseEntity.getAttributes().getBaseValue(EntityAttributes.GENERIC_JUMP_STRENGTH));
+        double maxJump = jumpStrengthToJumpHeight(horseEntity.getAttributes().getBaseValue(EntityAttributes.JUMP_STRENGTH));
         String maxJumpText = " " + String.format("%.1f", maxJump).replace(".", ",") + "m";
 
         // Inv Slots

@@ -199,7 +199,7 @@ public class SafetyNet extends Module {
 
                     for (int x = (int) (mc.player.getX() - placeRange); x < mc.player.getX() + placeRange; x++) {
                         for (int z = (int) (mc.player.getZ() - placeRange); z < mc.player.getZ() + placeRange; z++) {
-                            for (int y = (int) Math.max(mc.world.getBottomY(), mc.player.getY() - placeRange); y < Math.min(mc.world.getTopY(), mc.player.getY() + placeRange); y++) {
+                            for (int y = (int) Math.max(mc.world.getBottomY(), mc.player.getY() - placeRange); y < Math.min(mc.world.getTopYInclusive(), mc.player.getY() + placeRange); y++) {
                                 bp.set(x, y, z);
                                 if (!mc.world.getBlockState(bp).isAir()) blockPosArray.add(new BlockPos(bp));
                             }

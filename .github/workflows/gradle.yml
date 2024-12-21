@@ -6,14 +6,13 @@ concurrency:
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     paths-ignore:
-      - '*.md'
-      - '.github/**'
+      - "*.md"
+      - ".github/**"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -21,7 +20,7 @@ jobs:
         uses: actions/setup-java@v4.6.0
         with:
           java-version: 21
-          distribution: 'zulu'
+          distribution: "zulu"
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
@@ -31,8 +30,9 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "1.21-build-${{ github.run_number }}"
+          automatic_release_tag: "1.21.3-build-${{ github.run_number }}"
           prerelease: false
-          title: "1.21 Build ${{ github.run_number }}"
+          title: "1.21.3 Build ${{ github.run_number }}"
           files: |
             ./build/libs/*.jar
+

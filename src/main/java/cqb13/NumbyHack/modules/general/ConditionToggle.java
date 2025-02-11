@@ -1,7 +1,6 @@
 package cqb13.NumbyHack.modules.general;
 
 import cqb13.NumbyHack.NumbyHack;
-import meteordevelopment.meteorclient.events.entity.DamageEvent;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -11,10 +10,13 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.DeathMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
+import net.minecraft.text.Text;
 
 import java.util.List;
 
@@ -117,7 +119,7 @@ public class ConditionToggle extends Module {
         super(NumbyHack.CATEGORY, "condition-toggle", "toggles modules based on conditions");
     }
 
-    //death toggle
+    //death toggle and damage toggle
     @EventHandler
     private void onPacketReceive(PacketEvent.Receive event)  {
         if (event.packet instanceof DeathMessageS2CPacket packet) {
@@ -125,17 +127,10 @@ public class ConditionToggle extends Module {
             if (entity == mc.player && death.get()) {
                 toggleModules(deathOnToggleModules.get(), deathOffToggleModules.get());
             }
-        }
-    }
-
-    //damage toggle
-    @EventHandler
-    private void onDamage(DamageEvent event) {
-        if (event.entity.getUuid() == null) return;
-        if (!event.entity.getUuid().equals(mc.player.getUuid())) return;
-
-        if (damage.get()) {
-            toggleModules(damageOnToggleModules.get(), damageOffToggleModules.get());
+        } else if (event.packet instanceof HealthUpdateS2CPacket packet) {
+            if (mc.player.getHealth() - packet.getHealth() > 0 && damage.get()) {
+                toggleModules(damageOnToggleModules.get(), damageOffToggleModules.get());
+            }
         }
     }
 
@@ -169,11 +164,15 @@ public class ConditionToggle extends Module {
     private void toggleModules(List<Module> onModules, List<Module> offModules) {
         for (Module module : offModules) {
             if (module.isActive()) {
+                if (this.chatFeedback) {
+                    ChatUtils.sendMsg(Text.of("Deactivated " + module.name));
+                }
                 module.toggle();
             }
         }
         for (Module module : onModules) {
             if (!module.isActive()) {
+                ChatUtils.sendMsg(Text.of("Activated " + module.name));
                 module.toggle();
             }
         }

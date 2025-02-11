@@ -49,7 +49,6 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new Confetti());
 		Modules.get().add(new FloRida());
 		Modules.get().add(new GameSettings());
-		Modules.get().add(new GodBridge());
 		Modules.get().add(new IgnoreDeaths());
 		Modules.get().add(new JumpHelper());
 		Modules.get().add(new LogOutSpots());

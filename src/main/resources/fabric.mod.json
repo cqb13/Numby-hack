@@ -29,6 +29,6 @@
   "depends": {
     "java": ">=21",
     "minecraft": ">=${mc_version}",
-    "meteor-client": ">=0.5.5"
+    "meteor-client": "*"
   }
 }

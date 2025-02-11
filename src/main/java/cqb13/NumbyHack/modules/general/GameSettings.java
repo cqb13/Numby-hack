@@ -57,13 +57,7 @@ public class GameSettings extends Module {
             .name("hide-score")
             .description("Hides the score when you die.")
             .defaultValue(true)
-            .build()
-    );
-
-    private final Setting<Boolean> chatFeedback = sgGeneral.add(new BoolSetting.Builder()
-            .name("chat-feedback")
-            .description("Sends updates in the chat.")
-            .defaultValue(true)
+            .onChanged(this::toggleHideScore)
             .build()
     );
 
@@ -96,13 +90,16 @@ public class GameSettings extends Module {
         sendChatInfo("Advanced Tooltips", b ? "enabled" : "disabled");
     }
 
-    public boolean toggleHideScore() {
-        sendChatInfo("Hide Score", hideScore.get() ? "enabled" : "disabled");
+    private void toggleHideScore(Boolean b) {
+        sendChatInfo("Hide Score", b ? "enabled" : "disabled");
+    }
+
+    public boolean hideTheScore() {
         return isActive() && hideScore.get();
     }
 
     private void sendChatInfo(String setting, String value) {
-        if (!chatFeedback.get()) return;
+        if (!this.chatFeedback) return;
         ChatUtils.info("Set %s to %s.", setting, value);
     }
 }

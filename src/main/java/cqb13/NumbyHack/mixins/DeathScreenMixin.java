@@ -21,8 +21,7 @@ public abstract class DeathScreenMixin {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void removeScore(CallbackInfo ci) {
-        if (Modules.get().get(GameSettings.class).toggleHideScore())
+        if (Modules.get().get(GameSettings.class).hideTheScore())
             scoreText = Text.empty();
     }
-
 }

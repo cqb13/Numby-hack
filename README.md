@@ -10,7 +10,6 @@
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.21.5-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
-<img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">
 
 <p>Join for support<p>
 <a href="https://discord.gg/TtmQs7BzPJ"><img src="https://invidget.switchblade.xyz/TtmQs7BzPJ"></a>

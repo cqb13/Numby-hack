@@ -78,7 +78,7 @@ public class BetterPlace extends Module {
     private void onTick(TickEvent.Post event) {
         setHitResult();
         if (hitResult instanceof BlockHitResult && mc.player.getMainHandStack().getItem() instanceof BlockItem && mc.options.useKey.isPressed()) {
-            BlockUtils.place(((BlockHitResult) hitResult).getBlockPos(), Hand.MAIN_HAND, mc.player.getInventory().selectedSlot, false, 0, true, true, false);
+            BlockUtils.place(((BlockHitResult) hitResult).getBlockPos(), Hand.MAIN_HAND, mc.player.getInventory().getSelectedSlot(), false, 0, true, true, false);
         }
     }
 

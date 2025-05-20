@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.9-SNAPSHOT"
+	id "fabric-loom" version "1.10-SNAPSHOT"
 }
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
@@ -56,5 +56,7 @@ tasks.withType(JavaCompile).configureEach {
 	def targetVersion = 21
 	if (JavaVersion.current().isJava9Compatible()) {
 		 it.options.release = targetVersion
+		 it.options.compilerArgs.add("-Xlint:deprecation")
+		 it.options.compilerArgs.add("-Xlint:unchecked")
 	}
 }

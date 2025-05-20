@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.player.EXPThrower;
 import meteordevelopment.meteorclient.utils.player.Rotations;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.ExperienceBottleItem;
@@ -84,7 +85,7 @@ public class Beyblade extends Module {
                         mc.player.getOffHandStack().getItem() instanceof ExperienceBottleItem ||
                         mc.player.getMainHandStack().getItem() instanceof BowItem ||
                         mc.player.getOffHandStack().getItem() instanceof BowItem ||
-                        mc.player.getInventory().getArmorStack(2).getItem() == Items.ELYTRA) return;
+                        mc.player.getEquippedStack(EquipmentSlot.CHEST).getItem() == Items.ELYTRA) return;
             }
             case ExceptElytra -> {
                 if (Modules.get().isActive(EXPThrower.class) ||

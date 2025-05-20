@@ -44,7 +44,6 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new BetterPlace());
 		Modules.get().add(new Beyblade());
 		Modules.get().add(new BonemealAura());
-		Modules.get().add(new ChatEncryption());
 		Modules.get().add(new ConditionToggle());
 		Modules.get().add(new Confetti());
 		Modules.get().add(new FloRida());
@@ -61,20 +60,16 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
 		Modules.get().add(new TanukiEgapFinder());
-		Modules.get().add(new TunnelESP());
 		Modules.get().add(new WurstGlide());
 
 		Log("Adding HUD modules...");
 		Hud.get().register(ItemCounter.INFO);
 		Hud.get().register(Keys.INFO);
 		Hud.get().register(LavaWarning.INFO);
-		Hud.get().register(Logo.INFO);
 		Hud.get().register(TextPresets.INFO);
 		Hud.get().register(TextRadarHud.INFO);
 
 		Log("Adding Commands...");
-		Commands.add(new Trash());
-		Commands.add(new HeadItem());
 		Commands.add(new ClearChat());
 
 		Log("Initialized successfully!");

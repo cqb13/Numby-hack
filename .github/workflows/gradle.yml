@@ -1,7 +1,7 @@
 name: Java CI with Gradle
 
 concurrency:
-  group: "build-1.21.4"
+  group: "build-1.21.5"
   cancel-in-progress: true
 
 on:
@@ -30,9 +30,9 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "1.21.4-build-${{ github.run_number }}"
+          automatic_release_tag: "1.21.5-build-${{ github.run_number }}"
           prerelease: false
-          title: "1.21.4 Build ${{ github.run_number }}"
+          title: "1.21.5 Build ${{ github.run_number }}"
           files: |
             ./build/libs/*.jar
 

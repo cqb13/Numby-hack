@@ -10,7 +10,7 @@ import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.Heightmap;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ChunkDataS2CPacket;
 import net.minecraft.network.packet.s2c.play.ChunkDeltaUpdateS2CPacket;
@@ -20,11 +20,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.Set;
-import java.util.Collections;
-import java.util.HashSet;
 
 /*
     Ported from: https://github.com/BleachDrinker420/BleachHack/blob/master/BleachHack-Fabric-1.16/src/main/java/bleach/hack/module/mods/NewChunks.java
@@ -180,7 +178,13 @@ public class NewChunks extends Module {
 			if (!newChunks.contains(pos) && mc.world.getChunkManager().getChunk(packet.getChunkX(), packet.getChunkZ()) == null) {
 				WorldChunk chunk = new WorldChunk(mc.world, pos);
 				try {
-					taskExecutor.execute(() -> chunk.loadFromPacket(packet.getChunkData().getSectionsDataBuf(), new NbtCompound(), packet.getChunkData().getBlockEntities(packet.getChunkX(), packet.getChunkZ())));
+					// Thanks to Trouser-Streak
+					Map<Heightmap.Type, long[]> heightmaps = new EnumMap<>(Heightmap.Type.class);
+
+					Heightmap.Type type = Heightmap.Type.MOTION_BLOCKING;
+					long[] emptyHeightmapData = new long[37];
+					heightmaps.put(type, emptyHeightmapData);
+					taskExecutor.execute(() -> chunk.loadFromPacket(packet.getChunkData().getSectionsDataBuf(), heightmaps, packet.getChunkData().getBlockEntities(packet.getChunkX(), packet.getChunkZ())));
 				} catch (ArrayIndexOutOfBoundsException e) {
 					return;
 				}

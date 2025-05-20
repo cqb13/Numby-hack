@@ -87,7 +87,7 @@ public class PlayerParticle {
             double velocityX = player.getVelocity().getX() * -0.2D;
             double velocityY = 0.1D;
             double velocityZ = player.getVelocity().getZ() * -0.2D;
-            mc.world.addParticle(effect, x, y, z, velocityX, velocityY, velocityZ);
+            mc.world.addParticleClient(effect, x, y, z, velocityX, velocityY, velocityZ);
         } else if (effect == ParticleTypes.HEART) {
             if (mc.player.age % 2 == 0) {
                 var particleX = player.getParticleX(1.0D);
@@ -96,7 +96,7 @@ public class PlayerParticle {
                 double velocityX = RANDOM.nextGaussian() * 0.02D;
                 double velocityY = RANDOM.nextGaussian() * 0.02D;
                 double velocityZ = RANDOM.nextGaussian() * 0.02D;
-                mc.world.addParticle(effect, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
+                mc.world.addParticleClient(effect, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
             }
         } else {
             for (int i = 0; i < 2; ++i) {
@@ -106,7 +106,7 @@ public class PlayerParticle {
                 double velocityX = (RANDOM.nextDouble() - 0.5D) * 2.0D;
                 double velocityY = -RANDOM.nextDouble();
                 double velocityZ = (RANDOM.nextDouble() - 0.5D) * 2.0D;
-                mc.world.addParticle(effect, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
+                mc.world.addParticleClient(effect, particleX, particleY, particleZ, velocityX, velocityY, velocityZ);
             }
         }
     }

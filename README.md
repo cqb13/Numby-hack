@@ -35,7 +35,6 @@ Auto Log Plus         || Automatically disconnects you when a specific condition
 Better Place          || Allows you to place blocks in weird ways
 Bayblade              || People see you spin
 Bonemeal Aura         || Automatically bonemeal crops around the player
-Chat Encrypt          || Encrypts your chat messages
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
 FloRida               || Makes you spin and look cool
@@ -63,7 +62,6 @@ Wurst Glide           || Allows you to glide
 Item Counter          || Counts specific items from your inventory
 Key Press HUD         || Displays the key you pressed
 Lava Warning          || Warns you when there is lava under you
-Logo                  || Displays Numby Hack logo on screen
 Kills                 || Shows the amount of player kills
 Deaths                || Shows the amount of deaths
 KDR                   || Shows kill death ratio
@@ -75,8 +73,6 @@ Server Brand          || Shows the server brand
 <h1>Commands:</h1>
 <pre>
 .clear                || Clears your chat
-.head                 || Puts the item you are holding in your head slot
-.trash                || Allows you to destroy any item in your hand
 </pre>
 <h1>Features:</h1>
 <pre>

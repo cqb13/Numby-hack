@@ -13,6 +13,7 @@ import net.minecraft.entity.mob.PillagerEntity;
 import net.minecraft.nbt.NbtCompound;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -44,18 +45,20 @@ public class RaidCaptainNotifier extends Module {
                 if (checkedPillagers.contains(pillagerId)) continue;
 
                 NbtCompound nbtData = pillager.writeNbt(new NbtCompound());
-                String nbtString = nbtData.asString();
+                Optional<String> nbtString = nbtData.asString();
 
-                //TODO: Improve this when not lazy
-                if (nbtString.contains("translate\":\"block.minecraft.ominous_banner")) {
-                    System.out.println(nbtData);
-                    if (location.get()) {
-                        ChatUtils.info("Raid Captain Spawned at " + pillager.getBlockX() + ", " + pillager.getBlockY() + ", " + pillager.getBlockZ() + "!");
-                    } else {
-                        ChatUtils.info("Raid Captain Spawned!");
+                if (nbtString.isPresent()) {
+                    //TODO: Improve this when not lazy
+                    if (nbtString.get().contains("translate\":\"block.minecraft.ominous_banner")) {
+                        System.out.println(nbtData);
+                        if (location.get()) {
+                            ChatUtils.info("Raid Captain Spawned at " + pillager.getBlockX() + ", " + pillager.getBlockY() + ", " + pillager.getBlockZ() + "!");
+                        } else {
+                            ChatUtils.info("Raid Captain Spawned!");
+                        }
+
+                        checkedPillagers.add(pillagerId);
                     }
-
-                    checkedPillagers.add(pillagerId);
                 }
             }
         }

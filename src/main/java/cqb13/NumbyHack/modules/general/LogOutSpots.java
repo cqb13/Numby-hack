@@ -19,6 +19,7 @@ import meteordevelopment.meteorclient.utils.world.Dimension;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.joml.Vector3d;
@@ -208,13 +209,15 @@ public class LogOutSpots extends Module {
         players.add(entry);
     }
 
-    private ItemStack getItem(int i,  PlayerEntity playerEntity) {
-        if (playerEntity == null) return ItemStack.EMPTY;
-
-        return switch (i) {
-            case 4 -> playerEntity.getOffHandStack();
-            case 5 -> playerEntity.getMainHandStack();
-            default -> playerEntity.getInventory().getArmorStack(i);
+    private ItemStack getItem(int index, PlayerEntity entity) {
+        return switch (index) {
+            case 0 -> entity.getMainHandStack();
+            case 1 -> entity.getEquippedStack(EquipmentSlot.HEAD);
+            case 2 -> entity.getEquippedStack(EquipmentSlot.CHEST);
+            case 3 -> entity.getEquippedStack(EquipmentSlot.LEGS);
+            case 4 -> entity.getEquippedStack(EquipmentSlot.FEET);
+            case 5 -> entity.getOffHandStack();
+            default -> ItemStack.EMPTY;
         };
     }
 
@@ -288,7 +291,7 @@ public class LogOutSpots extends Module {
             double i = text.getWidth(content)/2;
             Renderer2D.COLOR.begin();
             Renderer2D.COLOR.quad(-i, 0, i * 2, text.getHeight(), nameBackgroundColor.get());
-            Renderer2D.COLOR.render(null);
+            Renderer2D.COLOR.render();
 
             // Render name and health texts
             text.beginBig();

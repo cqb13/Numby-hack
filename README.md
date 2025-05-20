@@ -6,9 +6,8 @@
 
   <!-- Fancy badges -->
 
-<a href="https://github.com/cqb13/Numby-hack/releases"><img src="https://img.shields.io/badge/Version-v2.2-green" alt="Version"></a>
-<a href="https://anticope.ml/addons/?"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
-<img src="https://img.shields.io/badge/Minecraft%20Version-1.21.4-green" alt="Minecraft Version">
+<a href="https://anticope.pages.dev/addons/?addon=cqb13%2FNumby-hack"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
+<img src="https://img.shields.io/badge/Minecraft%20Version-1.21.5-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
 <img src="https://img.shields.io/github/languages/code-size/cqb13/Numby-hack?color=green" alt="Code Size">
 <img src="https://img.shields.io/github/stars/cqb13/Numby-hack?color=green" alt="Stars">

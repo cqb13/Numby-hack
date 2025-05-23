@@ -14,6 +14,8 @@
 <p>Join for support<p>
 <a href="https://discord.gg/TtmQs7BzPJ"><img src="https://invidget.switchblade.xyz/TtmQs7BzPJ"></a>
 
+[Find more cool addons here](https://meteor-addons.cqb13.dev/)
+
 </div>
 
 <hr />

@@ -12,8 +12,8 @@ import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
-import meteordevelopment.starscript.value.Value;
-import meteordevelopment.starscript.value.ValueMap;
+import org.meteordev.starscript.value.Value;
+import org.meteordev.starscript.value.ValueMap;
 import net.minecraft.item.Items;
 import org.slf4j.Logger;
 
@@ -55,7 +55,6 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new NoStrip());
 		Modules.get().add(new Number81());
 		Modules.get().add(new PacketDelay());
-		Modules.get().add(new RaidCaptainNotifier());
 		Modules.get().add(new RideStats());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());

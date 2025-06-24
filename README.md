@@ -48,7 +48,6 @@ Number81              || Counts to 81 in chat
 Numby Chat            || Improves your chat experience in various ways
 NumbyRPC              || Displays Numby Hack as your presence on Discord
 Packet Delay          || Allows you to delay the packets you send to a servera
-Raid Captain Notifier || Notifies you when a raid captain spawns, good for waiting in outposts on bad servers.
 Ride Stats            || Nametag with information about rideable entities.
 Safe Fire             || Does not allow you to walk into fire sources
 Safety Net            || Places a block under you if your reach a set Y level

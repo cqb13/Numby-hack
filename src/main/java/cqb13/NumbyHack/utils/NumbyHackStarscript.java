@@ -9,7 +9,7 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
-import meteordevelopment.starscript.value.Value;
+import org.meteordev.starscript.value.Value;
 import net.minecraft.item.Items;
 
 import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;

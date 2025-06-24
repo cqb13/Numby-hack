@@ -48,11 +48,11 @@ Number81              || Counts to 81 in chat
 Numby Chat            || Improves your chat experience in various ways
 NumbyRPC              || Displays Numby Hack as your presence on Discord
 Packet Delay          || Allows you to delay the packets you send to a servera
-Ride Stats            || Nametag with information about rideable entities.
+Ride Stats            || Nametag with information about rideable entities
 Safe Fire             || Does not allow you to walk into fire sources
 Safety Net            || Places a block under you if your reach a set Y level
+Spawner ESP           || Shows spawners of different mobs in different colors
 Egap Finder           || Searches for Egaps in single players and saves their location
-Tunnel ESP            || Tries to find player made tunnels
 Wurst Glide           || Allows you to glide
 </pre>
 <h2>HUD:</h2>

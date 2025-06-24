@@ -58,6 +58,7 @@ public class NumbyHack extends MeteorAddon {
 		Modules.get().add(new RideStats());
 		Modules.get().add(new SafeFire());
 		Modules.get().add(new SafetyNet());
+		Modules.get().add(new SpawnerEsp());
 		Modules.get().add(new TanukiEgapFinder());
 		Modules.get().add(new WurstGlide());
 

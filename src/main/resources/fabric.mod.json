@@ -22,7 +22,7 @@
   "mixins": [
     "NumbyHack.mixins.json"
   ],
-  "accessWidener": "accesswidener",
+  "accessWidener": "numby.accesswidener",
   "custom": {
     "meteor-client:color": "146,188,98"
   },

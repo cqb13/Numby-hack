@@ -13,54 +13,52 @@ import java.util.Objects;
  */
 public class Number81 extends Module {
 
-    public Number81() {
-        super(NumbyHack.CATEGORY, "81", "Counts to 81 in chat.");
-    }
+  public Number81() {
+    super(NumbyHack.CATEGORY, "81", "Counts to 81 in chat.");
+  }
 
-    private int timer;
-    private int count;
-    private boolean setTimer;
+  private int timer;
+  private int count;
+  private boolean setTimer;
 
-    @Override
-    public void onActivate() {
-        count = 0;
-    }
+  @Override
+  public void onActivate() {
+    count = 0;
+  }
 
-    @Override
-    public void onDeactivate() {
-        assert mc.player != null;
-        var name = mc.player.getName();
-        if (Objects.equals(name.toString(), "cqb13") || Objects.equals(name.toString(), "Number81")) {
-            return;
-        }
-        if (count != 81) {
-            assert mc.player != null;
-            ChatUtils.sendPlayerMsg("I am a lazy bitch and did not count to 81!");
-            ChatUtils.sendPlayerMsg("I am a disgrace and should be punished!");
-            ChatUtils.sendPlayerMsg("I am a very bad person!");
-            ChatUtils.sendPlayerMsg("Number81 is the best!");
-        }
+  @Override
+  public void onDeactivate() {
+    assert mc.player != null;
+    var name = mc.player.getName();
+    if (Objects.equals(name.toString(), "cqb13") || Objects.equals(name.toString(), "Number81")) {
+      return;
     }
+    if (count != 81) {
+      assert mc.player != null;
+      ChatUtils.sendPlayerMsg("I am a lazy bitch and did not count to 81!");
+      ChatUtils.sendPlayerMsg("I am a disgrace and should be punished!");
+      ChatUtils.sendPlayerMsg("I am a very bad person!");
+      ChatUtils.sendPlayerMsg("Number81 is the best!");
+    }
+  }
 
-    @EventHandler
-    private void onTick(TickEvent.Pre event) {
-        if (setTimer){
-            timer = (int)(Math.random() * 70 + 40);
-            setTimer = false;
-        }
-        timer--;
-        if(timer < 0){
-            count++;
-            assert mc.player != null;
-            ChatUtils.sendPlayerMsg(String.valueOf(count));
-            setTimer = true;
-        }
-        if(count == 81){
-            assert mc.player != null;
-            ChatUtils.sendPlayerMsg("Number81 on top!");
-            toggle();
-        }
+  @EventHandler
+  private void onTick(TickEvent.Pre event) {
+    if (setTimer) {
+      timer = (int) (Math.random() * 70 + 40);
+      setTimer = false;
     }
+    timer--;
+    if (timer < 0) {
+      count++;
+      assert mc.player != null;
+      ChatUtils.sendPlayerMsg(String.valueOf(count));
+      setTimer = true;
+    }
+    if (count == 81) {
+      assert mc.player != null;
+      ChatUtils.sendPlayerMsg("Number81 on top!");
+      toggle();
+    }
+  }
 }
-
-

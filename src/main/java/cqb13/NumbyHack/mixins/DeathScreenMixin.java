@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 * */
 @Mixin(DeathScreen.class)
 public abstract class DeathScreenMixin {
-    @Shadow
-    private Text scoreText;
+  @Shadow
+  private Text scoreText;
 
-    @Inject(method = "init", at = @At("TAIL"))
-    private void removeScore(CallbackInfo ci) {
-        if (Modules.get().get(GameSettings.class).hideTheScore())
-            scoreText = Text.empty();
-    }
+  @Inject(method = "init", at = @At("TAIL"))
+  private void removeScore(CallbackInfo ci) {
+    if (Modules.get().get(GameSettings.class).hideTheScore())
+      scoreText = Text.empty();
+  }
 }

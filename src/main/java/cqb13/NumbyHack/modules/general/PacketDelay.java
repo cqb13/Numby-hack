@@ -15,35 +15,34 @@ import java.util.Set;
 import java.util.ArrayList;
 
 public class PacketDelay extends Module {
-    private final SettingGroup sgGeneral = settings.getDefaultGroup();
+  private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Set<Class<? extends Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
-            .name("C2S-packets")
-            .description("Client-to-server packets to delay.")
-            .filter(aClass -> PacketUtils.getC2SPackets().contains(aClass))
-            .build()
-    );
+  private final Setting<Set<Class<? extends Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
+      .name("C2S-packets")
+      .description("Client-to-server packets to delay.")
+      .filter(aClass -> PacketUtils.getC2SPackets().contains(aClass))
+      .build());
 
-    private static ArrayList<Packet<?>> delayedPackets = new ArrayList<>();
+  private static ArrayList<Packet<?>> delayedPackets = new ArrayList<>();
 
-    public PacketDelay() {
-        super(NumbyHack.CATEGORY, "packet-delay", "Allows you to delay the packets you send to a server.");
-        runInMainMenu = true;
+  public PacketDelay() {
+    super(NumbyHack.CATEGORY, "packet-delay", "Allows you to delay the packets you send to a server.");
+    runInMainMenu = true;
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST + 1)
+  private void onSendPacket(PacketEvent.Send event) {
+    if (c2sPackets.get().contains(event.packet.getClass())) {
+      delayedPackets.add(event.packet);
+      event.cancel();
     }
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST + 1)
-    private void onSendPacket(PacketEvent.Send event) {
-        if (c2sPackets.get().contains(event.packet.getClass())) {
-            delayedPackets.add(event.packet);
-            event.cancel();
-        }
+  @Override
+  public void onDeactivate() {
+    for (Packet<?> packet : delayedPackets) {
+      mc.getNetworkHandler().sendPacket(packet);
     }
-
-    @Override
-    public void onDeactivate() {
-        for (Packet<?> packet : delayedPackets) {
-            mc.getNetworkHandler().sendPacket(packet);
-        }
-        delayedPackets.clear();
-    }
+    delayedPackets.clear();
+  }
 }

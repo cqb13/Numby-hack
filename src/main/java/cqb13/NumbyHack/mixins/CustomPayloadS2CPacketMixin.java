@@ -11,13 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CustomPayloadS2CPacket.class)
 public class CustomPayloadS2CPacketMixin {
-    @Inject(method = "apply(Lnet/minecraft/network/listener/ClientCommonPacketListener;)V",
-            at = @At(value = "HEAD"), cancellable = true)
-    private void onApply(ClientCommonPacketListener clientCommonPacketListener, CallbackInfo info) {
-        CustomPayloadS2CPacket packet = (CustomPayloadS2CPacket) (Object) this;
-        CustomPayloadEvent event = MeteorClient.EVENT_BUS.post(CustomPayloadEvent.get(packet));
-        if (event.isCancelled()) {
-            info.cancel();
-        }
+  @Inject(method = "apply(Lnet/minecraft/network/listener/ClientCommonPacketListener;)V", at = @At(value = "HEAD"), cancellable = true)
+  private void onApply(ClientCommonPacketListener clientCommonPacketListener, CallbackInfo info) {
+    CustomPayloadS2CPacket packet = (CustomPayloadS2CPacket) (Object) this;
+    CustomPayloadEvent event = MeteorClient.EVENT_BUS.post(CustomPayloadEvent.get(packet));
+    if (event.isCancelled()) {
+      info.cancel();
     }
+  }
 }

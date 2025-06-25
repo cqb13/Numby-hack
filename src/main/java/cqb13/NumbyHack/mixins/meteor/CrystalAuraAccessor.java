@@ -7,9 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(CrystalAura.class)
 public interface CrystalAuraAccessor {
-    @Accessor("bestTarget")
-    LivingEntity bestTarget();
+  @Accessor("bestTarget")
+  LivingEntity bestTarget();
 
-    @Accessor(value = "bestTargetDamage", remap = false)
-    double bestTargetDamage();
+  @Accessor(value = "bestTargetDamage", remap = false)
+  double bestTargetDamage();
 }

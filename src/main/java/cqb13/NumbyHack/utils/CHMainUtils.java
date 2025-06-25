@@ -1,31 +1,14 @@
 package cqb13.NumbyHack.utils;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.screen.sync.ComponentChangesHash;
-import net.minecraft.screen.sync.ItemStackHash;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
-public class CHMainUtils { public static Integer lavaIsWithinRange(int range) {
+public class CHMainUtils {
+  public static Integer lavaIsWithinRange(int range) {
     for (int i = 0; i < range; i++) {
       if (mc.world.getBlockState(mc.player.getBlockPos().down(i)).getBlock().getTranslationKey().contains("lava")) {
         return i;

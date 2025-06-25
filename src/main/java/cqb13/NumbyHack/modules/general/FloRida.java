@@ -15,31 +15,32 @@ import meteordevelopment.orbit.EventHandler;
 //From venomhack
 
 public class FloRida extends Module {
-    private final SettingGroup sgGeneral = settings.getDefaultGroup();
+  private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Double> speed = sgGeneral.add(new DoubleSetting.Builder()
-            .name("rotation-speed")
-            .description("The speed at which you rotate.")
-            .defaultValue(20)
-            .sliderMin(0.0)
-            .sliderMax(50.0)
-            .build()
-    );
+  private final Setting<Double> speed = sgGeneral.add(new DoubleSetting.Builder()
+      .name("rotation-speed")
+      .description("The speed at which you rotate.")
+      .defaultValue(20)
+      .sliderMin(0.0)
+      .sliderMax(50.0)
+      .build());
 
-    private int count = 0;
-    public FloRida() {super(NumbyHack.CATEGORY, "flo-rida", "Makes you spin right round.");}
+  private int count = 0;
 
-    @EventHandler
-    public void onTick(TickEvent.Post event) {
-        Modules modules = Modules.get();
-        if (!modules.isActive(EXPThrower.class) && !modules.isActive(Quiver.class) && !modules.isActive(EXPThrower.class)) {
-            count += speed.get();
-            if (count > 180) {
-                count -= 360;
-            }
+  public FloRida() {
+    super(NumbyHack.CATEGORY, "flo-rida", "Makes you spin right round.");
+  }
 
-            Rotations.rotate(count, 0.0);
-        }
+  @EventHandler
+  public void onTick(TickEvent.Post event) {
+    Modules modules = Modules.get();
+    if (!modules.isActive(EXPThrower.class) && !modules.isActive(Quiver.class) && !modules.isActive(EXPThrower.class)) {
+      count += speed.get();
+      if (count > 180) {
+        count -= 360;
+      }
+
+      Rotations.rotate(count, 0.0);
     }
+  }
 }
-

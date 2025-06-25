@@ -70,6 +70,7 @@ public class NumbyHack extends MeteorAddon {
 
     Log("Adding Commands...");
     Commands.add(new ClearChat());
+    Commands.add(new CoordinateConverter());
 
     Log("Initialized successfully!");
   }

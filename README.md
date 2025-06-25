@@ -72,6 +72,7 @@ Server Brand          || Shows the server brand
 <h1>Commands:</h1>
 <pre>
 .clear                || Clears your chat
+.coord-convert        || Converts coordinates to opposite dimensions (ow/end <-> nether)
 </pre>
 <h1>Features:</h1>
 <pre>

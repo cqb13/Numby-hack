@@ -30,7 +30,8 @@ public class Number81 extends Module {
   public void onDeactivate() {
     assert mc.player != null;
     var name = mc.player.getName();
-    if (Objects.equals(name.toString(), "cqb13") || Objects.equals(name.toString(), "Number81")) {
+    if (Objects.equals(name.toString(), "cqb13") || Objects.equals(name.toString(), "IcatIcatI")
+        || Objects.equals(name.toString(), "Number81")) {
       return;
     }
     if (count != 81) {

@@ -4,8 +4,6 @@
   <h1>Numby Hack</h1>
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
 
-  <!-- Fancy badges -->
-
 <a href="https://anticope.pages.dev/addons/?addon=cqb13%2FNumby-hack"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.21.5-green" alt="Minecraft Version">
 <img src="https://img.shields.io/github/downloads/cqb13/Numby-hack/total?color=green">
@@ -35,6 +33,7 @@ Auto Log Plus         || Automatically disconnects you when a specific condition
 Better Place          || Allows you to place blocks in weird ways
 Bayblade              || People see you spin
 Bonemeal Aura         || Automatically bonemeal crops around the player
+Chat Encryption       || Encrypts messages using a user-provided key
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
 FloRida               || Makes you spin and look cool
@@ -77,7 +76,6 @@ Server Brand          || Shows the server brand
 <h1>Features:</h1>
 <pre>
 player particle       || Renders particles around specific players
-
 </pre>
 
 _Note: Not all the code was written by me_

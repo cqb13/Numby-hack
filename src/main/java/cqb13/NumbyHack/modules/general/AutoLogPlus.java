@@ -31,7 +31,7 @@ public class AutoLogPlus extends Module {
   // time log
   private final Setting<Boolean> timeLog = sgTimeLog.add(new BoolSetting.Builder()
       .name("time-log")
-      .description("Logs you out after a certain amount of time.")
+      .description("Logs you out after at a set time.")
       .defaultValue(false)
       .build());
 

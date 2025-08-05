@@ -7,6 +7,7 @@ import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.AutoReconnect;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.world.Dimension;
 import meteordevelopment.orbit.EventHandler;
@@ -26,6 +27,7 @@ public class AutoLogPlus extends Module {
   private final SettingGroup sgTimeLog = settings.createGroup("Time Log");
   private final SettingGroup sgLocationLog = settings.createGroup("Location Log");
   private final SettingGroup sgPingLog = settings.createGroup("Ping Log");
+  private final SettingGroup sgHungerLog = settings.createGroup("Hunger Log");
   private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
   // time log
@@ -134,6 +136,21 @@ public class AutoLogPlus extends Module {
       .visible(pingLog::get)
       .build());
 
+  // hunger log
+  private final Setting<Boolean> hungerLog = sgHungerLog.add(new BoolSetting.Builder()
+      .name("hunger-log")
+      .description("Disconnects when your hunger falls bellow a certain value.")
+      .defaultValue(false)
+      .build());
+
+  private final Setting<Integer> hungerThreshold = sgHungerLog.add(new IntSetting.Builder()
+      .name("hunger-threshold")
+      .defaultValue(6)
+      .range(0, 20)
+      .sliderRange(0, 20)
+      .visible(hungerLog::get)
+      .build());
+
   // normal log
   private final Setting<Boolean> onlyTrusted = sgGeneral.add(new BoolSetting.Builder()
       .name("enemy")
@@ -166,6 +183,10 @@ public class AutoLogPlus extends Module {
       playerLog();
     }
 
+    if (hungerLog.get()) {
+      hungerLog();
+    }
+
     if (pingLog.get()) {
       highPingCheck();
     }
@@ -193,6 +214,12 @@ public class AutoLogPlus extends Module {
         }
       }
 
+    }
+  }
+
+  private void hungerLog() {
+    if (mc.player.getHungerManager().getFoodLevel() < hungerThreshold.get()) {
+      disconnect("Your hunger level fell bellow " + hungerThreshold.get());
     }
   }
 

@@ -31,13 +31,15 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
  * provided by Number81 originally from Tanuki
  */
 public class PlayerParticle {
+  private static final UUID cqb13 = UUID.fromString("408fb01f-3ac5-4fa7-aa65-9fba051c9c51");
+  private static final UUID IcatIcatI = UUID.fromString("ff8a62c2-b2d7-4334-8794-e0af3b9ad8c2");
+  private static final UUID ThetaPride = UUID.fromString("a404936d-0e36-4185-9a16-1214e7e6d562");
+  private static final UUID Number81 = UUID.fromString("bc48b56d-d2e2-4838-ae6d-bd26559c1267");
 
   private static final Map<UUID, ParticleEffect> PLAYER_EFFECTS = new HashMap<>();
   private static boolean LIGHTNING_HAS_STRUCK = false;
   private static final Random RANDOM = new LocalRandom(RandomSeed.getSeed());
-  private static final List<UUID> LIGHTNING_UUIDS = Lists.newArrayList(
-      UUID.fromString("408fb01f-3ac5-4fa7-aa65-9fba051c9c51"), UUID.fromString("ff8a62c2-b2d7-4334-8794-e0af3b9ad8c2"),
-      UUID.fromString("bc48b56d-d2e2-4838-ae6d-bd26559c1267"));
+  private static final List<UUID> LIGHTNING_UUIDS = Lists.newArrayList(cqb13, IcatIcatI, ThetaPride, Number81);
 
   /**
    * Set up all the unique player effects.
@@ -47,12 +49,10 @@ public class PlayerParticle {
   public static void init() {
     MeteorClient.EVENT_BUS.subscribe(PlayerParticle.class);
     // --- Particle ---
-    // cqb13
-    PLAYER_EFFECTS.put(UUID.fromString("408fb01f-3ac5-4fa7-aa65-9fba051c9c51"), ParticleTypes.NAUTILUS);
-    // IcatIcatI
-    PLAYER_EFFECTS.put(UUID.fromString("ff8a62c2-b2d7-4334-8794-e0af3b9ad8c2"), ParticleTypes.NAUTILUS);
-    // Number81
-    PLAYER_EFFECTS.put(UUID.fromString("bc48b56d-d2e2-4838-ae6d-bd26559c1267"), ParticleTypes.HAPPY_VILLAGER);
+    PLAYER_EFFECTS.put(cqb13, ParticleTypes.NAUTILUS);
+    PLAYER_EFFECTS.put(IcatIcatI, ParticleTypes.NAUTILUS);
+    PLAYER_EFFECTS.put(ThetaPride, ParticleTypes.NAUTILUS);
+    PLAYER_EFFECTS.put(Number81, ParticleTypes.HAPPY_VILLAGER);
   }
 
   @EventHandler

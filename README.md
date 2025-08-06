@@ -46,7 +46,7 @@ No Strip              || Prevents you from stripping logs
 Number81              || Counts to 81 in chat
 Numby Chat            || Improves your chat experience in various ways
 NumbyRPC              || Displays Numby Hack as your presence on Discord
-Packet Delay          || Allows you to delay the packets you send to a servera
+Packet Delay          || Allows you to delay the packets you send to a server
 Ride Stats            || Nametag with information about rideable entities
 Safe Fire             || Does not allow you to walk into fire sources
 Safety Net            || Places a block under you if your reach a set Y level
@@ -79,3 +79,4 @@ player particle       || Renders particles around specific players
 </pre>
 
 _Note: Not all the code was written by me_
+

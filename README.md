@@ -1,5 +1,4 @@
 <div align="center">
-  <!-- Logo and Title -->
   <img src="https://raw.githubusercontent.com/cqb13/Numby-hack/main/src/main/resources/assets/numby-hack/textures/icon.png" alt="logo" width="20%"/>
   <h1>Numby Hack</h1>
   <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
@@ -24,7 +23,6 @@
 - Put it in your `.minecraft/mods` folder where you have installed Meteor.
 
 _Note: Meteor Client is required for this addon_
-[README.md](README.md)
 
 <h1>Modules:</h1>
 <h2>General:</h2>
@@ -79,4 +77,3 @@ player particle       || Renders particles around specific players
 </pre>
 
 _Note: Not all the code was written by me_
-

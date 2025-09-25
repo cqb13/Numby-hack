@@ -1,37 +1,54 @@
-name: Java CI with Gradle
-
-concurrency:
-  group: "build-1.12.8"
-  cancel-in-progress: true
+name: Build & Release
 
 on:
   push:
     branches: [master]
     paths-ignore:
       - "*.md"
-      - ".github/**"
 
 jobs:
   build:
+    name: Build & Release
     runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      MAKE_LATEST: true
+
     steps:
-      - uses: actions/checkout@v5.0.0
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up JDK 21
-        uses: actions/setup-java@v5.0.0
+        uses: actions/setup-java@v4
         with:
           java-version: 21
-          distribution: "zulu"
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Build with Gradle
+          distribution: temurin
+
+      - name: Read version from gradle.properties
+        id: version
+        run: |
+          # thanks to Catppuccin Addon
+          VERSION=$(grep "^mod_version" gradle.properties | cut -d '=' -f2 | tr -d ' ')
+          MC_VERSION=$(grep "^minecraft_version" gradle.properties | cut -d '=' -f2 | tr -d ' ')
+          TAG_NAME="mc${MC_VERSION}-v${VERSION}"
+          RELEASE_NAME="${MC_VERSION}-${VERSION} build"
+
+          echo "tag=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "release_name=$RELEASE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Grant execute permissions to gradlew
+        run: chmod +x ./gradlew
+      - name: Build addon
         run: ./gradlew build
       - name: Remove *-dev.jar
         run: rm ./build/libs/*-dev.jar || true
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "1.12.8-build-${{ github.run_number }}"
-          prerelease: false
-          title: "1.12.8 Build ${{ github.run_number }}"
-          files: |
-            ./build/libs/*.jar
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "${{ steps.version.outputs.release_name }} ${{ github.run_number }}"
+          files: build/libs/*.jar
+          make_latest: ${{ env.MAKE_LATEST }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

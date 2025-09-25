@@ -27,8 +27,8 @@ jobs:
         id: version
         run: |
           # thanks to Catppuccin Addon
-          VERSION=$(grep "^mod_version" gradle.properties | cut -d '=' -f2 | tr -d ' ')
-          MC_VERSION=$(grep "^minecraft_version" gradle.properties | cut -d '=' -f2 | tr -d ' ')
+          VERSION=$(grep "^mod_version" gradle.properties | cut -d '=' -f2 | tr -d '[:space:]')
+          MC_VERSION=$(grep "^minecraft_version" gradle.properties | cut -d '=' -f2 | tr -d '[:space:]')
           TAG_NAME="mc${MC_VERSION}-v${VERSION}"
           RELEASE_NAME="${MC_VERSION}-${VERSION} build"
 

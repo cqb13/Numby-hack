@@ -1,9 +1,13 @@
 package cqb13.NumbyHack.utils;
 
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
@@ -68,5 +72,14 @@ public class CHMainUtils {
       }
     }
     return false;
+  }
+
+  public static int getEnchantmentLevel(ItemStack stack, RegistryKey<Enchantment> enchantment) {
+    for (RegistryEntry<Enchantment> enchantments : stack.getEnchantments().getEnchantments()) {
+      if (enchantments.toString().contains(enchantment.getValue().toString())) {
+        return stack.getEnchantments().getLevel(enchantments);
+      }
+    }
+    return 0;
   }
 }

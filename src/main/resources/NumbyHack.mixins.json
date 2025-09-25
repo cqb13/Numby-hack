@@ -10,10 +10,10 @@
     "TotemParticleMixin",
     "meteor.CrystalAuraAccessor",
     "meteor.DiscordPresenceMixin",
-    "meteor.BetterChatMixin"
+    "meteor.BetterChatMixin",
+    "meteor.ChestSwapMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   }
 }
-

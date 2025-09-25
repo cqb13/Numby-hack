@@ -34,6 +34,12 @@ jobs:
 
           echo "tag=$TAG_NAME" >> "$GITHUB_OUTPUT"
           echo "release_name=$RELEASE_NAME" >> "$GITHUB_OUTPUT"
+      - name: Create Git Tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a ${{ steps.version.outputs.tag }} -m "Release ${{ steps.version.outputs.release_name }}"
+          git push origin ${{ steps.version.outputs.tag }}
       - name: Grant execute permissions to gradlew
         run: chmod +x ./gradlew
       - name: Build addon

@@ -47,13 +47,13 @@ public class AutoLogPlus extends Module {
   // location log
   private final Setting<Boolean> locationLog = sgLocationLog.add(new BoolSetting.Builder()
       .name("location-log")
-      .description("Disconnects when a you reach set coordinates.")
+      .description("Disconnects when you reach set coordinates.")
       .defaultValue(false)
       .build());
 
   private final Setting<Boolean> oneAxis = sgLocationLog.add(new BoolSetting.Builder()
       .name("one-axis-log")
-      .description("Disconnects when a you reach set coordinates on a specific axis.")
+      .description("Disconnects when you reach set coordinates on a specific axis.")
       .defaultValue(false)
       .visible(locationLog::get)
       .build());

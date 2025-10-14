@@ -34,7 +34,6 @@ Bonemeal Aura         || Automatically bonemeal crops around the player
 Chat Encryption       || Encrypts messages using a user-provided key
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
-FloRida               || Makes you spin and look cool
 Game Settings         || Allows you to change some game settings
 Ignore Deaths         || Ignores death messages from specific players
 Jump Helper           || Shows how far you can jump

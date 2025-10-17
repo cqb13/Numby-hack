@@ -23,38 +23,38 @@ import net.minecraft.world.World;
 @Mixin(ClientPlayerInteractionManager.class)
 public class BlockPlacementMixin {
 
-  @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
-  private void preventBlockPlacement(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult,
-      CallbackInfoReturnable<ActionResult> cir) {
-    CarpetPlacer carpetPlacer = Modules.get().get(CarpetPlacer.class);
+    @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
+    private void preventBlockPlacement(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult,
+            CallbackInfoReturnable<ActionResult> cir) {
+        CarpetPlacer carpetPlacer = Modules.get().get(CarpetPlacer.class);
 
-    if (carpetPlacer == null || !carpetPlacer.isActive() || !carpetPlacer.isAntiStackEnabled()) {
-      return;
+        if (carpetPlacer == null || !carpetPlacer.isActive() || !carpetPlacer.isAntiStackEnabled()) {
+            return;
+        }
+
+        World world = player.getEntityWorld();
+        BlockPos hitPos = hitResult.getBlockPos();
+        ItemStack itemStack = player.getStackInHand(hand);
+
+        if (itemStack.getItem() instanceof BlockItem) {
+            BlockPos placePos = hitPos.offset(hitResult.getSide());
+            BlockPos belowPlacePos = placePos.down();
+            BlockState blockBelow = world.getBlockState(belowPlacePos);
+
+            if (shouldPreventPlacement(itemStack, blockBelow, carpetPlacer)) {
+                cir.setReturnValue(ActionResult.FAIL);
+            }
+        }
     }
 
-    World world = player.getWorld();
-    BlockPos hitPos = hitResult.getBlockPos();
-    ItemStack itemStack = player.getStackInHand(hand);
+    private boolean shouldPreventPlacement(ItemStack itemStack, BlockState blockBelow, CarpetPlacer carpetPlacer) {
+        Block itemBlock = ((BlockItem) itemStack.getItem()).getBlock();
+        Block belowBlock = blockBelow.getBlock();
 
-    if (itemStack.getItem() instanceof BlockItem) {
-      BlockPos placePos = hitPos.offset(hitResult.getSide());
-      BlockPos belowPlacePos = placePos.down();
-      BlockState blockBelow = world.getBlockState(belowPlacePos);
+        if (itemBlock instanceof CarpetBlock && belowBlock instanceof CarpetBlock) {
+            return true;
+        }
 
-      if (shouldPreventPlacement(itemStack, blockBelow, carpetPlacer)) {
-        cir.setReturnValue(ActionResult.FAIL);
-      }
+        return false;
     }
-  }
-
-  private boolean shouldPreventPlacement(ItemStack itemStack, BlockState blockBelow, CarpetPlacer carpetPlacer) {
-    Block itemBlock = ((BlockItem) itemStack.getItem()).getBlock();
-    Block belowBlock = blockBelow.getBlock();
-
-    if (itemBlock instanceof CarpetBlock && belowBlock instanceof CarpetBlock) {
-      return true;
-    }
-
-    return false;
-  }
 }

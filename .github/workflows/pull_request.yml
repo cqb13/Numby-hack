@@ -21,7 +21,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Upload Artifact
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         with:
           name: pull-request-build
           path: build/libs/

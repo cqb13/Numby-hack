@@ -3,6 +3,7 @@ package cqb13.NumbyHack.modules.general;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.*;
 
 import cqb13.NumbyHack.NumbyHack;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -23,9 +24,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 
 /**
- * Original from Tanuki: https://gitlab.com/Walaryne/tanuki
+ * Original from Tanuki:
+ * https://gitlab.com/Walaryne/tanuki/-/blob/master/src/main/java/minegame159/meteorclient/modules/misc/EgapFinder.java
  */
-public class EgapFinder extends Module {
+public class TanukiEgapFinder extends Module {
     private static final String OUTPUT_FILE = "egap-coords.txt";
     private static final int COMPARATOR_DELAY_TICKS = 3;
     private static final int NO_CHEST_TICK_THRESHOLD = 2;
@@ -71,14 +73,17 @@ public class EgapFinder extends Module {
     private int comparatorDelayCounter = 0;
     private BlockPos currentChestPos = null;
     private BlockPos lastCheckedChestPos = null;
+    private SpiralTraversal spiralTraversal;
 
-    public EgapFinder() {
+    public TanukiEgapFinder() {
         super(NumbyHack.CATEGORY, "egap-finder",
             "Finds Enchanted Golden Apples in chests and logs coordinates to " + OUTPUT_FILE);
     }
 
     @Override
     public void onActivate() {
+        BlockPos playerPos = mc.player.getBlockPos();
+        spiralTraversal = new SpiralTraversal(playerPos.getX(), playerPos.getZ());
         resetState();
     }
 
@@ -129,21 +134,16 @@ public class EgapFinder extends Module {
     }
 
     private void tpToNewSearchArea() {
-        BlockPos positionToTeleportTo = this.calculateNewSearchArea(mc.player.getBlockPos());
-        String command = "/tp %d %d %d";
+        XZPos positionToTeleportTo = spiralTraversal.next();
+        String command = "/tp %d ~ %d";
 
         ChatUtils.info(Formatting.GREEN +
-            String.format("Teleporting to new search area with the center at (%d, %d, %d)!",
-                positionToTeleportTo.getX(), positionToTeleportTo.getY(), positionToTeleportTo.getZ()
+            String.format("Teleporting to new search area with the center at (%d, ~, %d)!",
+                positionToTeleportTo.x(), positionToTeleportTo.z()
             )
         );
 
-        ChatUtils.sendPlayerMsg(String.format(command, positionToTeleportTo.getX(), positionToTeleportTo.getY(), positionToTeleportTo.getZ()));
-    }
-
-    private BlockPos calculateNewSearchArea(BlockPos currentSearchArea) {
-        int blocksInRange = 16 * renderDistance.get();
-        return new BlockPos(currentSearchArea.getX() + (2 * blocksInRange), currentSearchArea.getY(), currentSearchArea.getZ());
+        ChatUtils.sendPlayerMsg(String.format(command, positionToTeleportTo.x(), positionToTeleportTo.z()));
     }
 
     private BlockPos findNearestChest() {
@@ -293,4 +293,46 @@ public class EgapFinder extends Module {
     private String formatPos(BlockPos pos) {
         return String.format("(%d, %d, %d)", pos.getX(), pos.getY(), pos.getZ());
     }
+
+    private class SpiralTraversal {
+        private final Set<XZPos> visited = new HashSet<>();
+        private final Set<XZPos> queued = new HashSet<>();
+        private final Queue<XZPos> queue = new LinkedList<>();
+
+        public SpiralTraversal(int originX, int originZ) {
+            XZPos origin = new XZPos(originX, originZ);
+
+            visited.add(origin);
+            updateQueue(origin);
+        }
+
+        public XZPos next() {
+            XZPos next = queue.remove();
+
+            queued.remove(next);
+            visited.add(next);
+            updateQueue(next);
+
+            return next;
+        }
+
+        private void updateQueue(XZPos position) {
+            int blockOffset = 2 * 16 * renderDistance.get();
+            Set<XZPos> neighbors = new HashSet<>();
+
+            neighbors.add(new XZPos(position.x + blockOffset, position.z));
+            neighbors.add(new XZPos(position.x, position.z - blockOffset));
+            neighbors.add(new XZPos(position.x - blockOffset, position.z));
+            neighbors.add(new XZPos(position.x, position.z + blockOffset));
+
+            for (XZPos neighbor : neighbors) {
+                if (visited.contains(neighbor) || queued.contains(neighbor)) continue;
+
+                queue.add(neighbor);
+                queued.add(neighbor);
+            }
+        }
+    }
+
+    record XZPos(int x, int z) {}
 }

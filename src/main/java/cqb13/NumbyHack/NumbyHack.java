@@ -61,7 +61,7 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new SafeFire());
         modules.add(new SafetyNet());
         modules.add(new SpawnerEsp());
-        modules.add(new TanukiEgapFinder());
+        modules.add(new EgapFinder());
         modules.add(new WurstGlide());
 
         Log("Adding HUD modules...");

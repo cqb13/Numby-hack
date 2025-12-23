@@ -6,11 +6,9 @@ import java.io.IOException;
 import java.util.*;
 
 import cqb13.NumbyHack.NumbyHack;
+import meteordevelopment.meteorclient.events.world.ChunkDataEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.BoolSetting;
-import meteordevelopment.meteorclient.settings.IntSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
@@ -30,8 +28,6 @@ import net.minecraft.util.math.BlockPos;
 public class TanukiEgapFinder extends Module {
     private static final String OUTPUT_FILE = "egap-coords.txt";
     private static final int COMPARATOR_DELAY_TICKS = 3;
-    private static final int NO_CHEST_TICK_THRESHOLD = 2;
-    private static final int CHUNK_SEARCHED_THRESHOLD = 10 * 20;
     private static final boolean DEBUG = true;
 
     private final SettingGroup sgDefault = settings.getDefaultGroup();
@@ -59,6 +55,39 @@ public class TanukiEgapFinder extends Module {
         .build()
     );
 
+    private final Setting<Double> noChestTimeout = sgAutoSearch.add(new DoubleSetting.Builder()
+        .name("no-chest-timeout")
+        .description("Time in seconds where no chest is found and the area is deemed as looted.")
+        .defaultValue(2.5)
+        .min(1)
+        .sliderMax(10)
+        .visible(autoSearch::get)
+        .decimalPlaces(1)
+        .build()
+    );
+
+    private final Setting<Double> chunkStableTime = sgAutoSearch.add(new DoubleSetting.Builder()
+        .name("chunk-stable-time")
+        .description("Time in seconds no new chunks are loading before moving on.")
+        .defaultValue(2.5)
+        .min(1)
+        .sliderMax(10)
+        .visible(autoSearch::get)
+        .decimalPlaces(1)
+        .build()
+    );
+
+    private final Setting<Double> teleportCooldown = sgAutoSearch.add(new DoubleSetting.Builder()
+        .name("teleport-cooldown")
+        .description("Minimum time in seconds to wait after teleporting before moving again.")
+        .defaultValue(5)
+        .min(1)
+        .sliderMax(20)
+        .visible(autoSearch::get)
+        .decimalPlaces(1)
+        .build()
+    );
+
     private enum ProcessState {
         IDLE,
         PLACE_COMPARATOR,
@@ -74,6 +103,8 @@ public class TanukiEgapFinder extends Module {
     private BlockPos currentChestPos = null;
     private BlockPos lastCheckedChestPos = null;
     private SpiralTraversal spiralTraversal;
+    private int ticksSinceLastChunkData = 0;
+    private int ticksSinceTeleport = 0;
 
     public TanukiEgapFinder() {
         super(NumbyHack.CATEGORY, "egap-finder",
@@ -88,11 +119,20 @@ public class TanukiEgapFinder extends Module {
     }
 
     @EventHandler
+    private void onChunkData(ChunkDataEvent event) {
+        ticksSinceLastChunkData = 0;
+    }
+
+    @EventHandler
     private void onTick(TickEvent.Pre event) {
         if (mc.world == null || mc.player == null) {
             debug("Tick skipped: world or player is null");
             return;
         }
+
+
+        ticksSinceLastChunkData++;
+        ticksSinceTeleport++;
 
         BlockPos foundChest = findNearestChest();
 
@@ -107,26 +147,21 @@ public class TanukiEgapFinder extends Module {
             ticksWithoutChest++;
         }
 
-        if (ticksWithoutChest >= NO_CHEST_TICK_THRESHOLD && ticksWithoutChest < CHUNK_SEARCHED_THRESHOLD) {
-            if (currentState != ProcessState.IDLE) {
-                debug("NO_CHEST_TICK_THRESHOLD reached (" + ticksWithoutChest + " ticks), resetting state");
-                resetState();
-            }
-            return;
-        }
-
-        if (ticksWithoutChest >= CHUNK_SEARCHED_THRESHOLD && autoSearch.get()) {
-            debug("CHUNK_SEARCHED_THRESHOLD reached (" + ticksWithoutChest + " ticks), looking for new area");
+        if (autoSearch.get()
+            && ticksWithoutChest >= noChestTimeout.get() * 20
+            && ticksSinceLastChunkData >= chunkStableTime.get() * 20
+            && ticksSinceTeleport >= teleportCooldown.get() * 20)
+        {
+            debug("Chunks stable (" + ticksSinceLastChunkData + " ticks) and minimum wait satisfied, moving to new area");
             tpToNewSearchArea();
             resetState();
             ticksWithoutChest = 0;
-        }
-
-        if (isProcessingChest) {
+            ticksSinceLastChunkData = 0;
+            ticksSinceTeleport = 0;
             return;
         }
 
-        if (currentChestPos == null) {
+        if (isProcessingChest || currentChestPos == null) {
             return;
         }
 
@@ -144,6 +179,7 @@ public class TanukiEgapFinder extends Module {
         );
 
         ChatUtils.sendPlayerMsg(String.format(command, positionToTeleportTo.x(), positionToTeleportTo.z()));
+        ticksSinceTeleport = 0;
     }
 
     private BlockPos findNearestChest() {

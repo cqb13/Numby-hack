@@ -26,7 +26,8 @@ import net.minecraft.util.math.BlockPos;
  * https://gitlab.com/Walaryne/tanuki/-/blob/master/src/main/java/minegame159/meteorclient/modules/misc/EgapFinder.java
  */
 public class TanukiEgapFinder extends Module {
-    private static final String OUTPUT_FILE = "egap-coords.txt";
+    private static final String OUTPUT_FILE_NAME = "egap-coords";
+
     private static final int COMPARATOR_DELAY_TICKS = 3;
     private static final boolean DEBUG = true;
 
@@ -108,7 +109,7 @@ public class TanukiEgapFinder extends Module {
 
     public TanukiEgapFinder() {
         super(NumbyHack.CATEGORY, "egap-finder",
-            "Finds Enchanted Golden Apples in chests and logs coordinates to " + OUTPUT_FILE);
+            "Finds Enchanted Golden Apples in chests and logs coordinates to " + OUTPUT_FILE_NAME + "-yourworldseed.txt");
     }
 
     @Override
@@ -302,7 +303,7 @@ public class TanukiEgapFinder extends Module {
     }
 
     private boolean writeCoordinatesToFile(String coords) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(getOutputFileName(), true))) {
             writer.write(coords);
             writer.newLine();
             return true;
@@ -371,4 +372,26 @@ public class TanukiEgapFinder extends Module {
     }
 
     record XZPos(int x, int z) {}
+
+    private String getOutputFileName() {
+        if (mc.world == null) {
+            return OUTPUT_FILE_NAME + ".txt";
+        }
+
+        long seed = getWorldSeed();
+
+        // If negative turn - into n
+        String seedStr = seed < 0 ? "n" + Math.abs(seed) : String.valueOf(seed);
+        return String.format("%s-%s.txt", OUTPUT_FILE_NAME, seedStr);
+    }
+
+    private Long getWorldSeed() {
+        if (mc.getServer() != null) {
+            var worldProperties = mc.getServer().getSaveProperties();
+            if (worldProperties != null) {
+                return worldProperties.getGeneratorOptions().getSeed();
+            }
+        }
+        return null;
+    }
 }

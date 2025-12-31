@@ -246,8 +246,9 @@ public class SculkRangeEsp extends Module {
         if (!Utils.canUpdate())
             return;
 
-        if (!hideWhenSneaking.get() && mc.player.isSneaking())
+        if (hideWhenSneaking.get() && mc.player.isSneaking()) {
             return;
+        }
 
         synchronized (foundSensors) {
             for (FoundSensor sensor : foundSensors) {

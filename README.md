@@ -35,8 +35,6 @@ Chat Encryption       || Encrypts messages using a user-provided key
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
 Game Settings         || Allows you to change some game settings
-Ignore Deaths         || Ignores death messages from specific players
-Jump Helper           || Shows how far you can jump
 Log Out Spots         || Shows where a player has logged out
 New Chunks            || Finds new chunks based on flowing liquids
 No Strip              || Prevents you from stripping logs

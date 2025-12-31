@@ -286,37 +286,48 @@ public class SculkRangeEsp extends Module {
     }
 
     private void renderCircle(Render3DEvent event, double radius, BlockPos origin, FoundSensor sensor) {
-        Vec3d last = null;
+        final double maxSegmentLength = 0.2;
+
+        int segments = (int) Math.ceil(2 * Math.PI * radius / maxSegmentLength);
+        segments = Math.max(16, segments);
+
+        Vec3d[] pts = new Vec3d[segments];
+        SettingColor[] cols = new SettingColor[segments];
 
         boolean both = sensor.hasRedstoneOutput() && sensor.shriekerInRange();
         boolean advanced = advancedView.get();
 
-        for (int i = 0; i <= 360; i += 7) {
-            double rad = Math.toRadians(i);
-            double sin = Math.sin(rad) * radius;
-            double cos = Math.cos(rad) * radius;
-            Vec3d c = new Vec3d(origin.getX() + sin, origin.getY(), origin.getZ() + cos);
+        for (int s = 0; s < segments; s++) {
+            double angle = 2 * Math.PI * s / segments;
+            double sin = Math.sin(angle) * radius;
+            double cos = Math.cos(angle) * radius;
+            pts[s] = new Vec3d(origin.getX() + sin, origin.getY(), origin.getZ() + cos);
 
-            if (last != null) {
-                SettingColor color;
+            int deg = (int) Math.round(Math.toDegrees(angle)) % 360;
 
-                if (!advanced) {
-                    color = shapeColor.get();
-                } else if (both) {
-                    int quadrant = (i / 90) % 4;
-                    color = (quadrant % 2 == 0) ? redstoneColor.get() : shriekerColor.get();
-                } else if (sensor.hasRedstoneOutput()) {
-                    color = redstoneColor.get();
-                } else if (sensor.shriekerInRange()) {
-                    color = shriekerColor.get();
-                } else {
-                    color = shapeColor.get();
-                }
-
-                event.renderer.line(last.x, last.y, last.z, c.x, c.y, c.z, color);
+            SettingColor color;
+            if (!advanced) {
+                color = shapeColor.get();
+            } else if (both) {
+                int quadrant = (deg / 90) % 4;
+                color = (quadrant % 2 == 0) ? redstoneColor.get() : shriekerColor.get();
+            } else if (sensor.hasRedstoneOutput()) {
+                color = redstoneColor.get();
+            } else if (sensor.shriekerInRange()) {
+                color = shriekerColor.get();
+            } else {
+                color = shapeColor.get();
             }
 
-            last = c;
+            cols[s] = color;
+        }
+
+        for (int s = 0; s < segments; s++) {
+            int next = (s + 1) % segments;
+            event.renderer.line(
+                    pts[s].x, pts[s].y, pts[s].z,
+                    pts[next].x, pts[next].y, pts[next].z,
+                    cols[next]);
         }
     }
 

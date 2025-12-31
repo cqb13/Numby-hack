@@ -50,8 +50,6 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new ConditionToggle());
         modules.add(new Confetti());
         modules.add(new GameSettings());
-        modules.add(new IgnoreDeaths());
-        modules.add(new JumpHelper());
         modules.add(new LogOutSpots());
         modules.add(new NewChunks());
         modules.add(new NoStrip());

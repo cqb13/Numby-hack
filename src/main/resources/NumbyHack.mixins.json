@@ -6,7 +6,6 @@
     "ClientPlayerEntityMixin",
     "CustomPayloadS2CPacketMixin",
     "BlockPlacementMixin",
-    "DeathScreenMixin",
     "EntityAccessor",
     "TotemParticleMixin",
     "meteor.CrystalAuraAccessor",

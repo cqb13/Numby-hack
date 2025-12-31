@@ -5,8 +5,10 @@ import cqb13.NumbyHack.modules.commands.*;
 import cqb13.NumbyHack.modules.general.*;
 import cqb13.NumbyHack.modules.hud.*;
 import cqb13.NumbyHack.utils.*;
+import cqb13.NumbyHack.gui.tabs.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
+import meteordevelopment.meteorclient.gui.tabs.Tabs;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
@@ -49,7 +51,6 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new ChatEncryption());
         modules.add(new ConditionToggle());
         modules.add(new Confetti());
-        modules.add(new GameSettings());
         modules.add(new LogOutSpots());
         modules.add(new NewChunks());
         modules.add(new NoStrip());
@@ -74,6 +75,9 @@ public class NumbyHack extends MeteorAddon {
         Log("Adding Commands...");
         Commands.add(new ClearChat());
         Commands.add(new CoordinateConverter());
+
+        Log("Adding Tabs...");
+        Tabs.add(new QuickSettingsTab());
 
         Log("Initialized successfully!");
     }

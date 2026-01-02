@@ -32,6 +32,7 @@ Better Place          || Allows you to place blocks in weird ways
 Bayblade              || People see you spin
 Bonemeal Aura         || Automatically bonemeal crops around the player
 Chat Encryption       || Encrypts messages using a user-provided key
+Chunk Borders         || Customizable chunk border rendering.
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
 Game Settings         || Allows you to change some game settings

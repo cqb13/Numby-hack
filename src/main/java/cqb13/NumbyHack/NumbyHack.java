@@ -49,6 +49,7 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new BonemealAura());
         modules.add(new CarpetPlacer());
         modules.add(new ChatEncryption());
+        modules.add(new ChunkBorders());
         modules.add(new ConditionToggle());
         modules.add(new Confetti());
         modules.add(new LogOutSpots());

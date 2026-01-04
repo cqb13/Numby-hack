@@ -78,8 +78,9 @@ public class PlayerParticle {
     }
 
     private static void displayParticleEffect(PlayerEntity player, ParticleEffect effect) {
-        assert mc.player != null;
-        assert mc.world != null;
+        if (mc.world == null || mc.player == null) {
+            return;
+        }
 
         if (effect == ParticleTypes.SOUL) {
             double x = player.getX() + (RANDOM.nextDouble() - 0.5D) * (double) player.getWidth();
@@ -114,7 +115,13 @@ public class PlayerParticle {
 
     @EventHandler
     private static void onEntityAdded(@NotNull EntityAddedEvent event) {
-        assert mc.world != null;
+        if (mc.world == null || mc.player == null) {
+            return;
+        }
+
+        if (event.entity.getUuid().equals(mc.player.getUuid())) {
+            return;
+        }
 
         if (!LIGHTNING_UUIDS.contains(event.entity.getUuid())) {
             return;

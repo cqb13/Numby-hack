@@ -3,6 +3,6 @@
   "feature_directories": {
     "commands": ["modules/commands"],
     "modules": ["modules/general"],
-    "hud": ["mdoules/hud"]
+    "hud_elements": ["modules/hud"]
   }
 }

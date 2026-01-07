@@ -18,16 +18,16 @@ public class QuickSettingsTab extends Tab {
 
     @Override
     public TabScreen createScreen(GuiTheme theme) {
-        return new AddonsTabScreen(theme, this);
+        return new QuickSettingsScreen(theme, this);
     }
 
     @Override
     public boolean isScreen(Screen screen) {
-        return screen instanceof AddonsTabScreen;
+        return screen instanceof QuickSettingsScreen;
     }
 
-    private static class AddonsTabScreen extends WindowTabScreen {
-        public AddonsTabScreen(GuiTheme theme, Tab tab) {
+    private static class QuickSettingsScreen extends WindowTabScreen {
+        public QuickSettingsScreen(GuiTheme theme, Tab tab) {
             super(theme, tab);
         }
 

@@ -27,6 +27,7 @@ public class TextRadarHud extends HudElement {
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgScale = settings.createGroup("Scale");
+    private final SettingGroup sgRender = settings.createGroup("Render");
     private final SettingGroup sgBackground = settings.createGroup("Background");
 
     // General
@@ -62,31 +63,37 @@ public class TextRadarHud extends HudElement {
             .defaultValue(true)
             .build());
 
-    private final Setting<Boolean> shadow = sgGeneral.add(new BoolSetting.Builder()
+    private final Setting<Boolean> hideWhenNone = sgRender.add(new BoolSetting.Builder()
+            .name("hide-when-none")
+            .description("Hide when no players are in range.")
+            .defaultValue(false)
+            .build());
+
+    private final Setting<Boolean> shadow = sgRender.add(new BoolSetting.Builder()
             .name("shadow")
             .description("Renders shadow behind text.")
             .defaultValue(true)
             .build());
 
-    private final Setting<SettingColor> primaryColor = sgGeneral.add(new ColorSetting.Builder()
+    private final Setting<SettingColor> primaryColor = sgRender.add(new ColorSetting.Builder()
             .name("primary-color")
             .description("Primary color.")
             .defaultValue(new SettingColor(146, 188, 98))
             .build());
 
-    private final Setting<SettingColor> secondaryColor = sgGeneral.add(new ColorSetting.Builder()
+    private final Setting<SettingColor> secondaryColor = sgRender.add(new ColorSetting.Builder()
             .name("secondary-color")
             .description("Secondary color.")
             .defaultValue(new SettingColor(175, 175, 175))
             .build());
 
-    private final Setting<Alignment> alignment = sgGeneral.add(new EnumSetting.Builder<Alignment>()
+    private final Setting<Alignment> alignment = sgRender.add(new EnumSetting.Builder<Alignment>()
             .name("alignment")
             .description("Horizontal alignment.")
             .defaultValue(Alignment.Auto)
             .build());
 
-    private final Setting<Integer> border = sgGeneral.add(new IntSetting.Builder()
+    private final Setting<Integer> border = sgRender.add(new IntSetting.Builder()
             .name("border")
             .description("How much space to add around the element.")
             .defaultValue(0)
@@ -145,6 +152,10 @@ public class TextRadarHud extends HudElement {
 
     @Override
     public void tick(HudRenderer renderer) {
+        if (mc.world == null) {
+            return;
+        }
+        getPlayers();
         double width = renderer.textWidth("Players:", shadow.get(), getScale());
         double height = renderer.textHeight(shadow.get(), getScale());
 
@@ -153,7 +164,7 @@ public class TextRadarHud extends HudElement {
             return;
         }
 
-        for (PlayerEntity entity : getPlayers()) {
+        for (PlayerEntity entity : players) {
             if (entity.equals(mc.player))
                 continue;
             if (!friends.get() && Friends.get().isFriend(entity))
@@ -177,6 +188,14 @@ public class TextRadarHud extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
+        if (players.isEmpty() && hideWhenNone.get()) {
+            return;
+        }
+
+        if (mc.world == null) {
+            return;
+        }
+
         double y = this.y + border.get();
 
         if (background.get()) {
@@ -187,10 +206,7 @@ public class TextRadarHud extends HudElement {
                 x + border.get() + alignX(renderer.textWidth("Players:", shadow.get(), getScale()), alignment.get()), y,
                 secondaryColor.get(), shadow.get(), getScale());
 
-        if (mc.world == null)
-            return;
-
-        for (PlayerEntity entity : getPlayers()) {
+        for (PlayerEntity entity : players) {
             if (entity.equals(mc.player))
                 continue;
             if (!friends.get() && Friends.get().isFriend(entity))
@@ -255,8 +271,10 @@ public class TextRadarHud extends HudElement {
         assert mc.world != null;
         players.clear();
         players.addAll(mc.world.getPlayers());
-        if (players.size() > limit.get())
+        players.remove(mc.player);
+        if (players.size() > limit.get()) {
             players.subList(limit.get() - 1, players.size() - 1).clear();
+        }
         players.sort(Comparator.comparingDouble(e -> e.squaredDistanceTo(mc.getCameraEntity())));
 
         return players;

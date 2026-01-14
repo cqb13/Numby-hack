@@ -8,8 +8,6 @@ import cqb13.NumbyHack.utils.*;
 import cqb13.NumbyHack.gui.tabs.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
-import meteordevelopment.meteorclient.gui.GuiTheme;
-import meteordevelopment.meteorclient.gui.GuiThemes;
 import meteordevelopment.meteorclient.gui.tabs.Tabs;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.hud.Hud;
@@ -55,6 +53,7 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new ConditionToggle());
         modules.add(new Confetti());
         modules.add(new LogOutSpots());
+        modules.add(new MapArtTracker());
         modules.add(new NewChunks());
         modules.add(new NoStrip());
         modules.add(new Number81());

@@ -14,9 +14,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.joml.Vector3d;
+
 import cqb13.NumbyHack.NumbyHack;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.events.meteor.MouseClickEvent;
+import meteordevelopment.meteorclient.events.render.Render2DEvent;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.widgets.WWidget;
@@ -24,13 +27,16 @@ import meteordevelopment.meteorclient.gui.widgets.containers.WHorizontalList;
 import meteordevelopment.meteorclient.gui.widgets.containers.WVerticalList;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
+import meteordevelopment.meteorclient.renderer.text.TextRenderer;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.misc.input.KeyAction;
+import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.RenderUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
@@ -57,6 +63,28 @@ public class MapArtTracker extends Module {
             .name("render")
             .description("Highlight filled maps around you.")
             .defaultValue(true)
+            .build());
+
+    private final Setting<Boolean> nametags = sgGeneral.add(new BoolSetting.Builder()
+            .name("nametags")
+            .description("Render nametags over maps.")
+            .defaultValue(true)
+            .build());
+
+    private final Setting<SettingColor> nametagColor = sgGeneral.add(new ColorSetting.Builder()
+            .name("nametag-color")
+            .description("The color of the nametag text.")
+            .defaultValue(new SettingColor(255, 255, 255))
+            .visible(nametags::get)
+            .build());
+
+    private final Setting<Double> nametagTextScale = sgGeneral.add(new DoubleSetting.Builder()
+            .name("nametag-scale")
+            .description("How big the nametag text should be.")
+            .defaultValue(1.25)
+            .min(1)
+            .sliderMax(4)
+            .visible(nametags::get)
             .build());
 
     private final Setting<Boolean> tracers = sgGeneral.add(new BoolSetting.Builder()
@@ -148,7 +176,6 @@ public class MapArtTracker extends Module {
         saveMaps();
     }
 
-    // TODO: map name rendering option
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (mc.world == null || mc.player == null) {
@@ -192,7 +219,6 @@ public class MapArtTracker extends Module {
             }
 
             Box box = frame.getBoundingBox();
-            float pitch = frame.getPitch();
 
             Color fill = new Color(sideColor.get());
             Color outline = new Color(lineColor.get());
@@ -207,6 +233,39 @@ public class MapArtTracker extends Module {
             if (tracers.get()) {
                 event.renderer.line(RenderUtils.center.x, RenderUtils.center.y, RenderUtils.center.z, entity.getX(),
                         entity.getY(), entity.getZ(), outline);
+            }
+        }
+    }
+
+    @EventHandler
+    private void onRender2D(Render2DEvent event) {
+        if (!nametags.get()) {
+            return;
+        }
+
+        for (Entity entity : mc.world.getEntities()) {
+            if (!(entity instanceof ItemFrameEntity frame)) {
+                continue;
+            }
+
+            ItemStack stack = frame.getHeldItemStack();
+            if (stack.isEmpty() || stack.getItem() != Items.FILLED_MAP) {
+                continue;
+            }
+
+            String name = stack.getName().getString();
+
+            Vector3d vec3 = new Vector3d(entity.getX(), entity.getY(), entity.getZ());
+
+            if (NametagUtils.to2D(vec3, nametagTextScale.get())) {
+                NametagUtils.begin(vec3);
+                TextRenderer.get().begin(1, false, true);
+
+                double w = TextRenderer.get().getWidth(name) / 2;
+                TextRenderer.get().render(name, -w, 0, nametagColor.get(), true);
+
+                TextRenderer.get().end();
+                NametagUtils.end();
             }
         }
     }

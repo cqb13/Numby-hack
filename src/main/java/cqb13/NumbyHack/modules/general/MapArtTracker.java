@@ -47,6 +47,9 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 
+/*
+ * Inspired by a set of modules by UriahC
+ * */
 public class MapArtTracker extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 

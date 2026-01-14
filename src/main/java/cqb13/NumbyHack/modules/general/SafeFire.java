@@ -13,7 +13,9 @@ import net.minecraft.block.SoulFireBlock;
 import net.minecraft.util.shape.VoxelShapes;
 
 /**
- * modified from Tanuki orignaly by walaryne
+ * modified by cqb13
+ * Ported from:
+ * Tanuki, orignaly by walaryne
  */
 public class SafeFire extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();

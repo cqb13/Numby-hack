@@ -1,6 +1,16 @@
 package cqb13.NumbyHack.utils;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.google.common.collect.Lists;
+
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.entity.EntityAddedEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -17,14 +27,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.LocalRandom;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.math.random.RandomSeed;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 /**
  * super-duper top secret file with hidden fun effects hihi :P

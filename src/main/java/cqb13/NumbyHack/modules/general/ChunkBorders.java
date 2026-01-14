@@ -13,6 +13,9 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.math.ChunkPos;
 
+/**
+ * made by cqb13
+ */
 public class ChunkBorders extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgRender = settings.createGroup("Render");

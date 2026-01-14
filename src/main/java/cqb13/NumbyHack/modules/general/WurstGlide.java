@@ -11,8 +11,10 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
-// https://github.com/Wurst-Imperium/Wurst7/blob/master/src/main/java/net/wurstclient/hacks/GlideHack.java
-
+/**
+ * Ported from:
+ * https://github.com/Wurst-Imperium/Wurst7/blob/master/src/main/java/net/wurstclient/hacks/GlideHack.java
+ */
 public class WurstGlide extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -41,7 +43,7 @@ public class WurstGlide extends Module {
             .build());
 
     public WurstGlide() {
-        super(NumbyHack.CATEGORY, "wurst-glide", "Glide from wurst");
+        super(NumbyHack.CATEGORY, "wurst-glide", "Glide from wurst.");
     }
 
     @EventHandler

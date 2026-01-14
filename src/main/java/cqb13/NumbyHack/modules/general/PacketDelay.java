@@ -14,6 +14,9 @@ import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.network.packet.Packet;
 
+/**
+ * made by cqb13
+ */
 public class PacketDelay extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 

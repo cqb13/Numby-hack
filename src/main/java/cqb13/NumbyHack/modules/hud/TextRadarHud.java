@@ -1,7 +1,20 @@
 package cqb13.NumbyHack.modules.hud;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+
 import cqb13.NumbyHack.NumbyHack;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
+import meteordevelopment.meteorclient.settings.EnumSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.hud.Alignment;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
@@ -13,13 +26,6 @@ import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class TextRadarHud extends HudElement {
     public static final HudElementInfo<TextRadarHud> INFO = new HudElementInfo<>(NumbyHack.HUD_GROUP, "text-radar",

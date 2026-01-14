@@ -45,11 +45,11 @@ import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 
-/*
+/**
+ * made by cqb13
  * Inspired by a set of modules by UriahC
- * */
+ */
 public class MapArtTracker extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -148,8 +148,7 @@ public class MapArtTracker extends Module {
         saveMaps();
     }
 
-
-    //TODO: map name rendering option
+    // TODO: map name rendering option
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (mc.world == null || mc.player == null) {

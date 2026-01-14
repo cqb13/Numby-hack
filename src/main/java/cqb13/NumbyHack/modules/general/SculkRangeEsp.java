@@ -36,6 +36,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 
+/**
+ * made by cqb13
+ */
 public class SculkRangeEsp extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 

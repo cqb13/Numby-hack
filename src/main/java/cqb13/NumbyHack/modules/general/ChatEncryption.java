@@ -27,6 +27,9 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 
+/**
+ * made by cqb13
+ */
 public class ChatEncryption extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgChat = settings.createGroup("Chat");

@@ -25,8 +25,10 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.util.math.MathHelper;
 
-// https://github.com/Declipsonator/Meteor-Tweaks/blob/main/src/main/java/me/declipsonator/meteortweaks/modules/RideStats.java
-
+/**
+ * Ported from:
+ * https://github.com/Declipsonator/Meteor-Tweaks/blob/main/src/main/java/me/declipsonator/meteortweaks/modules/RideStats.java
+ */
 public class RideStats extends Module {
     private final Vector3d pos = new Vector3d();
 

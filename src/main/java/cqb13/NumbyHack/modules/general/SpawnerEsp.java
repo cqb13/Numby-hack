@@ -32,7 +32,6 @@ import net.minecraft.world.chunk.WorldChunk;
 
 /**
  * made by cqb13
- *
  * inspired by ActivatedSpawnerDetector from trouserstreak
  */
 public class SpawnerEsp extends Module {
@@ -235,7 +234,7 @@ public class SpawnerEsp extends Module {
     private final Set<FoundSpawner> foundSpawners = Collections.synchronizedSet(new HashSet<>());
 
     public SpawnerEsp() {
-        super(NumbyHack.CATEGORY, "spawner-esp", "Shows spawners of different mobs in different colors");
+        super(NumbyHack.CATEGORY, "spawner-esp", "Shows spawners of different mobs in different colors.");
     }
 
     @Override

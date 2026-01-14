@@ -20,8 +20,9 @@ import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.ExperienceBottleItem;
 import net.minecraft.item.Items;
 
-// FloRida from venomhack
-
+/**
+ * FloRida from venomhack
+ */
 public class Beyblade extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 

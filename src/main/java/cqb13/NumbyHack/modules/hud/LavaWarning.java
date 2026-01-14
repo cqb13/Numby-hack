@@ -2,7 +2,12 @@ package cqb13.NumbyHack.modules.hud;
 
 import cqb13.NumbyHack.NumbyHack;
 import cqb13.NumbyHack.utils.CHMainUtils;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;

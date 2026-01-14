@@ -1,7 +1,16 @@
 package cqb13.NumbyHack.modules.hud;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import cqb13.NumbyHack.NumbyHack;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
+import meteordevelopment.meteorclient.settings.EnumSetting;
+import meteordevelopment.meteorclient.settings.ItemListSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.hud.Alignment;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
@@ -10,9 +19,12 @@ import meteordevelopment.meteorclient.systems.hud.elements.TextHud;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Names;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
-import net.minecraft.item.*;
-
-import java.util.*;
+import net.minecraft.item.BedItem;
+import net.minecraft.item.EndCrystalItem;
+import net.minecraft.item.EnderPearlItem;
+import net.minecraft.item.ExperienceBottleItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 
 public class ItemCounter extends HudElement {
     public static final HudElementInfo<ItemCounter> INFO = new HudElementInfo<>(NumbyHack.HUD_GROUP, "item-counter",

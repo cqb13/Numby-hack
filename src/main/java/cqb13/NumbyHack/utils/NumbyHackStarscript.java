@@ -1,20 +1,21 @@
 package cqb13.NumbyHack.utils;
 
+import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;
+import static cqb13.NumbyHack.utils.CHMainUtils.isDeathPacket;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
+import org.meteordev.starscript.value.Value;
+
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
-import org.meteordev.starscript.value.Value;
 import net.minecraft.item.Items;
-
-import static cqb13.NumbyHack.utils.CHMainUtils.deadEntity;
-import static cqb13.NumbyHack.utils.CHMainUtils.isDeathPacket;
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class NumbyHackStarscript {
     public static void init() {

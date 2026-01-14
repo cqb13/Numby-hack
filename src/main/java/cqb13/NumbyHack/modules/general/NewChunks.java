@@ -33,9 +33,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.chunk.WorldChunk;
 
-/*
-    Ported from: https://github.com/BleachDrinker420/BleachHack/blob/master/BleachHack-Fabric-1.16/src/main/java/bleach/hack/module/mods/NewChunks.java
-*/
+/**
+ * modified by cqb13
+ * Ported from:
+ * https://github.com/BleachDrinker420/BleachHack/blob/master/BleachHack-Fabric-1.16/src/main/java/bleach/hack/module/mods/NewChunks.java
+ */
 public class NewChunks extends Module {
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -107,7 +109,7 @@ public class NewChunks extends Module {
             Direction.SOUTH, Direction.UP };
 
     public NewChunks() {
-        super(NumbyHack.CATEGORY, "new-chunks", "Detects completely new chunks using certain traits of them");
+        super(NumbyHack.CATEGORY, "new-chunks", "Detects completely new chunks using certain traits of them.");
     }
 
     @Override

@@ -70,7 +70,7 @@ public class BonemealAura extends Module {
             .build());
 
     public BonemealAura() {
-        super(NumbyHack.CATEGORY, "bonemeal-aura", "Automatically bonemeal crops around the player");
+        super(NumbyHack.CATEGORY, "bonemeal-aura", "Automatically bonemeal crops around the player.");
     }
 
     public boolean isBonemealing;

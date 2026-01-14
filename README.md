@@ -30,13 +30,14 @@ _Note: Meteor Client is required for this addon_
 Auto Log Plus         || Automatically disconnects you when a specific condition is met
 Better Place          || Allows you to place blocks in weird ways
 Bayblade              || People see you spin
+Carpet Place          || Helps with manual carpet placing for spawn proofing and mapart
 Bonemeal Aura         || Automatically bonemeal crops around the player
 Chat Encryption       || Encrypts messages using a user-provided key
-Chunk Borders         || Customizable chunk border rendering.
+Chunk Borders         || Customizable chunk border rendering
 Condition Toggle      || Toggles modules based on conditions
 Confetti              || Changes the color of totem pop particles
-Game Settings         || Allows you to change some game settings
 Log Out Spots         || Shows where a player has logged out
+Map Art Tracker       || Track and highlights map arts
 New Chunks            || Finds new chunks based on flowing liquids
 No Strip              || Prevents you from stripping logs
 Number81              || Counts to 81 in chat
@@ -73,6 +74,7 @@ Server Brand          || Shows the server brand
 <h1>Features:</h1>
 <pre>
 player particle       || Renders particles around specific players
+Game Settings Tab     || Allows you to change some game settings
 </pre>
 
 _Note: Not all the code was written by me_

@@ -1,5 +1,7 @@
 package cqb13.NumbyHack.gui.tabs;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 import meteordevelopment.meteorclient.gui.GuiTheme;
 import meteordevelopment.meteorclient.gui.tabs.Tab;
 import meteordevelopment.meteorclient.gui.tabs.TabScreen;
@@ -8,8 +10,6 @@ import meteordevelopment.meteorclient.gui.widgets.containers.WVerticalList;
 import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import net.minecraft.client.gui.screen.Screen;
-
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class QuickSettingsTab extends Tab {
     public QuickSettingsTab() {

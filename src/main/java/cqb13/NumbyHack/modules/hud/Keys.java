@@ -1,17 +1,22 @@
 package cqb13.NumbyHack.modules.hud;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 import cqb13.NumbyHack.NumbyHack;
-import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.settings.BoolSetting;
+import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
+import meteordevelopment.meteorclient.settings.EnumSetting;
+import meteordevelopment.meteorclient.settings.Setting;
+import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 
-import static meteordevelopment.meteorclient.MeteorClient.mc;
-
 public class Keys extends HudElement {
     public static final HudElementInfo<Keys> INFO = new HudElementInfo<>(NumbyHack.HUD_GROUP, "Keys",
-            "Draws current movement keys", Keys::new);
+            "Draws current movement keys.", Keys::new);
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 

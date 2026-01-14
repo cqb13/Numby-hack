@@ -113,7 +113,7 @@ public class TanukiEgapFinder extends Module {
     public TanukiEgapFinder() {
         super(NumbyHack.CATEGORY, "egap-finder",
                 "Finds Enchanted Golden Apples in chests and logs coordinates to " + OUTPUT_FILE_NAME
-                        + "-yourworldseed.txt");
+                        + "-yourworldseed.txt.");
     }
 
     @Override

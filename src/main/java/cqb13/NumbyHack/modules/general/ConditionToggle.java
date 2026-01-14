@@ -20,6 +20,9 @@ import net.minecraft.network.packet.s2c.play.DeathMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
 import net.minecraft.text.Text;
 
+/**
+ * made by cqb13
+ */
 public class ConditionToggle extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -103,7 +106,7 @@ public class ConditionToggle extends Module {
             .build());
 
     public ConditionToggle() {
-        super(NumbyHack.CATEGORY, "condition-toggle", "toggles modules based on conditions");
+        super(NumbyHack.CATEGORY, "condition-toggle", "Toggles modules based on conditions.");
     }
 
     // death toggle and damage toggle

@@ -145,6 +145,8 @@ public class MapArtTracker extends Module {
         saveMaps();
     }
 
+
+    //TODO: map name rendering option
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (mc.world == null || mc.player == null) {
@@ -187,18 +189,8 @@ public class MapArtTracker extends Module {
                 continue;
             }
 
-            Box box;
+            Box box = frame.getBoundingBox();
             float pitch = frame.getPitch();
-            if (pitch == 90 || pitch == -90) {
-                box = frame.getBoundingBox();
-            } else {
-                if (frame.getHorizontalFacing() == Direction.EAST
-                        || frame.getHorizontalFacing() == Direction.WEST) {
-                    box = frame.getBoundingBox();
-                } else {
-                    box = frame.getBoundingBox();
-                }
-            }
 
             Color fill = new Color(sideColor.get());
             Color outline = new Color(lineColor.get());

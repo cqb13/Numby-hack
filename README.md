@@ -48,6 +48,7 @@ Ride Stats            || Nametag with information about rideable entities
 Safe Fire             || Does not allow you to walk into fire sources
 Safety Net            || Places a block under you if your reach a set Y level
 Sculk Range ESP       || Draws a range indicator around the activation range of sculk sensors
+Sign Text ESP         || Shows you the text on signs from far away
 Spawner ESP           || Shows spawners of different mobs in different colors
 Egap Finder           || Searches for Egaps in single players and saves their location
 Wurst Glide           || Allows you to glide

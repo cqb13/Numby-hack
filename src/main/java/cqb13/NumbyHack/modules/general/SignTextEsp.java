@@ -51,7 +51,7 @@ public class SignTextEsp extends Module {
     private final Setting<Integer> nearDistance = sgGeneral.add(new IntSetting.Builder()
             .name("distance")
             .description("At what distance to hide the text.")
-            .defaultValue(20)
+            .defaultValue(10)
             .min(5)
             .sliderMax(100)
             .visible(hideWhenNear::get)

@@ -17,6 +17,7 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import org.meteordev.starscript.value.Value;
 import org.meteordev.starscript.value.ValueMap;
+
 import net.minecraft.item.Items;
 import org.slf4j.Logger;
 
@@ -62,6 +63,7 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new SafeFire());
         modules.add(new SafetyNet());
         modules.add(new SculkRangeEsp());
+        modules.add(new SignTextEsp());
         modules.add(new SpawnerEsp());
         modules.add(new TanukiEgapFinder());
         modules.add(new WurstGlide());

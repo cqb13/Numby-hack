@@ -5,6 +5,7 @@ on:
     branches: [master]
     paths-ignore:
       - "*.md"
+      - "meteor-addon-list.json"
 
 jobs:
   build:

@@ -51,6 +51,7 @@ Sculk Range ESP       || Draws a range indicator around the activation range of 
 Sign Text ESP         || Shows you the text on signs from far away
 Spawner ESP           || Shows spawners of different mobs in different colors
 Egap Finder           || Searches for Egaps in single players and saves their location
+TNT Fuse Esp          || Shows the fuse time of lit tnt
 Wurst Glide           || Allows you to glide
 </pre>
 <h2>HUD:</h2>

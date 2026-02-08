@@ -132,7 +132,7 @@ public class TntFuseEsp extends Module {
             .build());
 
     public TntFuseEsp() {
-        super(NumbyHack.CATEGORY, "tnt-fuse-esp", "Shows you the fuse time of lit tnt.");
+        super(NumbyHack.CATEGORY, "tnt-fuse-esp", "Shows the fuse time of lit tnt.");
     }
 
     public boolean shouldHideFlashing() {

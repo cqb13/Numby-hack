@@ -58,7 +58,6 @@ Wurst Glide           || Allows you to glide
 <pre>
 81                    || Number81 On Top!
 Item Counter          || Counts specific items from your inventory
-Key Press HUD         || Displays the key you pressed
 Lava Warning          || Warns you when there is lava under you
 Kills                 || Shows the amount of player kills
 Deaths                || Shows the amount of deaths

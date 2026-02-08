@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_16",
   "client": [
     "BlockPlacementMixin",
+    "TntEntityRendererMixin",
     "TotemParticleMixin",
     "meteor.CrystalAuraAccessor",
     "meteor.DiscordPresenceMixin",

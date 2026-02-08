@@ -43,6 +43,12 @@ public class TntFuseEsp extends Module {
             .defaultValue(false)
             .build());
 
+    public final Setting<Boolean> hideTntFlashing = sgGeneral.add(new BoolSetting.Builder()
+            .name("hide-tnt-flashing")
+            .description("Hides the flashing of lit tnt.")
+            .defaultValue(false)
+            .build());
+
     public final Setting<Boolean> computeColorFromFuse = sgTextRender.add(new BoolSetting.Builder()
             .name("compute-color-from-fuse")
             .description("Determines the color for the fuse indicator based on fuse time.")
@@ -108,7 +114,7 @@ public class TntFuseEsp extends Module {
     private final Setting<Integer> lineOpacity = sgLitTntRender.add(new IntSetting.Builder()
             .name("line-opacity")
             .description("The opacity of lines.")
-            .defaultValue(75)
+            .defaultValue(255)
             .min(0)
             .max(255)
             .sliderMax(255)
@@ -118,7 +124,7 @@ public class TntFuseEsp extends Module {
     private final Setting<Integer> sideOpacity = sgLitTntRender.add(new IntSetting.Builder()
             .name("side-opacity")
             .description("The opacity of sides.")
-            .defaultValue(150)
+            .defaultValue(75)
             .min(0)
             .max(255)
             .sliderMax(255)
@@ -127,6 +133,10 @@ public class TntFuseEsp extends Module {
 
     public TntFuseEsp() {
         super(NumbyHack.CATEGORY, "tnt-fuse-esp", "Shows you the fuse time of lit tnt.");
+    }
+
+    public boolean shouldHideFlashing() {
+        return hideTntFlashing.get();
     }
 
     @EventHandler

@@ -47,6 +47,7 @@ Packet Delay          || Allows you to delay the packets you send to a server
 Ride Stats            || Nametag with information about rideable entities
 Safe Fire             || Does not allow you to walk into fire sources
 Safety Net            || Places a block under you if your reach a set Y level
+Shield Swap           || Automatically swaps a shield into your offhand
 Sculk Range ESP       || Draws a range indicator around the activation range of sculk sensors
 Sign Text ESP         || Shows you the text on signs from far away
 Spawner ESP           || Shows spawners of different mobs in different colors

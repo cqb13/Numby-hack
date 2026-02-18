@@ -62,6 +62,7 @@ public class NumbyHack extends MeteorAddon {
         modules.add(new RideStats());
         modules.add(new SafeFire());
         modules.add(new SafetyNet());
+        modules.add(new ShieldSwap());
         modules.add(new SculkRangeEsp());
         modules.add(new SignTextEsp());
         modules.add(new SpawnerEsp());

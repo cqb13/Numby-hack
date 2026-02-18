@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/cqb13/Numby-hack/main/src/main/resources/assets/numby-hack/textures/icon.png" alt="logo" width="20%"/>
   <h1>Numby Hack</h1>
-  <p>A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.</p>
+  <p>A Meteor addon focused on adding utility modules and giving users more customization options. Made in honor of Number81.</p>
 
 <a href="https://www.meteoraddons.com/?addon=cqb13%2FNumby-hack"><img src="https://img.shields.io/badge/Verified-Yes!-green" alt="Verified"></a>
 <img src="https://img.shields.io/badge/Minecraft%20Version-1.21.11-green" alt="Minecraft Version">

@@ -3,7 +3,7 @@
   "id": "numbyhack",
   "version": "${version}",
   "name": "Numby Hack",
-  "description": "A simple Meteor addon focused on giving users more customization options. Made in honor of Number81.",
+  "description": "A Meteor addon focused on adding utility modules and giving users more customization options. Made in honor of Number81.",
   "authors": ["cqb13"],
   "contact": {
     "repo": "https://github.com/cqb13/Numby-hack",

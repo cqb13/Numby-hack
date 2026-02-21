@@ -22,12 +22,14 @@ import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.WireframeEntityRenderer;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.Dimension;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.text.Text;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -180,6 +182,9 @@ public class LogOutSpots extends Module {
                                     return;
                             }
                         }
+                        if (notification.get()) {
+                            ChatUtils.sendMsg(Text.literal(player.getName().getString() + " Logged out!"));
+                        }
                         add(new Entry(player));
                     }
                 }
@@ -236,13 +241,13 @@ public class LogOutSpots extends Module {
 
     private class Entry {
         public final double x, y, z;
-        public final double xWidth, zWidth, halfWidth, height;
+        public final double halfWidth, height;
 
         public final TimerUtils passed = new TimerUtils();
 
         public final UUID uuid;
         public final String name;
-        public final int health, maxHealth;
+        public final int health;
         public final String healthText;
         PlayerEntity entity;
 
@@ -254,8 +259,6 @@ public class LogOutSpots extends Module {
             y = entity.getY();
             z = entity.getZ() - halfWidth;
 
-            xWidth = entity.getBoundingBox().getLengthX();
-            zWidth = entity.getBoundingBox().getLengthZ();
             height = entity.getBoundingBox().getLengthY();
 
             this.entity = entity;
@@ -263,7 +266,6 @@ public class LogOutSpots extends Module {
             uuid = entity.getUuid();
             name = entity.getName().getString();
             health = Math.round(entity.getHealth() + entity.getAbsorptionAmount());
-            maxHealth = Math.round(entity.getMaxHealth() + entity.getAbsorptionAmount());
 
             healthText = " " + health;
         }

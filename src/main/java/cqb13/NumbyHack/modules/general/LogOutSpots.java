@@ -174,18 +174,26 @@ public class LogOutSpots extends Module {
 
                 for (PlayerEntity player : lastPlayers) {
                     if (player.getUuid().equals(entry.getProfile().id())) {
+                        boolean validArmor = true;
                         if (armorCheck.get()) {
-                            for (int position = 3; position >= 0; position--) {
+                            for (int position = 1; position <= 4; position++) {
                                 ItemStack itemStack = getItem(position, player);
 
-                                if (itemStack.isEmpty())
-                                    return;
+                                if (itemStack.isEmpty()) {
+                                    validArmor = false;
+                                    break;
+                                }
                             }
                         }
+
+                        if (!validArmor)
+                            break;
+
                         if (notification.get()) {
                             ChatUtils.sendMsg(Text.literal(player.getName().getString() + " Logged out!"));
                         }
                         add(new Entry(player));
+                        break;
                     }
                 }
             }

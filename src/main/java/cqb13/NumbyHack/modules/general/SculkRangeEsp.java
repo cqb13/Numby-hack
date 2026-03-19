@@ -13,6 +13,7 @@ import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.DoubleSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -87,7 +88,7 @@ public class SculkRangeEsp extends Module {
     private final Setting<SettingColor> shapeColor = sgGeneral.add(new ColorSetting.Builder()
             .name("shape-color")
             .description("Color of the range indicator.")
-            .defaultValue(new SettingColor(146, 188, 98, 255))
+            .defaultValue(new SettingColor(146, 188, 98, 75))
             .build());
 
     private final Setting<Boolean> advancedView = sgGeneral.add(new BoolSetting.Builder()
@@ -99,14 +100,14 @@ public class SculkRangeEsp extends Module {
     private final Setting<SettingColor> redstoneColor = sgGeneral.add(new ColorSetting.Builder()
             .name("redstone-shape-color")
             .description("Color of the range indicator with redstone output.")
-            .defaultValue(new SettingColor(170, 0, 0, 255))
+            .defaultValue(new SettingColor(170, 0, 0, 75))
             .visible(advancedView::get)
             .build());
 
     private final Setting<SettingColor> shriekerColor = sgGeneral.add(new ColorSetting.Builder()
             .name("shrieker-shape-color")
             .description("Color of the range indicator with a shrieker in range.")
-            .defaultValue(new SettingColor(0, 69, 170, 255))
+            .defaultValue(new SettingColor(0, 69, 170, 75))
             .visible(advancedView::get)
             .build());
 
@@ -117,12 +118,19 @@ public class SculkRangeEsp extends Module {
             .visible(() -> shape.get() == Shape.Circle || shape.get() == Shape.Both)
             .build());
 
+    private final Setting<Double> circleThickness = sgGeneral.add(new DoubleSetting.Builder()
+            .name("circle-thickness")
+            .description("The thickness of the circle.")
+            .defaultValue(0.08)
+            .sliderMax(1)
+            .visible(() -> shape.get() == Shape.Sphere || shape.get() == Shape.Both)
+            .build());
+
     public Setting<Integer> gradation = sgGeneral.add(new IntSetting.Builder()
             .name("gradation")
             .description(
-                    "Determines the smoothness/detail of the sphere shape. Higher values produce a smoother sphere, lower values make it more blocky.")
+                    "Determines the smoothness of the sphere shape. Higher values produce a smoother sphere, lower values make it more blocky.")
             .defaultValue(30)
-            .range(20, 100)
             .sliderRange(20, 100)
             .visible(() -> shape.get() == Shape.Sphere || shape.get() == Shape.Both)
             .build());
@@ -282,29 +290,47 @@ public class SculkRangeEsp extends Module {
                     if (renderAtPlayerHeight.get()) {
                         renderPos = new BlockPos(sensor.pos.getX(), (int) mc.player.getY(), sensor.pos.getZ());
                     }
-                    renderCircle(event, radius, renderPos, sensor);
+                    renderCircle(event, radius, circleThickness.get(), renderPos, sensor);
                 }
             }
         }
     }
 
-    private void renderCircle(Render3DEvent event, double radius, BlockPos origin, FoundSensor sensor) {
+    private void renderCircle(Render3DEvent event, double radius, double thickness, BlockPos origin,
+            FoundSensor sensor) {
         final double maxSegmentLength = 0.2;
 
         int segments = (int) Math.ceil(2 * Math.PI * radius / maxSegmentLength);
         segments = Math.max(16, segments);
 
-        Vec3d[] pts = new Vec3d[segments];
+        Vec3d[] outerPts = new Vec3d[segments];
+        Vec3d[] innerPts = new Vec3d[segments];
         SettingColor[] cols = new SettingColor[segments];
 
         boolean both = sensor.hasRedstoneOutput() && sensor.shriekerInRange();
         boolean advanced = advancedView.get();
 
+        double outerRadius = radius + thickness / 2.0;
+        double innerRadius = radius - thickness / 2.0;
+
+        if (innerRadius < 0) {
+            innerRadius = 0;
+        }
+
         for (int s = 0; s < segments; s++) {
             double angle = 2 * Math.PI * s / segments;
-            double sin = Math.sin(angle) * radius;
-            double cos = Math.cos(angle) * radius;
-            pts[s] = new Vec3d(origin.getX() + sin, origin.getY(), origin.getZ() + cos);
+            double sin = Math.sin(angle);
+            double cos = Math.cos(angle);
+
+            outerPts[s] = new Vec3d(
+                    origin.getX() + sin * outerRadius,
+                    origin.getY(),
+                    origin.getZ() + cos * outerRadius);
+
+            innerPts[s] = new Vec3d(
+                    origin.getX() + sin * innerRadius,
+                    origin.getY(),
+                    origin.getZ() + cos * innerRadius);
 
             int deg = (int) Math.round(Math.toDegrees(angle)) % 360;
 
@@ -327,10 +353,31 @@ public class SculkRangeEsp extends Module {
 
         for (int s = 0; s < segments; s++) {
             int next = (s + 1) % segments;
-            event.renderer.line(
-                    pts[s].x, pts[s].y, pts[s].z,
-                    pts[next].x, pts[next].y, pts[next].z,
-                    cols[next]);
+
+            event.renderer.triangles.ensureTriCapacity();
+
+            int outer1 = event.renderer.triangles
+                    .vec3(outerPts[s].x, outerPts[s].y, outerPts[s].z)
+                    .color(cols[s])
+                    .next();
+
+            int outer2 = event.renderer.triangles
+                    .vec3(outerPts[next].x, outerPts[next].y, outerPts[next].z)
+                    .color(cols[next])
+                    .next();
+
+            int inner1 = event.renderer.triangles
+                    .vec3(innerPts[s].x, innerPts[s].y, innerPts[s].z)
+                    .color(cols[s])
+                    .next();
+
+            int inner2 = event.renderer.triangles
+                    .vec3(innerPts[next].x, innerPts[next].y, innerPts[next].z)
+                    .color(cols[next])
+                    .next();
+
+            event.renderer.triangles.triangle(outer1, outer2, inner1);
+            event.renderer.triangles.triangle(inner1, outer2, inner2);
         }
     }
 
@@ -338,23 +385,31 @@ public class SculkRangeEsp extends Module {
         boolean advanced = advancedView.get();
         boolean both = sensor.hasRedstoneOutput() && sensor.shriekerInRange();
 
-        for (float alpha = 0.0f; alpha < Math.PI; alpha += Math.PI / gradation) {
-            for (float beta = 0.0f; beta < 2.0 * Math.PI; beta += Math.PI / gradation) {
-                double x1 = sensor.pos.getX() + radius * Math.cos(beta) * Math.sin(alpha);
-                double y1 = sensor.pos.getY() + radius * Math.sin(beta) * Math.sin(alpha);
-                double z1 = sensor.pos.getZ() + radius * Math.cos(alpha);
+        double cx = sensor.pos.getX();
+        double cy = sensor.pos.getY();
+        double cz = sensor.pos.getZ();
 
-                double sin = Math.sin(alpha + Math.PI / gradation);
-                double x2 = sensor.pos.getX() + radius * Math.cos(beta) * sin;
-                double y2 = sensor.pos.getY() + radius * Math.sin(beta) * sin;
-                double z2 = sensor.pos.getZ() + radius * Math.cos(alpha + Math.PI / gradation);
+        int horizontalSteps = Math.max(8, gradation);
+        int verticalSteps = Math.max(16, gradation * 2);
+
+        for (int hor = 0; hor < horizontalSteps; hor++) {
+            double theta1 = Math.PI * hor / horizontalSteps;
+            double theta2 = Math.PI * (hor + 1) / horizontalSteps;
+
+            for (int vert = 0; vert < verticalSteps; vert++) {
+                double phi1 = 2.0 * Math.PI * vert / verticalSteps;
+                double phi2 = 2.0 * Math.PI * (vert + 1) / verticalSteps;
+
+                Vec3d p1 = spherePoint(cx, cy, cz, radius, theta1, phi1);
+                Vec3d p2 = spherePoint(cx, cy, cz, radius, theta1, phi2);
+                Vec3d p3 = spherePoint(cx, cy, cz, radius, theta2, phi2);
+                Vec3d p4 = spherePoint(cx, cy, cz, radius, theta2, phi1);
 
                 SettingColor color;
-
                 if (!advanced) {
                     color = shapeColor.get();
                 } else if (both) {
-                    int segmentIndex = (int) (alpha / (Math.PI / gradation) + beta / (Math.PI / gradation));
+                    int segmentIndex = hor + vert;
                     color = (segmentIndex % 2 == 0) ? redstoneColor.get() : shriekerColor.get();
                 } else if (sensor.hasRedstoneOutput()) {
                     color = redstoneColor.get();
@@ -364,9 +419,27 @@ public class SculkRangeEsp extends Module {
                     color = shapeColor.get();
                 }
 
-                event.renderer.line(x1, y1, z1, x2, y2, z2, color);
+                event.renderer.triangles.ensureQuadCapacity();
+
+                int i1 = event.renderer.triangles.vec3(p1.x, p1.y, p1.z).color(color).next();
+                int i2 = event.renderer.triangles.vec3(p2.x, p2.y, p2.z).color(color).next();
+                int i3 = event.renderer.triangles.vec3(p3.x, p3.y, p3.z).color(color).next();
+                int i4 = event.renderer.triangles.vec3(p4.x, p4.y, p4.z).color(color).next();
+
+                event.renderer.triangles.triangle(i1, i2, i3);
+                event.renderer.triangles.triangle(i1, i3, i4);
             }
         }
+    }
+
+    private Vec3d spherePoint(double cx, double cy, double cz, double r, double theta, double phi) {
+        double sinTheta = Math.sin(theta);
+
+        double x = cx + r * sinTheta * Math.cos(phi);
+        double y = cy + r * Math.cos(theta);
+        double z = cz + r * sinTheta * Math.sin(phi);
+
+        return new Vec3d(x, y, z);
     }
 
     private record FoundSensor(SensorType sensorType, BlockPos pos, boolean hasRedstoneOutput,

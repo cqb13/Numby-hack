@@ -59,9 +59,9 @@ import net.minecraft.util.math.Box;
 public class MapArtTracker extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Boolean> render = sgGeneral.add(new BoolSetting.Builder()
-            .name("render")
-            .description("Highlight filled maps around you.")
+    private final Setting<Boolean> highlightFound = sgGeneral.add(new BoolSetting.Builder()
+            .name("highlight-collected")
+            .description("Highlight maps you have already collected.")
             .defaultValue(true)
             .build());
 
@@ -214,7 +214,7 @@ public class MapArtTracker extends Module {
                 }
             }
 
-            if (!render.get()) {
+            if (!highlightFound.get() && rec.collected) {
                 continue;
             }
 

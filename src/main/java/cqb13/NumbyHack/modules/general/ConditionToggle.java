@@ -128,7 +128,7 @@ public class ConditionToggle extends Module {
     @EventHandler
     private void onGameLeft(GameLeftEvent event) {
         if (logout.get()) {
-            toggleModules(logoutOffToggleModules.get(), logoutOnToggleModules.get());
+            toggleModules(logoutOnToggleModules.get(), logoutOffToggleModules.get());
         }
     }
 

@@ -9,10 +9,11 @@ import meteordevelopment.meteorclient.settings.PacketListSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.utils.network.PacketUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.PacketType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * made by cqb13
@@ -20,10 +21,10 @@ import net.minecraft.network.protocol.Packet;
 public class PacketDelay extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Set<Class<? extends Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
+    private final Setting<Set<PacketType<? extends @NotNull Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
             .name("C2S-packets")
             .description("Client-to-server packets to delay.")
-            .filter(aClass -> PacketUtils.getC2SPackets().contains(aClass))
+            .serverbound()
             .build());
 
     private static ArrayList<Packet<?>> delayedPackets = new ArrayList<>();
@@ -35,7 +36,7 @@ public class PacketDelay extends Module {
 
     @EventHandler(priority = EventPriority.HIGHEST + 1)
     private void onSendPacket(PacketEvent.Send event) {
-        if (c2sPackets.get().contains(event.packet.getClass())) {
+        if (c2sPackets.get().contains(event.packet.type())) {
             delayedPackets.add(event.packet);
             event.cancel();
         }

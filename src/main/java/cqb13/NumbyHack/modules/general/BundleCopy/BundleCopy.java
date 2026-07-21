@@ -282,7 +282,7 @@ public class BundleCopy extends Module {
     }
 
     private final String getCustomNameOrNull(ItemStack stack) {
-        final var text = stack.get(DataComponents.ITEM_NAME);
+        final var text = stack.get(DataComponents.CUSTOM_NAME);
         return text == null ? null : text.getString();
     }
 

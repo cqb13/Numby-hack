@@ -21,11 +21,11 @@ import org.jetbrains.annotations.NotNull;
 public class PacketDelay extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Set<PacketType<? extends @NotNull Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
-            .name("C2S-packets")
-            .description("Client-to-server packets to delay.")
-            .serverbound()
-            .build());
+    private final Setting<Set<PacketType<? extends Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
+        .name("C2S-packets")
+        .description("Client-to-server packets to log.")
+        .serverbound()
+        .build());
 
     private static ArrayList<Packet<?>> delayedPackets = new ArrayList<>();
 

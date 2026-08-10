@@ -272,7 +272,7 @@ public class MapArtTracker extends Module {
 
             if (NametagUtils.to2D(vec3, nametagTextScale.get())) {
                 NametagUtils.begin(vec3);
-                TextRenderer.get().begin(1, false, true);
+                TextRenderer.get().beginBig(event.graphics);
 
                 double w = TextRenderer.get().getWidth(name) / 2;
                 TextRenderer.get().render(name, -w, 0, nametagColor.get(), true);
@@ -285,7 +285,7 @@ public class MapArtTracker extends Module {
 
     @EventHandler
     private void onMouseClick(MouseClickEvent event) {
-        if (event.action != KeyAction.Press || event.button() != GLFW_MOUSE_BUTTON_MIDDLE || mc.screen != null) {
+        if (event.action != KeyAction.Press || event.button() != GLFW_MOUSE_BUTTON_MIDDLE || mc.gui.screen() != null) {
             return;
         }
 

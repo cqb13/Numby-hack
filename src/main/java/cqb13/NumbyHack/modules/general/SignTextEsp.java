@@ -17,6 +17,7 @@ import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockEntityIterator;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
@@ -99,6 +100,7 @@ public class SignTextEsp extends Module {
             Component[] msgs = text.getMessages(true);
 
             renderNametagLines(
+                    event.graphics,
                     new Vector3d(entity.getBlockPos().getX() + 0.5, entity.getBlockPos().getY() + 0.5,
                             entity.getBlockPos().getZ() + 0.5),
                     textScale.get(),
@@ -114,6 +116,7 @@ public class SignTextEsp extends Module {
     }
 
     public void renderNametagLines(
+            GuiGraphicsExtractor graphics,
             Vector3d pos,
             double scale,
             TextRenderer renderer,
@@ -128,7 +131,7 @@ public class SignTextEsp extends Module {
         }
 
         NametagUtils.begin(pos);
-        renderer.begin(1, false, true);
+        renderer.beginBig(graphics);
 
         String[] lines = { line1, line2, line3, line4 };
 

@@ -42,9 +42,7 @@ public class QuickSettingsTab extends Tab {
             WVerticalList list = theme.verticalList();
 
             WButton hudToggle = list.add(theme.button("Toggle HUD")).expandX().widget();
-            hudToggle.action = () -> {
-                toggleHUD(!mc.options.hideGui);
-            };
+            hudToggle.action = QuickSettingsTab::toggleHUD;
 
             WButton pauseOnLostFocusToggle = list.add(theme.button("Toggle Pause on Lost Focus")).expandX().widget();
             pauseOnLostFocusToggle.action = () -> {
@@ -102,9 +100,9 @@ public class QuickSettingsTab extends Tab {
         }
     }
 
-    private static void toggleHUD(Boolean b) {
-        mc.options.hideGui = b;
-        sendChatInfo("HUD", b ? "hidden" : "shown");
+    private static void toggleHUD() {
+        mc.gui.hud.toggle();
+        sendChatInfo("HUD", mc.gui.hud.isHidden() ? "hidden" : "shown");
     }
 
     private static void togglePauseOnLostFocus(Boolean b) {

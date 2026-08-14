@@ -1,8 +1,3 @@
 {
-  "tags": ["Utility", "Fun", "Misc", "QoL", "Render"],
-  "feature_directories": {
-    "commands": ["modules/commands"],
-    "modules": ["modules/general", "modules/general/BundleCopy"],
-    "hud_elements": ["modules/hud"]
-  }
+  "tags": ["Utility", "Fun", "Misc", "QoL", "Render"]
 }

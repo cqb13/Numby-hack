@@ -22,7 +22,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.RandomSupport;
@@ -133,7 +133,7 @@ public class PlayerParticle {
         double y = event.entity.getY();
         double z = event.entity.getZ();
 
-        var effect = new LightningBolt(EntityType.LIGHTNING_BOLT, mc.level);
+        var effect = new LightningBolt(EntityTypes.LIGHTNING_BOLT, mc.level);
         effect.setPos(x, y, z);
         effect.snapTo(x, y, z);
 

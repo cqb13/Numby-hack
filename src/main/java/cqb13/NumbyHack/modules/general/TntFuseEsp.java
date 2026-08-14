@@ -184,7 +184,7 @@ public class TntFuseEsp extends Module {
 
             if (NametagUtils.to2D(vec3, textScale.get())) {
                 NametagUtils.begin(vec3);
-                TextRenderer.get().begin(1, false, true);
+                TextRenderer.get().beginBig(event.graphics);
 
                 String text = String.format("%.2f", (double) tntEntity.getFuse() / 20);
 

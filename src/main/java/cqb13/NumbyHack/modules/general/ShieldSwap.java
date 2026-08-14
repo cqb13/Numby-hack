@@ -30,6 +30,7 @@ public class ShieldSwap extends Module {
             .build());
 
     private int originalSlot;
+    private boolean found;
 
     public ShieldSwap() {
         super(NumbyHack.CATEGORY, "shield-swap", "Automatically swaps a shield into your offhand.");
@@ -66,8 +67,13 @@ public class ShieldSwap extends Module {
 
             if (item == Items.SHIELD) {
                 originalSlot = i;
+                found = true;
                 break;
             }
+        }
+
+        if (!found) {
+            return;
         }
 
         InvUtils.move().from(originalSlot).toOffhand();
@@ -78,6 +84,10 @@ public class ShieldSwap extends Module {
     }
 
     public void swapBack() {
+        if (!found) {
+            return;
+        }
+
         InvUtils.move().fromOffhand().to(originalSlot);
 
         if (closeInventory.get()) {

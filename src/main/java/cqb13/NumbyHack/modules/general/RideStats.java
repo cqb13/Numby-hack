@@ -18,9 +18,10 @@ import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.equine.Llama;
@@ -121,10 +122,10 @@ public class RideStats extends Module {
     @EventHandler
     private void onRender2D(Render2DEvent event) {
         for (Entity entity : Objects.requireNonNull(mc.level).entitiesForRendering()) {
-            boolean horse = entity.getType() == EntityType.HORSE && this.horse.get();
-            boolean mule = entity.getType() == EntityType.MULE && this.mule.get();
-            boolean donkey = entity.getType() == EntityType.DONKEY && this.donkey.get();
-            boolean llama = entity.getType() == EntityType.LLAMA && this.llama.get();
+            boolean horse = entity.getType() == EntityTypes.HORSE && this.horse.get();
+            boolean mule = entity.getType() == EntityTypes.MULE && this.mule.get();
+            boolean donkey = entity.getType() == EntityTypes.DONKEY && this.donkey.get();
+            boolean llama = entity.getType() == EntityTypes.LLAMA && this.llama.get();
             if (horse || mule || donkey || llama) {
                 pos.set(new double[] {
                         Mth.lerp(event.tickDelta, entity.xOld, entity.getX()),
@@ -134,16 +135,16 @@ public class RideStats extends Module {
                 pos.add(0, entity.getEyeHeight(entity.getPose()) + 0.75, 0);
                 pos.add(0, -1 + height.get(), 0);
                 if (NametagUtils.to2D(pos, scale.get()))
-                    renderHorseNametag((AbstractHorse) entity, entity);
+                    renderHorseNametag(event.graphics, (AbstractHorse) entity, entity);
             }
         }
     }
 
-    private void renderHorseNametag(AbstractHorse horseEntity, Entity entity) {
-        boolean llama = entity.getType() == EntityType.LLAMA;
+    private void renderHorseNametag(GuiGraphicsExtractor graphics, AbstractHorse horseEntity, Entity entity) {
+        boolean llama = entity.getType() == EntityTypes.LLAMA;
         TextRenderer text = TextRenderer.get();
         NametagUtils.begin(pos);
-        text.beginBig();
+        text.beginBig(graphics);
 
         // Name
         String name;

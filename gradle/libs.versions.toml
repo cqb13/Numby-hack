@@ -1,18 +1,17 @@
 [versions]
-mod-version = "2.7.3"
+mod-version = "2.8.0"
 
 # Fabric (https://fabricmc.net/develop)
 jdk = "25"
-minecraft = "26.1.2"
-yarn-mappings = "1.21.11+build.3"
-fabric-loader = "0.19.2"
-fabric-api = "0.146.1+26.1.2"
+minecraft = "26.2"
+fabric-loader = "0.19.3"
+fabric-api = "0.157.0+26.2"
 
 # Loom (https://github.com/FabricMC/fabric-loom)
-loom = "1.16-SNAPSHOT"
+loom = "1.17-SNAPSHOT"
 
 # Meteor (https://github.com/MeteorDevelopment/meteor-client/)
-meteor = "26.1.2-SNAPSHOT"
+meteor = "26.2-SNAPSHOT"
 
 # Mods
 

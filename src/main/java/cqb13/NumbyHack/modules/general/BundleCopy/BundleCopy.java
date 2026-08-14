@@ -97,7 +97,7 @@ public class BundleCopy extends Module {
             return;
         }
 
-        if (mc.screen == null) {
+        if (mc.gui.screen() == null) {
             return;
         }
 
@@ -113,7 +113,7 @@ public class BundleCopy extends Module {
             return;
         }
 
-        if (!(mc.screen instanceof InventoryScreen)) {
+        if (!(mc.gui.screen() instanceof InventoryScreen)) {
             return;
         }
 

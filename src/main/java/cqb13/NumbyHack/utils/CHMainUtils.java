@@ -66,7 +66,7 @@ public class CHMainUtils {
     public static Entity deadEntity;
 
     public static boolean isDeathPacket(PacketEvent.Receive event) {
-        if (event.packet instanceof ClientboundEntityEventPacket packet) {
+        if (event.packet instanceof ClientboundEntityEventPacket packet && mc.level != null) {
             if (packet.getEventId() == 3) {
                 deadEntity = packet.getEntity(mc.level);
                 return deadEntity instanceof Player;

@@ -2,7 +2,7 @@ name: Build & Release
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths-ignore:
       - "*.md"
       - "meteor-addon-list.json"

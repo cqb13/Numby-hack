@@ -18,10 +18,10 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockEntityIterator;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.entity.SignText;
+import net.minecraft.world.level.block.entity.SignTextSlot;
 
 /**
  * made by cqb13
@@ -96,8 +96,8 @@ public class SignTextEsp extends Module {
                 continue;
             }
 
-            SignText text = signEntity.getText(true);
-            Component[] msgs = text.getMessages(true);
+            SignText text = signEntity.getText(SignTextSlot.FRONT);
+            var msgs = text.getMessages(true);
 
             renderNametagLines(
                     event.graphics,
@@ -107,10 +107,10 @@ public class SignTextEsp extends Module {
                     TextRenderer.get(),
                     textColor.get(),
                     true,
-                    msgs[0].getString(),
-                    msgs[1].getString(),
-                    msgs[2].getString(),
-                    msgs[3].getString());
+                    msgs.get(0).getString(),
+                    msgs.get(1).getString(),
+                    msgs.get(2).getString(),
+                    msgs.get(3).getString());
 
         }
     }

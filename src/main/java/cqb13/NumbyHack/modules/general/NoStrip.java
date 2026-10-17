@@ -40,10 +40,13 @@ public class NoStrip extends Module {
                 BlockPos pos = ((BlockHitResult) mc.hitResult).getBlockPos();
                 String result = Names.get(mc.level.getBlockState(pos).getBlock());
                 if (result.contains("Log") || result.contains("Crimson Stem") || result.contains("Warped Stem")) {
-                    if (swingHand.get())
-                        mc.player.swing(mc.player.getUsedItemHand());
-                    if (chatFeedback)
+                    if (swingHand.get()) {
+                        mc.player.swing(mc.player.getUsedItemHand(),
+                                mc.player.getItemInHand(mc.player.getUsedItemHand()).getInteractAnimation(), false);
+                    }
+                    if (chatFeedback) {
                         info("You can't strip logs!");
+                    }
                     return false;
                 }
             }

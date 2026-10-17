@@ -13,7 +13,6 @@ import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketType;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * made by cqb13
@@ -21,11 +20,12 @@ import org.jetbrains.annotations.NotNull;
 public class PacketDelay extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Set<PacketType<? extends Packet<?>>>> c2sPackets = sgGeneral.add(new PacketListSetting.Builder()
-        .name("C2S-packets")
-        .description("Client-to-server packets to log.")
-        .serverbound()
-        .build());
+    private final Setting<Set<PacketType<? extends Packet<?>>>> c2sPackets = sgGeneral
+            .add(new PacketListSetting.Builder()
+                    .name("C2S-packets")
+                    .description("Client-to-server packets to log.")
+                    .serverbound()
+                    .build());
 
     private static ArrayList<Packet<?>> delayedPackets = new ArrayList<>();
 

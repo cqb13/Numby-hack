@@ -21,6 +21,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ServerboundUseItemOnPacket;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.block.AzaleaBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CocoaBlock;
@@ -94,7 +95,7 @@ public class BonemealAura extends Module {
             InvUtils.swap(bonemeal.slot(), false);
             mc.player.connection.send(new ServerboundUseItemOnPacket(InteractionHand.MAIN_HAND,
                     new BlockHitResult(Utils.vec3(crop), Direction.UP, crop, false), 0));
-            mc.player.swing(InteractionHand.MAIN_HAND);
+            mc.player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, false);
         });
     }
 

@@ -1,7 +1,5 @@
 package cqb13.NumbyHack.modules.general;
 
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_MIDDLE;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -13,6 +11,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import com.mojang.blaze3d.platform.InputConstants;
 
 import org.joml.Vector3d;
 
@@ -285,7 +285,8 @@ public class MapArtTracker extends Module {
 
     @EventHandler
     private void onMouseClick(MouseClickEvent event) {
-        if (event.action != KeyAction.Press || event.button() != GLFW_MOUSE_BUTTON_MIDDLE || mc.gui.screen() != null) {
+        if (event.action != KeyAction.Press || event.button() != InputConstants.MOUSE_BUTTON_MIDDLE
+                || mc.gui.screen() != null) {
             return;
         }
 

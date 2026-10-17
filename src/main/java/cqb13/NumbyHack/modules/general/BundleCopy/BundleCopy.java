@@ -1,7 +1,5 @@
 package cqb13.NumbyHack.modules.general.BundleCopy;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_C;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +11,8 @@ import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 import org.apache.commons.lang3.math.Fraction;
+
+import com.mojang.blaze3d.platform.InputConstants;
 
 import cqb13.NumbyHack.NumbyHack;
 import meteordevelopment.meteorclient.events.meteor.KeyInputEvent;
@@ -54,7 +54,7 @@ public class BundleCopy extends Module {
     private final Setting<Keybind> copyKey = sgGeneral.add(new KeybindSetting.Builder()
             .name("copy-key")
             .description("Starts copying or cancels copying.")
-            .defaultValue(Keybind.fromKey(GLFW_KEY_C))
+            .defaultValue(Keybind.fromKey(InputConstants.KEYCODE_C))
             .build());
 
     private long lastCopy;

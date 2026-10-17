@@ -241,7 +241,7 @@ public class SculkRangeEsp extends Module {
             case Calibrated -> 16;
         };
 
-        for (BlockPos checkPos : BlockPos.withinManhattan(sensorPos, range, range, range)) {
+        for (BlockPos checkPos : BlockPos.withinManhattan(sensorPos, range)) {
             BlockState state = world.getBlockState(checkPos);
 
             if (state.getBlock() instanceof SculkShriekerBlock) {
@@ -354,7 +354,7 @@ public class SculkRangeEsp extends Module {
         for (int s = 0; s < segments; s++) {
             int next = (s + 1) % segments;
 
-            event.renderer.triangles.ensureTriCapacity();
+            event.renderer.triangles.ensureQuadCapacity();
 
             int outer1 = event.renderer.triangles
                     .vec3(outerPts[s].x, outerPts[s].y, outerPts[s].z)

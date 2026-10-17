@@ -19,7 +19,6 @@ import meteordevelopment.meteorclient.systems.hud.elements.TextHud;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.misc.Names;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
-import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.EndCrystalItem;
 import net.minecraft.world.item.EnderpearlItem;
 import net.minecraft.world.item.ExperienceBottleItem;
@@ -161,8 +160,6 @@ public class ItemCounter extends HudElement {
     }
 
     public static String getName(Item item) {
-        if (item instanceof BedItem)
-            return "Beds";
         if (item instanceof ExperienceBottleItem)
             return "XP Bottles";
         if (item instanceof EndCrystalItem)

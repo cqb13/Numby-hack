@@ -169,12 +169,12 @@ public class SafetyNet extends Module {
         if (safetyMode.get() == PlaceMode.AirPlace) {
             Vec3 vec = mc.player.position().add(mc.player.getDeltaMovement()).add(0, -0.5f, 0);
             bp.set(vec.x(), vec.y(), vec.z());
-
         } else if (safetyMode.get() == PlaceMode.SafetyNet) {
             if (mc.player.getY() < (yLock.get() + safetyNetWindow.get()) - 1) {
                 if (mc.level.getBlockState(mc.player.blockPosition().below()).isAir()) {
                     mc.player.setDeltaMovement(mc.player.getDeltaMovement().x(),
-                            mc.player.getDeltaMovement().y() * safetyNetMultiplier.get(), mc.player.getDeltaMovement().z());
+                            mc.player.getDeltaMovement().y() * safetyNetMultiplier.get(),
+                            mc.player.getDeltaMovement().z());
                     Vec3 vec = mc.player.position().add(mc.player.getDeltaMovement()).add(0, -0.5f, 0);
                     bp.set(vec.x(), yLock.get(), vec.z());
                 } else {
@@ -182,11 +182,9 @@ public class SafetyNet extends Module {
                     toggle();
                 }
             }
-
         } else {
             if (BlockUtils.getPlaceSide(mc.player.blockPosition().below()) != null) {
                 bp.set(mc.player.blockPosition().below());
-
             } else {
                 Vec3 pos = mc.player.position();
                 pos = pos.add(0, -0.98f, 0);
@@ -200,8 +198,9 @@ public class SafetyNet extends Module {
                             for (int y = (int) Math.max(mc.level.getMinY(), mc.player.getY() - placeRange); y < Math
                                     .min(mc.level.getMaxY(), mc.player.getY() + placeRange); y++) {
                                 bp.set(x, y, z);
-                                if (!mc.level.getBlockState(bp).isAir())
-                                    blockPosArray.add(new BlockPos(bp));
+                                if (!mc.level.getBlockState(bp).isAir()) {
+                                    blockPosArray.add(new BlockPos(x, y, z));
+                                }
                             }
                         }
                     }
